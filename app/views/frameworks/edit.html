@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+Framework dashboard - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+    href: "/frameworks/" + framework.slug,
+    text: framework.title
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column">
+        <h1>
+            {{framework.title}}
+        </h1>
+
+        <div class="hee-prototype--tabs">
+            <ul>
+                <li><a href="#">Details</a></li>
+                <li><a href="#">Framework</a></li>
+                <li><a href="#">Comments</a></li>
+                <li><a href="#">Framework options</a></li>
+            </ul>
+        </div>
+
+        <div class="nhsuk-grid-column-two-thirds">
+            {% block editPage %}
+            {% endblock %}
+        </div>
+    </div>
+    {% endblock %}

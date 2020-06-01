@@ -1,0 +1,24 @@
+{% extends "frameworks/edit.html" %}
+
+{% block editPage %}
+
+<div class="nhsuk-form-group">
+    <h3>Name</h3>
+    <label for="framework-name" class="nhsuk-label">Framework name</label>
+    <input class="nhsuk-input" id="framework-name" name="name" value="{{framework.title}}">
+</div>
+
+<div>
+    <h3>Working group</h3>
+    <ul>
+        {% for user in framework.workingGroup %}
+        <li>{{ user }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div>
+    <h3>Framework owner</h3>
+    <p>{{ framework.owner }}</p>
+</div>
+{% endblock %}
