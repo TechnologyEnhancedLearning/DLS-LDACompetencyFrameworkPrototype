@@ -26,9 +26,14 @@ Framework dashboard - NHS.UK prototype kit
         text: "Dashboard"
     },
     {
-    href: "/frameworks/new",
-    text: "New framework"
-    }]
+        href: "/frameworks/new",
+        text: "New framework"
+    },
+    {
+        href: "/frameworks/working-group",
+        text: "Working group"
+    }
+    ]
 }) }}
 
 {% endblock %}
@@ -40,18 +45,14 @@ Framework dashboard - NHS.UK prototype kit
     <div class="nhsuk-grid-column-two-thirds">
 
         <h1>
-            Create new framework
+            Choose a working group
         </h1>
-        <p>Choose a relevant, descriptive name for your new framework. It can be changed later.</p>
+        <p>Search and select a working group to collaborate on the framework.</p>
 
-        <form action="/frameworks/new" method="POST">
-            <div class="nhsuk-form-group">
-            <label class="nhsuk-label" for="framework-name">Framework name</label>
-            <input type="text" class="nhsuk-input" id="framework-name" name="name">
-        </div>
-            <a class="nhsuk-button nhsuk-button--secondary" href="../dashboard">Cancel</a>
-            <button class="nhsuk-button" type="submit">Continue</button>
-        </form>
+        {% set searchLabel="Search for collaborators" %}
+        {% include "includes/search.html" %}
 
+        <a href="new" class="nhsuk-button nhsuk-button--secondary">Back</a>
+        <a class="nhsuk-button" href="">Populate framework</a>
     </div>
     {% endblock %}
