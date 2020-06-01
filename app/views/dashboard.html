@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+Framework dashboard - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    href: "/",
+    text: "Home"
+  }) }}
+<!-- Phase banner -->
+<div class="app-phase-banner">
+    <div class="nhsuk-width-container app-phase-banner__container">
+        <p class="app-phase-banner__content">
+            <strong class="nhsuk-tag app-phase-banner__tag">
+                Prototype
+            </strong>
+            <span class="app-phase-banner__text">
+                This is a prototype - your <a href="#">feedback</a> will help us improve it.
+            </span>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+<!-- Your page content goes inside the content block -->
+<!-- More info and code for the page layout can be found at https://service-manual.nhs.uk/design-system/styles/layout -->
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <!-- Change the page title here -->
+        <h1>
+            Dashboard
+        </h1>
+
+        {% block search %}
+        <h2>Search all frameworks</h2>
+        <div class="form-group">
+            <input type="search">
+            <button type="submit" class="nhsuk-search__submit"><svg class="nhsuk-icon nhsuk-icon__search"></svg></button>
+        </div>
+        <a href="#">View all frameworks</a>
+        {% endblock %}
+
+        {% if frameworks.length %}
+        <table>
+            <thead>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Owners
+                </th>
+            </thead>
+            <tbody>
+                {% for framework in frameworks %}
+                <tr>
+                    <td>{{ framework.title }}</td>
+                    <td>{{ framework.status }}</td>
+                    <td>
+                        <ul>
+                            {% for owner in framework.owners %}
+                            <li>{{ owner }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        You are not currently working on any frameworks
+        {% endif %}
+
+        <a class="nhsuk-button" href="/frameworks/new">Create new framework</a>
+
+    </div>
+    {% endblock %}
