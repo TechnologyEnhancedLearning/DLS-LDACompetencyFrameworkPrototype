@@ -34,12 +34,17 @@ Framework dashboard - NHS.UK prototype kit
         <h1>
             Choose a working group
         </h1>
+
         <p>Search and select a working group to collaborate on the framework.</p>
 
         {% set searchLabel="Search for collaborators" %}
         {% include "includes/search.html" %}
 
-        <a href="new" class="nhsuk-button nhsuk-button--secondary">Back</a>
-        <a class="nhsuk-button" href="/frameworks/my-test-framework">Populate framework</a>
+        <form action="/frameworks/create" method="POST">
+            <input type="hidden" value={{slug}} name="slug">
+
+            <a href="new" class="nhsuk-button nhsuk-button--secondary">Back</a>
+            <a href="/frameworks/my-test-framework" class="nhsuk-button">Populate framework</a>
+        </form>
     </div>
     {% endblock %}

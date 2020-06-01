@@ -1,15 +1,20 @@
 // External dependencies
 const express = require('express');
 const router = express.Router();
-const { frameworks } = require('./test-data/frameworks.js');
+const frameworks = require('./frameworks.js');
 
 router.get('/dashboard', (req, res) => {
-    res.render('dashboard', {frameworks: frameworks})
+    res.render('dashboard', {frameworks: frameworks.getAll()})
 });
 
-router.post('/frameworks/new', (req, res) => {
+router.get('/connect', async (req, res) => {
+    await frameworks.connectToDb();
+    res.send("Done!");
+})
+
+router.post('/frameworks', (req, res) => {
     console.log(req.body);
-    res.redirect('working-group');
+    res.redirect('/frameworks/working-group');
 });
 
 router.get('/frameworks/new', (req, res) => {
@@ -19,7 +24,7 @@ router.get('/frameworks/new', (req, res) => {
 })
 
 router.get('/frameworks/:slug', (req, res) => {
-    const framework = frameworks.filter(f => f.slug === req.params.slug)[0];
+    const framework = frameworks.getAll().filter(f => f.slug === req.params.slug)[0];
     if (!framework) {
         res.render('404');
     } else {
