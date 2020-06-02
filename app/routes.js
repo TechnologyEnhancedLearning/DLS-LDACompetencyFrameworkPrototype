@@ -15,18 +15,6 @@ router.get('/connect', async (req, res) => {
     res.send("Done!");
 })
 
-router.post('/frameworks', (req, res) => {
-    console.log(req.body);
-    res.redirect('/frameworks/working-group');
-});
-
-router.get('/frameworks/:slug', (req, res, next) => {
-    const framework = frameworks.getAll().filter(f => f.slug === req.params.slug)[0];
-    if (!framework) {
-        next();
-    } else {
-        res.render('frameworks/details', {framework: framework});
-    }
-});
+frameworks.setupRoutes(router);
 
 module.exports = router;
