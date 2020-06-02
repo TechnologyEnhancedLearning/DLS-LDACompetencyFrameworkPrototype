@@ -2,18 +2,16 @@ const pool = require('./pool.js');
 const sampleData = require('./sample-data');
 
 const getAll = async () => {
-    console.log("Getting all frameworks");
     const { rows } = await pool.query(
-        `SELECT f.title AS title, f.slug AS slug, u.name AS name, STRING_AGG (
-            wgu.name, ','
-        ) AS working_group
+        `SELECT f.title AS title, f.slug AS slug, u.name AS owner, working_group as working_group
         FROM frameworks f
-        JOIN users u ON f.owner_id = u.id
-        RIGHT JOIN working_groups_links wg ON f.id = wg.framework_id
-        INNER JOIN users wgu ON wgu.id = wg.user_id
-        WHERE f.id = 1
-        GROUP BY f.id, u.id;`);
-    console.log(rows);
+        JOIN users u ON u.id = f.owner_id
+        LEFT JOIN (
+            SELECT wg.framework_id AS framework_id, STRING_AGG(wgu.name, ',') AS working_group
+            FROM working_groups_links wg
+            JOIN users wgu ON wgu.id = wg.user_id
+            GROUP BY wg.framework_id
+        ) wg_info ON wg_info.framework_id = f.id;`);
     return rows;
 };
 

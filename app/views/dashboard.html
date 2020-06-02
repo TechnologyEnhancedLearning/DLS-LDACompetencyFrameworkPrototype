@@ -42,7 +42,7 @@ Framework dashboard - NHS.UK prototype kit
                     Status
                 </th>
                 <th>
-                    Owners
+                    Working group
                 </th>
             </thead>
             <tbody>
@@ -51,18 +51,23 @@ Framework dashboard - NHS.UK prototype kit
                     <td>{{ framework.title }}</td>
                     <td>{{ framework.status }}</td>
                     <td>
+                        <p>Owner: {{ framework.owner }}</p>
+                        {% if framework.working_group %}
                         <ul>
                             {% for owner in framework.working_group.split(',') %}
                             <li>{{ owner }}</li>
                             {% endfor %}
                         </ul>
-                    </td>
+                        {% else %}
+                        <p>No working group yet.</p>
+                        {% endif %}
+                </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% else %}
-        You are not currently working on any frameworks
+        You are not currently working on any frameworks.
         {% endif %}
 
         <a class="nhsuk-button" href="/frameworks/new">Create new framework</a>
