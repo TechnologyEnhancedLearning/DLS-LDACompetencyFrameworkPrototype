@@ -16,7 +16,17 @@ const getAll = async () => {
 };
 
 const getFromSlug = async (slug) => {
-    const { rows } = await pool.query('SELECT * from frameworks WHERE slug = $1', [ slug ]);
+    const { rows } = await pool.query(
+        `SELECT f.title AS title, f.slug AS slug, u.name AS owner, working_group as working_group
+        FROM frameworks f
+        JOIN users u ON u.id = f.owner_id
+        LEFT JOIN (
+            SELECT wg.framework_id AS framework_id, STRING_AGG(wgu.name, ',') AS working_group
+            FROM working_groups_links wg
+            JOIN users wgu ON wgu.id = wg.user_id
+            GROUP BY wg.framework_id
+        ) wg_info ON wg_info.framework_id = f.id
+        WHERE f.slug = $1;`, [ slug ]);
     return !!rows && rows[0];
 }
 
@@ -36,6 +46,7 @@ const setupRoutes = (router) => {
 
     router.get('/frameworks/:slug/details', async (req, res, next) => {
         const framework = await getFromSlug(req.params.slug);
+        console.log(framework);
         if (!framework) {
             next();
         } else {

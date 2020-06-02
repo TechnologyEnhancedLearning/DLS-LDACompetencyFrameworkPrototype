@@ -10,11 +10,15 @@
 
 <div>
     <h3>Working group</h3>
+    {% if framework.working_group %}
     <ul>
-        {% for user in framework.workingGroup %}
+        {% for user in framework.working_group.split(',') %}
         <li>{{ user }}</li>
         {% endfor %}
     </ul>
+    {% else %}
+    <p>No working group yet.</p>
+    {% endif %}
 </div>
 
 <div>
