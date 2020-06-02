@@ -28,6 +28,15 @@ const setupRoutes = (router) => {
         if (!framework) {
             next();
         } else {
+            res.redirect('/frameworks/' + req.params.slug + '/details');
+        }
+    });
+
+    router.get('/frameworks/:slug/details', (req, res, next) => {
+        const framework = getAll().filter(f => f.slug === req.params.slug)[0];
+        if (!framework) {
+            next();
+        } else {
             res.render('frameworks/details', {framework: framework});
         }
     });
