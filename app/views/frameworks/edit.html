@@ -28,7 +28,25 @@ Framework dashboard - NHS.UK prototype kit
         <h1>
             {{framework.title}}
         </h1>
+    </div>
+</div>
 
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <ol class="hee-prototype--framework-progress-bar">
+            <li class="active"><div class="hee-prototype--framework-progress-marker">1</div><div class="hee-prototype--framework-progress-caption">In progress</div></li>
+            <li><div class="hee-prototype--framework-progress-marker">2</div><div class="hee-prototype--framework-progress-caption">In review</div></li>
+            <li><div class="hee-prototype--framework-progress-marker">3</div><div class="hee-prototype--framework-progress-caption">Published</div></li>
+        </ol>
+    </div>
+    <div class="nhsuk-grid-column-one-third">
+        <a href="#" class="nhsuk-button nhsuk-button--secondary">Preview</a>
+        <a href="#" class="nhsuk-button">Send for review</a>
+    </div>
+</div>
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column">
         <div class="hee-prototype--tabs">
             <ul>
                 <li><a href=".">Details</a></li>
@@ -37,10 +55,13 @@ Framework dashboard - NHS.UK prototype kit
                 <li><a href="options">Framework options</a></li>
             </ul>
         </div>
-
-        <div class="nhsuk-grid-column-two-thirds">
-            {% block editPage %}
-            {% endblock %}
-        </div>
     </div>
-    {% endblock %}
+</div>
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        {% block editPage %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
