@@ -237,10 +237,10 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   console.error(err.message)
   res.status(err.status || 500)
-  res.send(err.message)
+  res.render('error', { message: err.message || "Something went wrong. Please try again." });
 })
 
 // Run the application
-app.listen(port);
+app.listen(port, () => console.log("Server launched, check out port " + port));
 
 module.exports = app;

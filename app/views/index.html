@@ -1,77 +1,71 @@
-<!-- Use this page as the index for your project -->
-
-<!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
-
-<!-- Extends the layout from /views/layout.html -->
 {% extends 'layout.html' %}
-<!--
-  In /views/layout.html you can:
-    - change the header and footer
-    - add custom CSS and JavaScript
--->
 
-<!-- Set the page title inside the pageTitle block -->
 {% block pageTitle %}
-  HEE Competency Framework Service
+Framework dashboard - NHS.UK prototype kit
 {% endblock %}
 
-<!-- Breadcrumb goes inside the beforeContent block -->
 {% block beforeContent %}
+
+{{ breadcrumb({
+    href: "/",
+    text: "Home"
+  }) }}
+
 {% endblock %}
 
 <!-- Your page content goes inside the content block -->
 <!-- More info and code for the page layout can be found at https://service-manual.nhs.uk/design-system/styles/layout -->
 {% block content %}
-  <div class="nhsuk-grid-row">
+
+<div class="nhsuk-grid-row">
+
     <div class="nhsuk-grid-column-two-thirds">
 
-      <!-- Change the page title here -->
-      <h1>
-        HEE Competency Framework Service
-      </h1>
+        <!-- Change the page title here -->
+        <h1>
+            Dashboard
+        </h1>
 
-      <!-- Add your content here -->
-      <!-- Styles and components can be found at https://service-manual.nhs.uk/design-system -->
+        {% block search %}
+        <h2>Search all frameworks</h2>
+        {% include "includes/search.html" %}
+        <a href="#">View all frameworks</a>
+        {% endblock %}
 
-      <p class="nhsuk-lede-text">
-        This kit lets you rapidly create HTML prototypes of NHS services.
-      </p>
+        {% if frameworks.length %}
+        <table>
+            <thead>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Owners
+                </th>
+            </thead>
+            <tbody>
+                {% for framework in frameworks %}
+                <tr>
+                    <td>{{ framework.title }}</td>
+                    <td>{{ framework.status }}</td>
+                    <td>
+                        <ul>
+                            {% for owner in framework.workingGroup %}
+                            <li>{{ owner }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        You are not currently working on any frameworks
+        {% endif %}
 
-      <hr>
-
-      <h2>
-        About this page
-      </h2>
-
-      <p>
-        Use this page as the index for your project.
-      </p>
-
-      <p>
-        You'll find the code for this page at <strong>/app/views/index.html</strong>.
-      </p>
-
-      <p>
-        There is also an <a href="/page-example">example page</a>, which contains a selection of NHS.UK frontend styles and components.
-      </p>
-
-      <hr>
-
-      <h2>
-        Documentation
-      </h2>
-
-      <ul>
-        <li>
-          Get started with <a href="/docs">how to guides and page templates</a>
-        </li>
-        <li>
-          Copy and paste styles and components from the <a href="https://service-manual.nhs.uk/design-system">NHS digital service manual</a>
-        </li>
-      </ul>
-
-      <!-- End of content -->
+        <a class="nhsuk-button" href="/frameworks/new">Create new framework</a>
 
     </div>
-  </div>
-{% endblock %}
+    {% endblock %}
