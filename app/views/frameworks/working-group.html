@@ -13,8 +13,8 @@ Framework dashboard - NHS.UK prototype kit
         text: "Dashboard"
     },
     {
-        href: "/frameworks/new",
-        text: "New framework"
+        href: "/frameworks/" + framework.slug,
+        text: framework.title
     },
     {
         href: "/frameworks/working-group",
@@ -40,11 +40,9 @@ Framework dashboard - NHS.UK prototype kit
         {% set searchLabel="Search for collaborators" %}
         {% include "includes/search.html" %}
 
-        <form action="/frameworks/create" method="POST">
-            <input type="hidden" value={{slug}} name="slug">
-
-            <a href="new" class="nhsuk-button nhsuk-button--secondary">Back</a>
-            <a href="/frameworks/hello-framework" class="nhsuk-button">Populate framework</a>
+        <form action="/frameworks/{{framework.slug}}/working-group" method="POST">
+            <a href="/framework/{{ framework.slug }}" class="nhsuk-button nhsuk-button--secondary">Back</a>
+            <button type="submit" class="nhsuk-button">Populate framework</a>
         </form>
     </div>
     {% endblock %}

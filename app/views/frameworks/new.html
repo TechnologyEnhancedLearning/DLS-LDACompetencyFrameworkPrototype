@@ -32,6 +32,9 @@ Framework dashboard - NHS.UK prototype kit
         <p>Choose a relevant, descriptive name for your new framework. It can be changed later.</p>
 
         <form action="/frameworks" method="POST">
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
             <div class="nhsuk-form-group">
                 <label class="nhsuk-label" for="framework-title">Framework name</label>
                 <input type="text" class="nhsuk-input" id="framework-title" name="title">

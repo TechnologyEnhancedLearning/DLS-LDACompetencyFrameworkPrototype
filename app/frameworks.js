@@ -2,8 +2,9 @@ const pool = require('./pool.js');
 const sampleData = require('./sample-data');
 
 const getAll = async () => {
-    const { rows } = await pool.query(
-        `SELECT f.title AS title, f.slug AS slug, u.name AS owner, working_group as working_group
+    try {
+        const { rows } = await pool.query(
+            `SELECT f.title AS title, f.slug AS slug, u.name AS owner, working_group as working_group
         FROM frameworks f
         JOIN users u ON u.id = f.owner_id
         LEFT JOIN (
@@ -12,12 +13,17 @@ const getAll = async () => {
             JOIN users wgu ON wgu.id = wg.user_id
             GROUP BY wg.framework_id
         ) wg_info ON wg_info.framework_id = f.id;`);
-    return rows;
+        return rows;
+    } catch (e) {
+        console.error(e);
+        return [];
+    }
 };
 
 const getFromSlug = async (slug) => {
-    const { rows } = await pool.query(
-        `SELECT f.title AS title, f.slug AS slug, u.name AS owner, working_group as working_group
+    try {
+        const { rows } = await pool.query(
+            `SELECT f.title AS title, f.slug AS slug, u.name AS owner, working_group as working_group
         FROM frameworks f
         JOIN users u ON u.id = f.owner_id
         LEFT JOIN (
@@ -26,13 +32,25 @@ const getFromSlug = async (slug) => {
             JOIN users wgu ON wgu.id = wg.user_id
             GROUP BY wg.framework_id
         ) wg_info ON wg_info.framework_id = f.id
-        WHERE f.slug = $1;`, [ slug ]);
-    return !!rows && rows[0];
+        WHERE f.slug = $1;`, [slug]);
+        return !!rows && rows[0];
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
 }
 
 const setupRoutes = (router) => {
-    router.post('/frameworks', (req, res) => {
-        res.redirect('/frameworks/working-group');
+    router.post('/frameworks', async (req, res) => {
+        const title = req.body.title;
+        const slug = title.replace(/[^a-zA-Z0-9-]/g, '-').toLowerCase().substring(0, 30);
+        const currentUser = 1;
+        try {
+            await pool.query(`INSERT INTO frameworks (title, slug, owner_id) VALUES ($1, $2, $3) RETURNING id;`, [title, slug, currentUser]);
+            res.redirect('/frameworks/' + slug + '/working-group');
+        } catch (e) {
+            res.render('frameworks/new', { error: "An error was encountered: Please try a different name." });
+        }
     });
 
     router.get('/frameworks/:slug', async (req, res, next) => {
@@ -44,13 +62,27 @@ const setupRoutes = (router) => {
         }
     });
 
-    router.get('/frameworks/:slug/details', async (req, res, next) => {
+    router.get('/frameworks/:slug/working-group', async (req, res) => {
         const framework = await getFromSlug(req.params.slug);
-        console.log(framework);
         if (!framework) {
             next();
         } else {
-            res.render('frameworks/details', {framework: framework});
+            res.render('frameworks/working-group', { framework: framework });
+        }
+    });
+
+    router.post('/frameworks/:slug/working-group', (req, res) => {
+        console.log("You posted a new working group to " + req.params.slug);
+        console.log(req.body);
+        res.redirect('/frameworks/' + req.params.slug);
+    });
+
+    router.get('/frameworks/:slug/details', async (req, res, next) => {
+        const framework = await getFromSlug(req.params.slug);
+        if (!framework) {
+            next();
+        } else {
+            res.render('frameworks/details', { framework: framework });
         }
     });
 
@@ -59,7 +91,7 @@ const setupRoutes = (router) => {
         if (!framework) {
             next();
         } else {
-            res.render('frameworks/structure', {framework: framework});
+            res.render('frameworks/structure', { framework: framework });
         }
     });
 
@@ -68,7 +100,7 @@ const setupRoutes = (router) => {
         if (!framework) {
             next();
         } else {
-            res.render('frameworks/comments', {framework: framework});
+            res.render('frameworks/comments', { framework: framework });
         }
     });
 
@@ -77,7 +109,7 @@ const setupRoutes = (router) => {
         if (!framework) {
             next();
         } else {
-            res.render('frameworks/options', {framework: framework});
+            res.render('frameworks/options', { framework: framework });
         }
     });
 }
