@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+Framework library - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    href: "/",
+    text: "Home"
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>
+            Framework library
+        </h1>
+
+        <p>This is a library of all frameworks and competencies.</p>
+    </div>
+</div>
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-one-quarter">
+        <h2>Filter by</h2>
+        <div class="nhsuk-form-group">
+            <p>Type</p>
+            <div class="nhsuk-checkboxes__item">
+                <input class="nhsuk-checkboxes__input" id="example-1" name="example" type="checkbox" value="email">
+                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-1">
+                    Framework
+                </label>
+            </div>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+            <input class="nhsuk-checkboxes__input" id="example-2" name="example" type="checkbox" value="phone">
+            <label class="nhsuk-label nhsuk-checkboxes__label" for="example-2">
+                Competency
+            </label>
+        </div>
+        <div class="nhsuk-form-group">
+            <p>Department</p>
+            <select class="nhsuk-select" id="select-1" name="select-1">
+                <option value="1">Name of department</option>
+                <option value="2" selected>Department 1</option>
+                <option value="3">Department 2</option>
+                <option value="4" disabled>Department 3</option>
+            </select>
+        </div>
+        <div class="nhsuk-form-group">
+            <a href='#' class='nhsuk-button'>Apply filters</a>
+        </div>
+        <div class="nhsuk-form-group">
+            <a href='#'>Remove filters</a>
+        </div>
+    </div>
+    <div class="nhsuk-grid-column-three-quarters">
+        {% if frameworks.length %}
+        Frameworks go here.
+        {% else %}
+        <p>No frameworks found that match your search.</p>
+        {% endif %}
+
+    </div>
+    {% endblock %}
