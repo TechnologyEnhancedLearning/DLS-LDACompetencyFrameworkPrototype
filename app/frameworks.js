@@ -23,7 +23,7 @@ const getAll = async () => {
 const getFromSlug = async (slug) => {
     try {
         const { rows } = await pool.query(
-            `SELECT f.title AS title, f.slug AS slug, u.name AS owner, working_group as working_group
+            `SELECT f.id, f.title, f.slug, u.name AS owner, working_group as working_group
         FROM frameworks f
         JOIN users u ON u.id = f.owner_id
         LEFT JOIN (
@@ -36,6 +36,22 @@ const getFromSlug = async (slug) => {
         return !!rows && rows[0];
     } catch (e) {
         console.error(e);
+        return null;
+    }
+}
+
+const getCompetenciesForFramework = async (frameworkId) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT c.name, c.description, cf.ordering
+            FROM competencies_frameworks cf
+            JOIN competencies c ON c.id = cf.competency_id
+            WHERE cf.framework_id = $1
+            ORDER BY cf.ordering;`, [frameworkId]
+        );
+        return !!rows && rows;
+    } catch (e) {
+        console.log(e);
         return null;
     }
 }
@@ -91,6 +107,7 @@ const setupRoutes = (router) => {
         if (!framework) {
             next();
         } else {
+            framework.competencies = await getCompetenciesForFramework(framework.id);
             res.render('frameworks/structure', { framework: framework });
         }
     });

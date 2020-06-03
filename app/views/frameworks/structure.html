@@ -4,7 +4,14 @@
 
 <div class="nhsuk-form-group">
     <h3>Framework structure</h3>
-    <p>There is nothing in this framework.</p>
+    {% if framework.competencies %}
+        {% for competency in framework.competencies %}
+            <h4>{{ competency.name }}</h4>
+            <p>{{ competency.description }}</p>
+        {% endfor %}
+    {% else %}
+        <p>There is nothing in this framework.</p>
+    {% endif %}
     <a href='#' class="nhsuk-button">Add new competency</a>
     <a href='#' class="nhsuk-button nhsuk-button--secondary">Add new competency group</a>
 </div>
