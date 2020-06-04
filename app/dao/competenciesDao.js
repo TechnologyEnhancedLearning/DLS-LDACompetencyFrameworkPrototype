@@ -1,18 +1,38 @@
 const pool = require('./pool.js');
 
-const addCompetency = async (competency) => {
+const addCompetency = async (competencyGroupId, competency) => {
     try {
         const { rows } = await pool.query(
-            `INSERT INTO competencies (name, description, competency_group_id) VALUES ($1, $2, $3) RETURNING id;`,
-            [competency.name, competency.description, competency.competencyGroupId]
+            `INSERT INTO competencies (name, description, ordering, competency_group_id)
+            SELECT $1, $2, COALESCE(MAX(ordering), 0) + 1, $3
+                FROM competencies
+                WHERE competency_group_id = $3
+            RETURNING id;`, [competency.name, competency.description, competencyGroupId]
         );
-        return rows[0].id;
+        return !!rows && rows[0].id;
     } catch (e) {
         console.log(e);
         throw e;
     }
 };
 
+const getCompetency = async (id) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT c.name, c.description, c.ordering, c.competency_group_id, cg.name AS competency_group_name
+            FROM competencies c
+            JOIN competency_groups cg
+                ON c.competency_group_id = cg.id
+            WHERE c.id = $1;`, [id]
+        );
+        return !!rows && rows[0];
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
 module.exports = {
-    addCompetency: addCompetency
+    addCompetency: addCompetency,
+    getCompetency: getCompetency
 }

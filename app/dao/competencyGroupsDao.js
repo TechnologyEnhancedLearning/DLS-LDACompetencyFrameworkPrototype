@@ -42,8 +42,39 @@ const getCompetencyGroupsForFramework = async (frameworkId) => {
     }
 };
 
+const getAFrameworkForCompetencyGroup = async (competencyGroupId) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT f.slug
+            FROM frameworks f
+            JOIN competency_groups_frameworks cgf ON f.id = cgf.framework_id
+            WHERE cgf.competency_group_id = $1;`, [competencyGroupId]
+        );
+        return !!rows && rows[0].slug;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+};
+
+const getCompetencyGroup = async (competencyGroupId) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT id, name, description
+            FROM competency_groups
+            WHERE id = $1;`, [competencyGroupId]
+        );
+        return !!rows && rows[0];
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+};
+
 module.exports = {
     addCompetencyGroup: addCompetencyGroup,
     addCompetencyGroupToFramework: addCompetencyGroupToFramework,
-    getCompetencyGroupsForFramework: getCompetencyGroupsForFramework
+    getCompetencyGroupsForFramework: getCompetencyGroupsForFramework,
+    getAFrameworkForCompetencyGroup: getAFrameworkForCompetencyGroup,
+    getCompetencyGroup: getCompetencyGroup
 }

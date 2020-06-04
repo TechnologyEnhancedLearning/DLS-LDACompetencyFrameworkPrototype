@@ -2,6 +2,15 @@ const frameworksDao = require('./dao/frameworksDao.js');
 const competencyGroupsDao = require('./dao/competencyGroupsDao.js');
 
 const setupRoutes = (router) => {
+    router.get('/competency-groups/:id', async (req, res, next) => {
+        const frameworkSlug = await competencyGroupsDao.getAFrameworkForCompetencyGroup(req.params.id);
+        if (!frameworkSlug) {
+            next();
+        } else {
+            res.redirect('/frameworks/' + frameworkSlug + '/structure');
+        }
+    });
+
     router.get('/frameworks/:slug/competency-groups/new', async (req, res, next) => {
         const framework = await frameworksDao.getFromSlug(req.params.slug);
         if (!framework) {

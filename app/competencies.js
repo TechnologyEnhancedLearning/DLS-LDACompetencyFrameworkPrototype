@@ -1,51 +1,36 @@
-const pool = require('./dao/pool.js');
-const frameworksDao = require('./dao/frameworksDao.js');
-
-const addCompetency = async (name, description) => {
-    try {
-        const { rows } = await pool.query(
-            `INSERT INTO competencies (name, description) VALUES ($1, $2) RETURNING id;`, [name, description]
-        );
-        return rows[0].id;
-    } catch (e) {
-        console.log(e);
-        throw e;
-    }
-};
-
-const addCompetencyToFramework = async (competencyId, frameworkId) => {
-    try {
-        await pool.query(
-            `INSERT INTO competencies_frameworks (competency_id, framework_id, ordering)
-            SELECT $1, $2, MAX(ordering) + 1
-                FROM competencies_frameworks
-                WHERE framework_id = $2;`, [competencyId, frameworkId]
-        );
-    } catch (e) {
-        console.log(e);
-        throw e;
-    }
-}
+const competencyGroupsDao = require('./dao/competencyGroupsDao.js');
+const competenciesDao = require('./dao/competenciesDao.js');
 
 const setupRoutes = (router) => {
-    router.get('/frameworks/:slug/competencies/new', async (req, res, next) => {
-        const framework = await frameworksDao.getFromSlug(req.params.slug);
-        if (!framework) {
+    router.get('/competencies/:id', async (req, res, next) => {
+        const competency = await competenciesDao.getCompetency(req.params.id);
+        if (!competency) {
             next();
         } else {
-            res.render('competencies/new', { framework: framework });
+            res.render('competencies/show', { competency: competency });
+        }
+    });
+
+    router.get('/competency-groups/:id/competencies/new', async (req, res, next) => {
+        console.log("You're trying to add a new thing");
+        const competencyGroup = await competencyGroupsDao.getCompetencyGroup(req.params.id);
+        if (!competencyGroup) {
+            next();
+        } else {
+            res.render('competencies/new', { competencyGroup: competencyGroup });
         }
     })
 
-    router.post('/frameworks/:slug/competencies', async (req, res, next) => {
-        const framework = await frameworksDao.getFromSlug(req.params.slug);
-        if (!framework) {
+    router.post('/competency-groups/:id/competencies', async (req, res, next) => {
+        console.log("You're trying to add a thing");
+        const competencyGroup = await competencyGroupsDao.getCompetencyGroup(req.params.id);
+        if (!competencyGroup) {
             next();
             return;
         }
 
-        const competencyId = await addCompetency(req.body.name, req.body.description);
-        res.redirect('/frameworks/' + framework.slug + '/structure');
+        const competencyId = await competenciesDao.addCompetency(competencyGroup.id, req.body);
+        res.redirect('/competencies/' + competencyId);
     });
 }
 
