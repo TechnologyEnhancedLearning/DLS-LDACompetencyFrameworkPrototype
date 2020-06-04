@@ -23,22 +23,34 @@ CREATE TABLE working_groups_links (
       ON UPDATE NO ACTION ON DELETE CASCADE
 );
 
-CREATE TABLE competencies (
+CREATE TABLE competency_groups (
     id serial PRIMARY KEY,
     name VARCHAR (50) NOT NULL,
     description TEXT
 );
 
-CREATE TABLE competencies_frameworks (
-    competency_id integer NOT NULL,
+CREATE TABLE competency_groups_frameworks (
+    competency_group_id integer NOT NULL,
     framework_id integer NOT NULL,
-    PRIMARY KEY (competency_id, framework_id),
+    PRIMARY KEY (competency_group_id, framework_id),
     ordering integer NOT NULL,
-  CONSTRAINT competencies_frameworks_competency_id_fkey FOREIGN KEY (competency_id)
-      REFERENCES competencies (id) MATCH SIMPLE
+  CONSTRAINT competency_groups_frameworks_competency_group_id_fkey FOREIGN KEY (competency_group_id)
+      REFERENCES competency_groups (id) MATCH SIMPLE
       ON DELETE RESTRICT,
-  CONSTRAINT competencies_frameworks_framework_id_fkey FOREIGN KEY (framework_id)
+  CONSTRAINT competency_groups_frameworks_framework_id_fkey FOREIGN KEY (framework_id)
       REFERENCES frameworks (id) MATCH SIMPLE
       ON DELETE CASCADE,
     UNIQUE (framework_id, ordering)
+);
+
+CREATE TABLE competencies (
+    id serial PRIMARY KEY,
+    name VARCHAR (50) NOT NULL,
+    description TEXT,
+    competency_group_id integer NOT NULL,
+    ordering integer NOT NULL,
+    CONSTRAINT competencies_competency_group_id_fkey FOREIGN KEY (competency_group_id)
+        REFERENCES competency_groups (id) MATCH SIMPLE
+        ON DELETE CASCADE
+    UNIQUE (competency_group_id, ordering)
 );

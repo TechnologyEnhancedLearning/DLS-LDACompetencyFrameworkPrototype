@@ -1,0 +1,10 @@
+<h4>{{ competencyGroup.name }}</h4>
+<p>{{ competencyGroup.description }}</p>
+{% if competencyGroup.competencies.length %}
+    {% for competency in competencyGroup.competencies %}
+        <h5>{{ competency.name }}</h5>
+        <p>{{ competency.description }}</p>
+    {% endfor %}
+{% else %}
+    <p>No competencies found in this group.</p>
+{% endif %}

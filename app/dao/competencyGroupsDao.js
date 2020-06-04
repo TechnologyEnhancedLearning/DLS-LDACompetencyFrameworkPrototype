@@ -1,0 +1,49 @@
+const pool = require('./pool.js');
+
+const addCompetencyGroup = async (name, description) => {
+    try {
+        const { rows } = await pool.query(
+            `INSERT INTO competency_groups (name, description) VALUES ($1, $2) RETURNING id;`, [name, description]
+        );
+        return rows[0].id;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+const addCompetencyGroupToFramework = async (competencyGroupId, frameworkId) => {
+    try {
+        await pool.query(
+            `INSERT INTO competency_groups_frameworks (competency_group_id, framework_id, ordering)
+            SELECT $1, $2, COALESCE(MAX(ordering), 0) + 1
+                FROM competency_groups_frameworks
+                WHERE framework_id = $2;`, [competencyGroupId, frameworkId]
+        );
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+const getCompetencyGroupsForFramework = async (frameworkId) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT cg.name, cg.description, cgf.ordering
+            FROM competency_groups_frameworks cgf
+            JOIN competency_groups cg ON cg.id = cgf.competency_group_id
+            WHERE cgf.framework_id = $1
+            ORDER BY cgf.ordering;`, [frameworkId]
+        );
+        return !!rows && rows;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+};
+
+module.exports = {
+    addCompetencyGroup: addCompetencyGroup,
+    addCompetencyGroupToFramework: addCompetencyGroupToFramework,
+    getCompetencyGroupsForFramework: getCompetencyGroupsForFramework
+}

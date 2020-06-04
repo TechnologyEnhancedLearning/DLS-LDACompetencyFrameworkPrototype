@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+New competency group - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+    href: "/frameworks/" + framework.slug,
+    text: framework.title
+    },
+    {
+        href: "/frameworks/" + framework.slug + "/competency-groups/new",
+        text: "New competency group"
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>
+            Add new competency group
+        </h1>
+
+        <form action="/frameworks/{{framework.slug}}/competency-groups" method="POST">
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+            <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="competency-group-name">Competency group name</label>
+                <input type="text" class="nhsuk-input" id="competency-group-name" name="name">
+            </div>
+            
+            <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="competency-group-description">Competency group description</label>
+                <textarea class="nhsuk-input" id="competency-group-description" name="description"></textarea>
+            </div>
+            
+            <a class="nhsuk-button nhsuk-button--secondary" href="..">Cancel</a>
+            <button class="nhsuk-button" type="submit">Save</button>
+        </form>
+
+    </div>
+{% endblock %}

@@ -1,5 +1,5 @@
-const pool = require('./pool.js');
-const frameworks = require('./frameworks.js');
+const pool = require('./dao/pool.js');
+const frameworksDao = require('./dao/frameworksDao.js');
 
 const addCompetency = async (name, description) => {
     try {
@@ -29,7 +29,7 @@ const addCompetencyToFramework = async (competencyId, frameworkId) => {
 
 const setupRoutes = (router) => {
     router.get('/frameworks/:slug/competencies/new', async (req, res, next) => {
-        const framework = await frameworks.getFromSlug(req.params.slug);
+        const framework = await frameworksDao.getFromSlug(req.params.slug);
         if (!framework) {
             next();
         } else {
@@ -38,14 +38,13 @@ const setupRoutes = (router) => {
     })
 
     router.post('/frameworks/:slug/competencies', async (req, res, next) => {
-        const framework = await frameworks.getFromSlug(req.params.slug);
+        const framework = await frameworksDao.getFromSlug(req.params.slug);
         if (!framework) {
             next();
             return;
         }
 
         const competencyId = await addCompetency(req.body.name, req.body.description);
-        await addCompetencyToFramework(competencyId, framework.id);
         res.redirect('/frameworks/' + framework.slug + '/structure');
     });
 }
