@@ -1,5 +1,4 @@
 const pool = require('./pool.js');
-const sampleData = require('./sample-data');
 
 const getAll = async () => {
     try {
@@ -132,6 +131,7 @@ const setupRoutes = (router) => {
 }
 
 module.exports = {
+    getFromSlug: getFromSlug,
     getAll: getAll,
     setupRoutes: setupRoutes
 }

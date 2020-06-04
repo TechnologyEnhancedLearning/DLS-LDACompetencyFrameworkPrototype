@@ -48,7 +48,7 @@ Framework dashboard - NHS.UK prototype kit
             <tbody>
                 {% for framework in frameworks %}
                 <tr>
-                    <td>{{ framework.title }}</td>
+                    <td><a href="/frameworks/{{ framework.slug }}">{{ framework.title }}</a></td>
                     <td>{{ framework.status }}</td>
                     <td>
                         <p>Owner: {{ framework.owner }}</p>
