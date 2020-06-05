@@ -19,7 +19,7 @@ const addCompetency = async (competencyGroupId, competency) => {
 const getCompetency = async (id) => {
     try {
         const { rows } = await pool.query(
-            `SELECT c.name, c.description, c.ordering, c.competency_group_id, cg.name AS competency_group_name
+            `SELECT c.id, c.name, c.description, c.ordering, c.competency_group_id, cg.name AS competency_group_name
             FROM competencies c
             JOIN competency_groups cg
                 ON c.competency_group_id = cg.id

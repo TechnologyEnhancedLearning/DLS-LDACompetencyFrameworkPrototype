@@ -18,7 +18,7 @@ const setupRoutes = (router) => {
         } else {
             res.render('competencyGroups/new', { framework: framework });
         }
-    })
+    });
 
     router.post('/frameworks/:slug/competency-groups', async (req, res, next) => {
         const framework = await frameworksDao.getFromSlug(req.params.slug);

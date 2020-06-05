@@ -30,11 +30,12 @@ New competency - NHS.UK prototype kit
 
     <div class="nhsuk-grid-column-two-thirds">
 
-        <h1>
-            {{ competency.name }}
-        </h1>
+        <h1>{{ competency.name }}</h1>
+        <textarea class="nhsuk-input">{{ competency.description}}</textarea>
 
-        <p>{{ competency.description}}</p>
-
+        <h2>Skill levels</h2>
+        <p>No skill levels for this competency.</p>
+        <a class="nhsuk-button" href="/competencies/{{ competency.id }}/skill-levels/add">Add new skill level</a>
     </div>
+</div>
 {% endblock %}
