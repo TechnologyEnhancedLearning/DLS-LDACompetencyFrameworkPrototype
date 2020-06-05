@@ -1,5 +1,6 @@
 const frameworksDao = require('./dao/frameworksDao.js');
 const competencyGroupsDao = require('./dao/competencyGroupsDao.js');
+const sampleData = require('./dao/sampleData.js');
 
 const setupRoutes = (router) => {
     router.post('/frameworks', async (req, res) => {
@@ -62,7 +63,8 @@ const setupRoutes = (router) => {
         if (!framework) {
             next();
         } else {
-            res.render('frameworks/comments', { framework: framework });
+            const comments = sampleData.getComments();
+            res.render('frameworks/comments', { framework: framework, comments: comments });
         }
     });
 

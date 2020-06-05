@@ -8,7 +8,19 @@ Comments - {{ framework.title }} - NHS.UK prototype kit
 
 <div class="nhsuk-form-group">
     <h3>Comments</h3>
-    <p>Comments page here</p>
+    {% for comment in comments %}
+        <div class="nhsuk-panel">
+            <div class="nhsuk-grid-row">
+                <div class="nhsuk-grid-column-one-half">
+                    <h4>{{ comment.author }}</h4>
+                </div>
+                <div class="nhsuk-grid-column-one-half">
+                    <p class="hee-prototype--comment-date">{{ comment.date }}</p>
+                </div>
+            </div>
+            <p>{{ comment.text }}</p>
+        </div>
+    {% endfor %}
 </div>
 
 {% endblock %}
