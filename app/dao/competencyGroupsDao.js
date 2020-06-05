@@ -29,13 +29,19 @@ const addCompetencyGroupToFramework = async (competencyGroupId, frameworkId) => 
 const getCompetencyGroupsForFramework = async (frameworkId) => {
     try {
         const { rows } = await pool.query(
-            `SELECT cg.name, cg.description, cgf.ordering
+            `SELECT cg.id, cg.name, cg.description, cgf.ordering
             FROM competency_groups_frameworks cgf
             JOIN competency_groups cg ON cg.id = cgf.competency_group_id
             WHERE cgf.framework_id = $1
             ORDER BY cgf.ordering;`, [frameworkId]
         );
-        return !!rows && rows;
+        if (!rows) {
+            return [];
+        }
+        for (group of rows) {
+            group.competencies = await getCompetenciesForGroup(group.id);
+        }
+        return rows;
     } catch (e) {
         console.log(e);
         return null;
@@ -68,6 +74,22 @@ const getCompetencyGroup = async (competencyGroupId) => {
     } catch (e) {
         console.log(e);
         return null;
+    }
+};
+
+const getCompetenciesForGroup = async (groupId) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT c.name, c.description
+            FROM competencies c
+            JOIN competency_groups cg
+                ON c.competency_group_id = cg.id
+            WHERE cg.id = $1`, [groupId]
+        );
+        return !!rows && rows;
+    } catch (e) {
+        console.log(e);
+        return [];
     }
 };
 

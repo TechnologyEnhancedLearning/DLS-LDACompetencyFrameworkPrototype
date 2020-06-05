@@ -1,10 +1,17 @@
-<h4>{{ competencyGroup.name }}</h4>
-<p>{{ competencyGroup.description }}</p>
-{% if competencyGroup.competencies.length %}
-    {% for competency in competencyGroup.competencies %}
-        <h5>{{ competency.name }}</h5>
-        <p>{{ competency.description }}</p>
-    {% endfor %}
-{% else %}
-    <p>No competencies found in this group.</p>
-{% endif %}
+<details class="nhsuk-details nhsuk-expander" id="nhsuk-details{{competencyGroup.id}}">
+    <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text{{competencyGroup.id}}">
+        <span class="nhsuk-details__summary-text">{{ competencyGroup.name }}</span>
+    </summary>
+    <div class="nhsuk-details__text" id="nhsuk-details__text{{competencyGroup.id}}">
+        <p>{{ competencyGroup.description }}</p>
+        {% if competencyGroup.competencies.length %}
+            <ul>
+                {% for competency in competencyGroup.competencies %}
+                    <li>{{competency.name}}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No competencies found in this group.</p>
+        {% endif %}
+    </div>
+</details>
