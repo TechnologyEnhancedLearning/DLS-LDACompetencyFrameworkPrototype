@@ -4,6 +4,7 @@ const frameworksDao = require('./dao/frameworksDao');
 const frameworks = require('./frameworks.js');
 const competencyGroups = require('./competencyGroups.js');
 const competencies = require('./competencies.js');
+const skillLevels = require('./skillLevels');
 
 router.get('/', async (req, res) => {
     res.redirect('dashboard');
@@ -16,5 +17,6 @@ router.get('/dashboard', async (req, res) => {
 frameworks.setupRoutes(router);
 competencyGroups.setupRoutes(router);
 competencies.setupRoutes(router);
+skillLevels.setupRoutes(router);
 
 module.exports = router;

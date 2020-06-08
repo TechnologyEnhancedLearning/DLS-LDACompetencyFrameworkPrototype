@@ -36,21 +36,59 @@ New competency - NHS.UK prototype kit
 
         <form action="/competency-groups/{{competencyGroup.id}}/competencies" method="POST">
             {% if error %}
-                <p class="error-message">{{ error }}</p>
+            <p class="error-message">{{ error }}</p>
             {% endif %}
             <div class="nhsuk-form-group">
                 <label class="nhsuk-label" for="competency-name">Competency name</label>
                 <input type="text" class="nhsuk-input" id="competency-name" name="name">
             </div>
-            
+
             <div class="nhsuk-form-group">
                 <label class="nhsuk-label" for="competency-description">Competency description</label>
                 <textarea class="nhsuk-input" id="competency-description" name="description"></textarea>
             </div>
-            
+
+            <div class="nhsuk-form-group">
+
+                <fieldset class="nhsuk-fieldset">
+                    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+                        <h1 class="nhsuk-fieldset__heading">
+                            Levels of competency
+                        </h1>
+                        <p class="nhsuk-hint">Choose a level structure</p>
+                    </legend>
+
+                    <div class="nhsuk-radios">
+
+                        <div class="nhsuk-radios__item">
+                            <input class="nhsuk-radios__input" id="template-1" name="skillsTemplate" type="radio" value="aware-familiar-proficient-expert">
+                            <label class="nhsuk-label nhsuk-radios__label" for="template-1">
+                                Aware, Familiar, Proficient, Expert
+                            </label>
+                        </div>
+
+                        <div class="nhsuk-radios__item">
+                            <input class="nhsuk-radios__input" id="template-2" name="skillsTemplate" type="radio" value="beginner-intermediate-expert">
+                            <label class="nhsuk-label nhsuk-radios__label" for="template-2">
+                                Beginner, Intermediate, Expert
+                            </label>
+                        </div>
+
+                        <div class="nhsuk-radios__item">
+                            <input class="nhsuk-radios__input" id="template-2" name="skillsTemplate" type="radio" value="level_1-level_2-level_3">
+                            <label class="nhsuk-label nhsuk-radios__label" for="template-2">
+                                Level 1, Level 2, Level 3
+                            </label>
+                        </div>
+
+                    </div>
+                </fieldset>
+
+            </div>
+
             <a class="nhsuk-button nhsuk-button--secondary" href="..">Cancel</a>
             <button class="nhsuk-button" type="submit">Save</button>
         </form>
 
     </div>
-{% endblock %}
+    {% endblock %}

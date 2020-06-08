@@ -2,6 +2,8 @@ const competencyGroupsDao = require('./dao/competencyGroupsDao.js');
 const competenciesDao = require('./dao/competenciesDao.js');
 const skillLevelsDao = require('./dao/skillLevelsDao');
 
+const capitalise = (word) => word.charAt(0).toUpperCase() + word.slice(1);
+
 const setupRoutes = (router) => {
     router.get('/competencies/:id', async (req, res, next) => {
         const competency = await competenciesDao.getCompetency(req.params.id);
@@ -30,6 +32,8 @@ const setupRoutes = (router) => {
         }
 
         const competencyId = await competenciesDao.addCompetency(competencyGroup.id, req.body);
+        const skillLevelNames = req.body.skillsTemplate && req.body.skillsTemplate.split("-").map(capitalise);
+        await skillLevelsDao.addTemplateSkillLevels(competencyId, skillLevelNames);
         res.redirect('/competencies/' + competencyId);
     });
 }

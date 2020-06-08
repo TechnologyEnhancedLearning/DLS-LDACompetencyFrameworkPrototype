@@ -34,6 +34,27 @@ const getCriteriaForSkillLevel = async (skillLevelId) => {
     }
 };
 
+const addSkillLevel = async (competencyId, name, description, ordering) => {
+    try {
+        const { rows } = await pool.query(
+            `INSERT INTO skill_levels (name, description, ordering, competency_id)
+            VALUES ($1, $2, $3, $4)
+            RETURNING id;`, [name, description, ordering, competencyId]
+        );
+        return !!rows && rows[0].id;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+};
+
+const addTemplateSkillLevels = async (competencyId, levelNames) => {
+    levelNames.forEach(async (levelName, index) => {
+        await addSkillLevel(competencyId, levelName, 'Add a description of this skill level here.', index);
+    });
+};
+
 module.exports = {
-    getForCompetency: getForCompetency
+    getForCompetency: getForCompetency,
+    addTemplateSkillLevels: addTemplateSkillLevels
 }
