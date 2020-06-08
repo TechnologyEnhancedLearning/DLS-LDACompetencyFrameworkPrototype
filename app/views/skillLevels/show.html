@@ -37,12 +37,11 @@
         <h3>{{ skillLevel.competency_name }}</h3>
         <h1>Competency level: {{ skillLevel.name }}</h1>
 
-        <form action="/competencies/{{ skillLevel.competency_id }}/skill-levels/{{ skillLevel.ordering }}/edit" method="POST">
+        <form action="/competencies/{{ skillLevel.competency_id }}/skill-levels/{{ skillLevel.ordering }}" method="POST">
             <div class="nhsuk-form-group">
                 <label class="nhsuk-label" for="skill-level-description">Description</label>
                 <textarea class="nhsuk-input" name="description" id="skill-level-description">{{ skillLevel.description }}</textarea>
             </div>
-
 
             <div class="nhsuk-form-group">
                 <h3>Criteria for {{ skillLevel.name }}</h3>
@@ -73,6 +72,5 @@
         </form>
     </div>
 </div>
-
 
 {% endblock %}

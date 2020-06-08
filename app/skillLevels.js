@@ -10,6 +10,16 @@ const setupRoutes = (router) => {
             res.render('skillLevels/show', {skillLevel: skillLevel});
         }
     });
+
+    router.post('/competencies/:id/skill-levels/:ordering', async (req, res, next) => {
+        const result = await skillLevelsDao.updateSkillLevel(req.params.id, req.params.ordering, req.body);
+        if (!result) {
+            next();
+        } else {
+            res.redirect('/competencies/' + req.params.id);
+        }
+    });
+
 };
 
 

@@ -76,8 +76,34 @@ const addTemplateSkillLevels = async (competencyId, levelNames) => {
     });
 };
 
+const addCriterion = async (skillLevelId, ordering, criterion) => {
+    await pool.query(`INSERT INTO skill_level_criteria (name, description, ordering, skill_level_id)
+        VALUES ($1, $2, $3, $4)`, [criterion.name, criterion.description, ordering, skillLevelId]);
+}
+
+const setCriteriaForSkillLevel = async (skillLevelId, criteria) => {
+    await pool.query(`DELETE FROM skill_level_criteria WHERE skill_level_id = $1;`, [skillLevelId]);
+    criteria.forEach(async (criterion, index) => {
+        await addCriterion(skillLevelId, index, criterion);
+    });
+}
+
+const updateSkillLevel = async (competencyId, ordering, request) => {
+    try {
+        const skillLevel = await getSkillLevel(competencyId, ordering);
+        if (!skillLevel) return false;
+
+        await pool.query(`UPDATE skill_levels SET description = $1
+            WHERE id = $2`, [request.description, skillLevel.id])
+        await setCriteriaForSkillLevel(skillLevel.id, request.criteria)
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 module.exports = {
     getForCompetency: getForCompetency,
     getSkillLevel: getSkillLevel,
-    addTemplateSkillLevels: addTemplateSkillLevels
+    addTemplateSkillLevels: addTemplateSkillLevels,
+    updateSkillLevel: updateSkillLevel
 }
