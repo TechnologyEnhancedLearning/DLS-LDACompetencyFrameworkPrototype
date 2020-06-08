@@ -20,7 +20,7 @@ const setupRoutes = (router) => {
         if (!framework) {
             next();
         } else {
-            res.redirect('/frameworks/' + req.params.slug + '/details');
+            res.redirect('/frameworks/' + req.params.slug + '/structure');
         }
     });
 
@@ -68,12 +68,21 @@ const setupRoutes = (router) => {
         }
     });
 
-    router.get('/frameworks/:slug/options', async (req, res, next) => {
+    router.get('/frameworks/:slug/related', async (req, res, next) => {
         const framework = await frameworksDao.getFromSlug(req.params.slug);
         if (!framework) {
             next();
         } else {
-            res.render('frameworks/options', { framework: framework });
+            res.render('frameworks/related', { framework: framework });
+        }
+    });
+
+    router.get('/frameworks/:slug/duplications', async (req, res, next) => {
+        const framework = await frameworksDao.getFromSlug(req.params.slug);
+        if (!framework) {
+            next();
+        } else {
+            res.render('frameworks/duplications', { framework: framework });
         }
     });
 }
