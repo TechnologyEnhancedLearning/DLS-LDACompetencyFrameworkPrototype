@@ -45,11 +45,11 @@
     <div class="nhsuk-grid-column">
         <div class="hee-prototype--tabs">
             <ul>
-                <li><a href="structure">Framework</a></li>
-                <li><a href="comments">Comments</a></li>
-                <li><a href="related">Related frameworks</a></li>
-                <li><a href="details">Details</a></li>
-                <li><a href="duplications">Possible duplications</a></li>
+                <li class="{{ 'active' if currentPage === 'structure' else '' }}"><a href="structure">Framework</a></li>
+                <li class="{{ 'active' if currentPage === 'comments' else '' }}"><a href="comments">Comments</a></li>
+                <li class="{{ 'active' if currentPage === 'related' else '' }}"><a href="related">Related frameworks</a></li>
+                <li class="{{ 'active' if currentPage === 'details' else '' }}"><a href="details">Details</a></li>
+                <li class="{{ 'active' if currentPage === 'duplication' else '' }}"><a href="duplications">Possible duplications</a></li>
             </ul>
         </div>
     </div>

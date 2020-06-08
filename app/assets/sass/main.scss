@@ -16,12 +16,20 @@
 }
 
 .hee-prototype--tabs {
-    border-bottom: 1px solid $color_nhsuk-grey-1;
     ul {
         display: flex;
         list-style-type: none;
+        border-bottom: 1px solid $color_nhsuk-grey-1;
         li {
-            padding: 0 1rem;
+            padding: 1rem;
+            margin-bottom: 0;
+            a {
+                text-decoration: none;
+            }
+            &.active {
+                border-bottom: 3px solid $color_nhsuk-blue;
+                font-weight: bold;
+            }
         }
     }
 }
