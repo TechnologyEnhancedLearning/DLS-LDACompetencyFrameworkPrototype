@@ -51,6 +51,30 @@ CREATE TABLE competencies (
     ordering integer NOT NULL,
     CONSTRAINT competencies_competency_group_id_fkey FOREIGN KEY (competency_group_id)
         REFERENCES competency_groups (id) MATCH SIMPLE
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
     UNIQUE (competency_group_id, ordering)
+);
+
+CREATE TABLE skill_levels (
+    id serial PRIMARY KEY,
+    name VARCHAR (50) NOT NULL,
+    description TEXT,
+    ordering integer NOT NULL,
+    competency_id integer NOT NULL,
+    CONSTRAINT skill_levels_competency_id_fkey FOREIGN KEY (competency_id)
+        REFERENCES competencies (id) MATCH SIMPLE
+        ON DELETE RESTRICT,
+    UNIQUE (competency_id, ordering)
+);
+
+CREATE TABLE skill_level_criteria (
+    id serial PRIMARY KEY,
+    name VARCHAR (50) NOT NULL,
+    description TEXT,
+    ordering integer NOT NULL,
+    skill_level_id integer NOT NULL,
+    constraint criteria_skill_levels_id_fkey FOREIGN KEY (skill_level_id)
+        REFERENCES skill_levels (id) MATCH SIMPLE
+        ON DELETE CASCADE,
+    UNIQUE (skill_level_id, ordering)
 );

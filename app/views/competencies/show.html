@@ -33,8 +33,17 @@ New competency - NHS.UK prototype kit
         <h1>{{ competency.name }}</h1>
         <textarea class="nhsuk-input">{{ competency.description}}</textarea>
 
-        <h2>Skill levels</h2>
-        <p>No skill levels for this competency.</p>
+        <h2>Levels of competency</h2>
+        {% if competency.skillLevels.length %}
+            {% for level in competency.skillLevels %}
+                {{ details({
+                    "text": level.name,
+                    "HTML": "<p>" + level.description + "</p>"
+                    }) }}
+            {% endfor %}
+        {% else %}
+            <p>No skill levels for this competency.</p>
+        {% endif %}
         <a class="nhsuk-button" href="/competencies/{{ competency.id }}/skill-levels/add">Add new skill level</a>
     </div>
 </div>

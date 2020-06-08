@@ -86,7 +86,7 @@ const getCompetenciesForGroup = async (groupId) => {
                 ON c.competency_group_id = cg.id
             WHERE cg.id = $1`, [groupId]
         );
-        return !!rows && rows;
+        return rows || [];
     } catch (e) {
         console.log(e);
         return [];

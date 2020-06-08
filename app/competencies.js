@@ -1,5 +1,6 @@
 const competencyGroupsDao = require('./dao/competencyGroupsDao.js');
 const competenciesDao = require('./dao/competenciesDao.js');
+const skillLevelsDao = require('./dao/skillLevelsDao');
 
 const setupRoutes = (router) => {
     router.get('/competencies/:id', async (req, res, next) => {
@@ -7,12 +8,12 @@ const setupRoutes = (router) => {
         if (!competency) {
             next();
         } else {
+            competency.skillLevels = await skillLevelsDao.getForCompetency(competency.id);
             res.render('competencies/show', { competency: competency });
         }
     });
 
     router.get('/competency-groups/:id/competencies/new', async (req, res, next) => {
-        console.log("You're trying to add a new thing");
         const competencyGroup = await competencyGroupsDao.getCompetencyGroup(req.params.id);
         if (!competencyGroup) {
             next();
@@ -22,7 +23,6 @@ const setupRoutes = (router) => {
     })
 
     router.post('/competency-groups/:id/competencies', async (req, res, next) => {
-        console.log("You're trying to add a thing");
         const competencyGroup = await competencyGroupsDao.getCompetencyGroup(req.params.id);
         if (!competencyGroup) {
             next();
