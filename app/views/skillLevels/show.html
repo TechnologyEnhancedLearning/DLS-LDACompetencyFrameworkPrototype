@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ skillLevel.name }} - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/competency-groups/" + skillLevel.competency_group_id,
+        text: skillLevel.competency_group_name
+    },
+    {
+        href: "/competencies/" + skillLevel.competency_id,
+        text: skillLevel.competency_name
+    },
+    {
+        href: "/competencies/" + skillLevel.competency_id + "/skill-levels/" + skillLevel.ordering,
+        text: skillLevel.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h3>{{ skillLevel.competency_name }}</h3>
+        <h1>Competency level: {{ skillLevel.name }}</h1>
+
+        <form action="/competencies/{{ skillLevel.competency_id }}/skill-levels/{{ skillLevel.ordering }}/edit" method="POST">
+            <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="skill-level-description">Description</label>
+                <textarea class="nhsuk-input" name="description" id="skill-level-description">{{ skillLevel.description }}</textarea>
+            </div>
+
+
+            <div class="nhsuk-form-group">
+                <h3>Criteria for {{ skillLevel.name }}</h3>
+                {% for criteria in skillLevel.criteria %}
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="criteria-{{criteria.ordering}}-name">Name</label>
+                        <input type="text" class="nhsuk-input" id="criteria-{{criteria.ordering}}-name" name="criteria[{{criteria.ordering}}][name]" value="{{criteria.name}}">
+                    </div>
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="criteria-{{criteria.ordering}}-description">Description</label>
+                        <textarea type="text" class="nhsuk-input" id="criteria-{{criteria.ordering}}-description" name="criteria[{{criteria.ordering}}][description]">{{criteria.description}}</textarea>
+                    </div>
+                    <div class="nhsuk-form-group delete-box-formgroup">
+                        <div class="nhsuk-checkboxes__item">
+                            <input class="nhsuk-checkboxes__input" id="criteria-{{criteria.ordering}}-delete" name="criteria[{{criteria.ordering}}][delete]" type="checkbox" value="true">
+                            <label class="nhsuk-label nhsuk-checkboxes__label" for="criteria-{{criteria.ordering}}-delete">Delete</label>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="nhsuk-form-group">
+                <a href="#">Add criteria</a>
+            </div>
+
+            <div class="nhsuk-form-group">
+                <button class="nhsuk-button" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

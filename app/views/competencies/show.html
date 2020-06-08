@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block pageTitle %}
-New competency - NHS.UK prototype kit
+{{ competency.name }} - NHS.UK prototype kit
 {% endblock %}
 
 {% block beforeContent %}
@@ -38,7 +38,7 @@ New competency - NHS.UK prototype kit
             {% for level in competency.skillLevels %}
                 {{ details({
                     "text": level.name,
-                    "HTML": "<p>" + level.description + "</p>"
+                    "HTML": "<p>" + level.description + "</p><a href='/competencies/" + competency.id + "/skill-levels/" + level.ordering + "'>View/edit</a>"
                     }) }}
             {% endfor %}
         {% else %}
