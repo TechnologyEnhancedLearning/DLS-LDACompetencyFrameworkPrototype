@@ -31,15 +31,19 @@
     <div class="nhsuk-grid-column-two-thirds">
 
         <h1>{{ competency.name }}</h1>
-        <textarea class="nhsuk-input">{{ competency.description}}</textarea>
 
-        <h2>Levels of competency</h2>
+        <h2>Group</h2>
+        <p>{{ competency.competency_group_name }}</p>
+
+        <h2>Competency description</h2>
+        <p>{{ competency.description}}</p>
+
+        <div class="hee-prototype-spacer"></div>
+
+        <h2>Skill levels</h2>
         {% if competency.skillLevels.length %}
-            {% for level in competency.skillLevels %}
-                {{ details({
-                    "text": level.name,
-                    "HTML": "<p>" + level.description + "</p><a href='/competencies/" + competency.id + "/skill-levels/" + level.ordering + "'>View/edit</a>"
-                    }) }}
+            {% for skillLevel in competency.skillLevels %}
+                {% include "skillLevels/preview.html" %}
             {% endfor %}
         {% else %}
             <p>No skill levels for this competency.</p>

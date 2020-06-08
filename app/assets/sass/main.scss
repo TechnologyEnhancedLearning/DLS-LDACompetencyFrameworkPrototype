@@ -79,3 +79,28 @@ ol.hee-prototype--framework-progress-bar {
 textarea.nhsuk-input {
     height: 10rem;
 }
+
+.hee-prototype-spacer {
+    margin-bottom: 1rem;
+    border-bottom: 2px solid $color_nhsuk-blue;
+}
+
+.hee-prototype--framework-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: $color_nhsuk-white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    & > * {
+        margin-bottom: 0;
+    }
+    h5 {
+        width: 8rem;
+    }
+}
+
+.row-space-between {
+    display: flex;
+    justify-content: space-between;
+}

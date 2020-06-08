@@ -35,41 +35,43 @@
     <div class="nhsuk-grid-column-two-thirds">
 
         <h3>{{ skillLevel.competency_name }}</h3>
-        <h1>Competency level: {{ skillLevel.name }}</h1>
+        <div class="row-space-between">
+            <h1>Skill level: {{ skillLevel.name }}</h1>
+            <div>
+                <a href="{{ skillLevel.ordering }}/edit" class="nhsuk-button nhsuk-button--secondary">Edit</a>
+            </div>
+        </div>
+        <h3>Description</h3>
+        <p>{{ skillLevel.description }}</p>
 
-        <form action="/competencies/{{ skillLevel.competency_id }}/skill-levels/{{ skillLevel.ordering }}" method="POST">
-            <div class="nhsuk-form-group">
-                <label class="nhsuk-label" for="skill-level-description">Description</label>
-                <textarea class="nhsuk-input" name="description" id="skill-level-description">{{ skillLevel.description }}</textarea>
-            </div>
+        <div class="hee-prototype-spacer"></div>
 
-            <div class="nhsuk-form-group">
-                <h3>Criteria for {{ skillLevel.name }}</h3>
-                {% for criteria in skillLevel.criteria %}
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="criteria-{{criteria.ordering}}-name">Name</label>
-                        <input type="text" class="nhsuk-input" id="criteria-{{criteria.ordering}}-name" name="criteria[{{criteria.ordering}}][name]" value="{{criteria.name}}">
-                    </div>
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="criteria-{{criteria.ordering}}-description">Description</label>
-                        <textarea type="text" class="nhsuk-input" id="criteria-{{criteria.ordering}}-description" name="criteria[{{criteria.ordering}}][description]">{{criteria.description}}</textarea>
-                    </div>
-                    <div class="nhsuk-form-group delete-box-formgroup">
-                        <div class="nhsuk-checkboxes__item">
-                            <input class="nhsuk-checkboxes__input" id="criteria-{{criteria.ordering}}-delete" name="criteria[{{criteria.ordering}}][delete]" type="checkbox" value="true">
-                            <label class="nhsuk-label nhsuk-checkboxes__label" for="criteria-{{criteria.ordering}}-delete">Delete</label>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="nhsuk-form-group">
-                <a href="#">Add criteria</a>
-            </div>
+        <h3>Criteria for {{ skillLevel.name }}</h3>
+        {% if skillLevel.criteria and skillLevel.criteria.length %}
+        <ul>
+            {% for criterion in skillLevel.criteria %}
+            <li>{{ criterion.name }}: {{ criterion.description }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No criteria found.</p>
+        {% endif %}
 
-            <div class="nhsuk-form-group">
-                <button class="nhsuk-button" type="submit">Save</button>
-            </div>
-        </form>
+        <div class="hee-prototype-spacer"></div>
+
+        <h3>Linked activities to skill level</h3>
+        <p>No linked activities</p>
+
+        <div class="hee-prototype-spacer"></div>
+
+        <h3>Assessment</h3>
+        <p>Self assessment, evidence required</p>
+
+        <div>
+            <a href="{{ skillLevel.ordering }}/edit" class="nhsuk-button nhsuk-button--secondary">Edit</a>
+        </div>
+
+        <a href='..'>&lt; Back to competency</a>
     </div>
 </div>
 

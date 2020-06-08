@@ -11,6 +11,15 @@ const setupRoutes = (router) => {
         }
     });
 
+    router.get('/competencies/:id/skill-levels/:ordering/edit', async (req, res, next) => {
+        const skillLevel = await skillLevelsDao.getSkillLevel(req.params.id, req.params.ordering);
+        if (!skillLevel) {
+            next();
+        } else {
+            res.render('skillLevels/edit', {skillLevel: skillLevel});
+        }
+    });
+
     router.post('/competencies/:id/skill-levels/:ordering', async (req, res, next) => {
         const result = await skillLevelsDao.updateSkillLevel(req.params.id, req.params.ordering, req.body);
         if (!result) {

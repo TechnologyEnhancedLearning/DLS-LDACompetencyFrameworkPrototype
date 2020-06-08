@@ -1,0 +1,10 @@
+<div class="hee-prototype--framework-content">
+    <h5 class="hee-prototype--framework-content-title">{{ skillLevel.name }}</h5>
+        {% if skillLevel.description and skillLevel.criteria.length %}
+            <p>Content added ✔️</p>
+            <p><a href='/competencies/{{competency.id}}/skill-levels/{{skillLevel.ordering}}'>View/edit</a></p>
+        {% else %}
+            <p>No content.</p>
+            <p><a href='/competencies/{{competency.id}}/skill-levels/{{skillLevel.ordering}}'>Add content</a></p>
+        {% endif %}
+</div>
