@@ -1,8 +1,15 @@
 const frameworksDao = require('./dao/frameworksDao.js');
 const competencyGroupsDao = require('./dao/competencyGroupsDao.js');
+const duplicationDao = require('./dao/duplicationDao');
 const sampleData = require('./dao/sampleData.js');
 
 const setupRoutes = (router) => {
+
+    router.get('/frameworks/new/similar', async (req, res) => {
+        const similarFrameworks = await duplicationDao.getSimilarFrameworks(req.query.title);
+        res.render('frameworks/new/similar', { title: req.query.title, similarFrameworks: similarFrameworks });
+    });
+
     router.post('/frameworks', async (req, res) => {
         const title = req.body.title;
         const slug = title.replace(/[^a-zA-Z0-9-]/g, '-').toLowerCase().substring(0, 30);

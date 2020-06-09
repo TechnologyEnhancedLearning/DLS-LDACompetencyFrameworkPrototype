@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+New framework - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+    href: "/frameworks/new",
+    text: "New framework"
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>
+            Create new framework
+        </h1>
+        <p>Choose a relevant, descriptive name for your new framework. It can be changed later.</p>
+
+        <form action="/frameworks/new/similar">
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+            <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="framework-title">Framework name</label>
+                <input type="text" class="nhsuk-input" id="framework-title" name="title">
+            </div>
+            <a class="nhsuk-button nhsuk-button--secondary" href="../dashboard">Cancel</a>
+            <button class="nhsuk-button" type="submit">Continue</button>
+        </form>
+
+    </div>
+{% endblock %}

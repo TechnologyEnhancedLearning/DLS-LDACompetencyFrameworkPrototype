@@ -41,8 +41,8 @@ Working group - {{ framework.title }} - NHS.UK prototype kit
         {% include "includes/search.html" %}
 
         <form action="/frameworks/{{framework.slug}}/working-group" method="POST">
-            <a href="/framework/{{ framework.slug }}" class="nhsuk-button nhsuk-button--secondary">Back</a>
-            <button type="submit" class="nhsuk-button">Populate framework</a>
+            <button type="submit" class="nhsuk-button">Populate framework</button>
+            <a href="/frameworks/{{ framework.slug }}" class="nhsuk-button nhsuk-button--secondary">Skip</a>
         </form>
     </div>
     {% endblock %}

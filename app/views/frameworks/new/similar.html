@@ -26,20 +26,22 @@ New framework - NHS.UK prototype kit
 
     <div class="nhsuk-grid-column-two-thirds">
 
-        <h1>
-            Create new framework
-        </h1>
-        <p>Choose a relevant, descriptive name for your new framework. It can be changed later.</p>
+        <h1>Frameworks with similar names</h1>
+        <p>There are 2 other frameworks that have similar names to &lsquo;<span class="emphasis">{{ title }}</span>&rsquo;. Consider checking the contents of these frameworks to avoid duplication.</p>
+
+        {% for framework in similarFrameworks %}
+            {% include '../preview.html' %}
+        {% endfor %}
+
+        <p>If the frameworks listed above are distinct from &lsquo;<span class="emphasis">{{ title }}</span>&rsquo;, you can continue to populate this framework.</p>
 
         <form action="/frameworks" method="POST">
             {% if error %}
                 <p class="error-message">{{ error }}</p>
             {% endif %}
             <div class="nhsuk-form-group">
-                <label class="nhsuk-label" for="framework-title">Framework name</label>
-                <input type="text" class="nhsuk-input" id="framework-title" name="title">
-            </div>
-            <a class="nhsuk-button nhsuk-button--secondary" href="../dashboard">Cancel</a>
+            <input type="hidden" value="{{ title }}" name="title">
+            <a class="nhsuk-button nhsuk-button--secondary" href=".">Cancel</a>
             <button class="nhsuk-button" type="submit">Continue</button>
         </form>
 
