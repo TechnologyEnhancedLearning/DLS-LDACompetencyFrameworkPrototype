@@ -3,7 +3,7 @@ const pool = require('./pool.js');
 const getAll = async () => {
     try {
         const { rows } = await pool.query(
-            `SELECT f.title AS title, f.slug AS slug, u.name AS owner, working_group as working_group
+            `SELECT f.title, f.slug, f.status, u.name AS owner, working_group as working_group
         FROM frameworks f
         JOIN users u ON u.id = f.owner_id
         LEFT JOIN (
@@ -22,7 +22,7 @@ const getAll = async () => {
 const getFromSlug = async (slug) => {
     try {
         const { rows } = await pool.query(
-            `SELECT f.id, f.title, f.slug, u.name AS owner, working_group as working_group
+            `SELECT f.id, f.title, f.slug, f.status, u.name AS owner, working_group as working_group
         FROM frameworks f
         JOIN users u ON u.id = f.owner_id
         LEFT JOIN (
@@ -49,8 +49,19 @@ const addFramework = async (title, slug, currentUser) => {
     }
 }
 
+const setStatus = async (slug, newStatus) => {
+    try {
+        const { rows } = await pool.query(`UPDATE frameworks SET status = $1 WHERE SLUG = $2 RETURNING status;`, [newStatus, slug]);
+        return rows && rows[0];
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+}
+
 module.exports = {
     getAll: getAll,
     getFromSlug: getFromSlug,
-    addFramework: addFramework
+    addFramework: addFramework,
+    setStatus: setStatus
 }

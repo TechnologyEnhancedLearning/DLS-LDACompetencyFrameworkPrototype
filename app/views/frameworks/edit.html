@@ -30,14 +30,32 @@
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
         <ol class="hee-prototype--framework-progress-bar">
-            <li class="active"><div class="hee-prototype--framework-progress-marker">1</div><div class="hee-prototype--framework-progress-caption">In progress</div></li>
-            <li><div class="hee-prototype--framework-progress-marker">2</div><div class="hee-prototype--framework-progress-caption">In review</div></li>
-            <li><div class="hee-prototype--framework-progress-marker">3</div><div class="hee-prototype--framework-progress-caption">Published</div></li>
+            <li class="{{ 'active' if framework.status === 'Draft' else '' }}">
+                <div class="hee-prototype--framework-progress-marker">1</div><div class="hee-prototype--framework-progress-caption">In progress</div>
+            </li>
+            <li class="{{ 'active' if framework.status === 'Review' else '' }}">
+                <div class="hee-prototype--framework-progress-marker">2</div><div class="hee-prototype--framework-progress-caption">In review</div>
+            </li>
+            <li class="{{ 'active' if framework.status === 'Published' else '' }}">
+                <div class="hee-prototype--framework-progress-marker">3</div><div class="hee-prototype--framework-progress-caption">Published</div>
+            </li>
         </ol>
     </div>
     <div class="nhsuk-grid-column-one-third">
-        <a href="#" class="nhsuk-button nhsuk-button--secondary">Preview</a>
-        <a href="#" class="nhsuk-button">Send for review</a>
+        <a class="nhsuk-button nhsuk-button--secondary">Preview</a>
+        {% if framework.status === 'Review' %}
+            <form action="/frameworks/{{ framework.slug }}/publish" method="POST" class="inline-form">
+                <button type="submit" class="nhsuk-button">Publish</button>
+            </form>
+        {% elif framework.status === 'Published' %}
+            <form action="/frameworks/{{ framework.slug }}/review" method="POST" class="inline-form">
+                <button type="submit" class="nhsuk-button">Unpublish</button>
+            </form>
+        {% else %}
+            <form action="/frameworks/{{ framework.slug }}/review" method="POST" class="inline-form">
+                <button type="submit" class="nhsuk-button">Send for review</button>
+            </form>
+        {% endif %}
     </div>
 </div>
 

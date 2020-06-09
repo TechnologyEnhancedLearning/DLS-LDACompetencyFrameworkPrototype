@@ -92,6 +92,24 @@ const setupRoutes = (router) => {
             res.render('frameworks/duplications', { framework: framework });
         }
     });
+
+    router.post('/frameworks/:slug/review', async (req, res, next) => {
+        const result = await frameworksDao.setStatus(req.params.slug, 'Review');
+        if (!result) {
+            next();
+        } else {
+            res.redirect('/frameworks/' + req.params.slug);
+        }
+    });
+
+    router.post('/frameworks/:slug/publish', async (req, res, next) => {
+        const result = await frameworksDao.setStatus(req.params.slug, 'Published');
+        if (!result) {
+            next();
+        } else {
+            res.redirect('/frameworks/' + req.params.slug);
+        }
+    });
 }
 
 module.exports = {

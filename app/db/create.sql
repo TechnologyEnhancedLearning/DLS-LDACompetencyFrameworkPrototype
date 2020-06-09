@@ -8,6 +8,7 @@ CREATE TABLE frameworks (
     title VARCHAR (50) NOT NULL,
     slug VARCHAR (50) UNIQUE NOT NULL,
     owner_id integer NOT NULL,
+    status VARCHAR(50) DEFAULT 'Draft',
     CONSTRAINT frameworks_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
