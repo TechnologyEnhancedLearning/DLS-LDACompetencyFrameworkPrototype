@@ -5,7 +5,8 @@ const getForCompetency = async (competencyId) => {
         const { rows } = await pool.query(
             `SELECT s.id, s.name, s.description, s.ordering
             FROM skill_levels s
-            WHERE s.competency_id = $1;`, [competencyId]
+            WHERE s.competency_id = $1
+            ORDER BY s.ordering ASC;`, [competencyId]
         );
         if (!rows) {
             return [];
@@ -47,7 +48,8 @@ const getCriteriaForSkillLevel = async (skillLevelId) => {
         const { rows } = await pool.query(
             `SELECT c.id, c.name, c.description, c.ordering
             FROM skill_level_criteria c
-            WHERE skill_level_id = $1;`, [skillLevelId]
+            WHERE skill_level_id = $1
+            ORDER BY c.ordering ASC;`, [skillLevelId]
         );
         return rows || [];
     } catch (e) {
