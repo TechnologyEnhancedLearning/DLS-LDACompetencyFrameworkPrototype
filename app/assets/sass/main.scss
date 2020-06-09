@@ -116,3 +116,14 @@ textarea.nhsuk-input {
 .emphasis {
     font-weight: bold;
 }
+
+.hee-prototype--care-card {
+    .nhsuk-care-card__heading-container, .nhsuk-care-card__arrow::after {
+        background-color: $color_nhsuk-yellow;
+        border-color: $color_nhsuk-yellow;
+        color: $color_nhsuk-black;
+    }
+    .nhsuk-care-card__content {
+        background-color: $color_nhsuk-pale-yellow;
+    }
+}

@@ -35,6 +35,21 @@
         <h2>Group</h2>
         <p>{{ competency.competency_group_name }}</p>
 
+        {% if competency.duplications %}
+            <div class="nhsuk-care-card nhsuk-care-card--non-urgent hee-prototype--care-card">
+                <div class="nhsuk-care-card__heading-container">
+                    <h3 class="nhsuk-care-card__heading"><span role="text">Possible duplication</h3>
+                    <span class="nhsuk-care-card__arrow" aria-hidden="true"></span>
+                </div>
+                <div class="nhsuk-care-card__content">
+                    <p>There is possible duplication in this competency:</p>
+                    <ul>
+                        <li>{{ competency.duplications.description }}</li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
         <h2>Competency description</h2>
         <p>{{ competency.description}}</p>
 

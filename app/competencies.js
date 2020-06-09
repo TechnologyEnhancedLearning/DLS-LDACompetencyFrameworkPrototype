@@ -1,6 +1,7 @@
 const competencyGroupsDao = require('./dao/competencyGroupsDao.js');
 const competenciesDao = require('./dao/competenciesDao.js');
 const skillLevelsDao = require('./dao/skillLevelsDao');
+const duplicationDao = require('./dao/duplicationDao');
 
 const capitalise = (word) => word.charAt(0).toUpperCase() + word.slice(1);
 
@@ -11,6 +12,7 @@ const setupRoutes = (router) => {
             next();
         } else {
             competency.skillLevels = await skillLevelsDao.getForCompetency(competency.id);
+            competency.duplications = await duplicationDao.getForCompetency(competency);
             res.render('competencies/show', { competency: competency });
         }
     });

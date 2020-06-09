@@ -1,4 +1,5 @@
 const pool = require('./pool.js');
+const duplicationDao = require('./duplicationDao');
 
 const addCompetencyGroup = async (name, description) => {
     try {
@@ -39,6 +40,7 @@ const getCompetencyGroupsForFramework = async (frameworkId) => {
             return [];
         }
         for (group of rows) {
+            group.duplications = await duplicationDao.getForCompetencyGroup(group);
             group.competencies = await getCompetenciesForGroup(group.id);
         }
         return rows;
@@ -86,7 +88,11 @@ const getCompetenciesForGroup = async (groupId) => {
                 ON c.competency_group_id = cg.id
             WHERE cg.id = $1`, [groupId]
         );
-        return rows || [];
+        if (!rows) return [];
+        for (competency of rows) {
+            competency.duplications = duplicationDao.getForCompetency(competency);
+        }
+        return rows;
     } catch (e) {
         console.log(e);
         return [];

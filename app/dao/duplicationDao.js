@@ -1,5 +1,22 @@
 const pool = require('./pool');
 
+const fakeout = async (name, entityName) => {
+    if (name.charAt(0).toLowerCase() > 'l') {
+        return {
+            "description": `${entityName} name matches closely with another ${entityName.toLowerCase()}.`
+        }
+    }
+    return undefined;
+}
+
+const getForCompetencyGroup = async (group) => {
+    return await fakeout(group.name, "Competency group");
+};
+
+const getForCompetency = async (competency) => {
+    return await fakeout(competency.name, "Competency");
+};
+
 const getSimilarFrameworks = async (frameworkTitle) => {
     try {
         const { rows } = await pool.query(
@@ -15,5 +32,7 @@ const getSimilarFrameworks = async (frameworkTitle) => {
 };
 
 module.exports = {
+    getForCompetencyGroup: getForCompetencyGroup,
+    getForCompetency: getForCompetency,
     getSimilarFrameworks: getSimilarFrameworks
 }
