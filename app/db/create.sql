@@ -79,3 +79,21 @@ CREATE TABLE skill_level_criteria (
         ON DELETE CASCADE,
     UNIQUE (skill_level_id, ordering)
 );
+
+CREATE TABLE job_roles (
+    id serial PRIMARY KEY,
+    name VARCHAR (50) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE role_requirements (
+    id serial PRIMARY KEY,
+    job_role_id integer NOT NULL,
+    skill_level_id integer NOT NULL,
+    constraint role_requirements_job_role_id_fkey FOREIGN KEY (job_role_id)
+        REFERENCES job_roles (id) MATCH SIMPLE
+        ON DELETE CASCADE,
+    constraint role_requirements_skill_level_id_fkey FOREIGN KEY (skill_level_id)
+        REFERENCES skill_levels (id) MATCH SIMPLE
+        ON DELETE RESTRICT
+);

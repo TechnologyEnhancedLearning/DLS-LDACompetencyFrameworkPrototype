@@ -5,6 +5,7 @@ const frameworks = require('./frameworks.js');
 const competencyGroups = require('./competencyGroups.js');
 const competencies = require('./competencies.js');
 const skillLevels = require('./skillLevels');
+const jobRoles = require('./jobRoles');
 
 router.get('/', async (req, res) => {
     res.redirect('dashboard');
@@ -18,5 +19,6 @@ frameworks.setupRoutes(router);
 competencyGroups.setupRoutes(router);
 competencies.setupRoutes(router);
 skillLevels.setupRoutes(router);
+jobRoles.setupRoutes(router);
 
 module.exports = router;

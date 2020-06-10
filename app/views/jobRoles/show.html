@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ jobRole.name }} - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/job-roles/",
+        text: "Job roles"
+    },
+    {
+        href: "/job-roles/" + jobRole.id,
+        text: jobRole.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>{{ jobRole.name }}</h1>
+
+        <h3>Description</h3>
+        <p>{{ jobRole.description }}</p>
+
+        <div class="hee-prototype-spacer"></div>
+
+        <h3>Requirements</h3>
+        {% for requirement in jobRole.requirements %}
+            <p><a href="/skill-levels/{{ requirement.skill_level_id }}">{{ requirement.competency_name }}: {{ requirement.skill_level_name }}</a></p>
+        {% endfor %}
+
+        <a href='..'>&lt; Back to list</a>
+    </div>
+</div>
+
+{% endblock %}

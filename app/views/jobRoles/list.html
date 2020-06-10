@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+All jobs - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/job-roles/",
+        text: "Job roles"
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>Job roles</h1>
+
+        {% if jobRoles and jobRoles.length %}
+            {% for jobRole in jobRoles %}
+                {% include './preview.html' %}
+            {% endfor %}
+        {% else %}
+            <p>No job roles found.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
