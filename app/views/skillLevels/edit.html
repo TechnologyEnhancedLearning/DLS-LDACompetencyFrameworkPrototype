@@ -46,24 +46,26 @@
             <div class="nhsuk-form-group">
                 <h3>Criteria for {{ skillLevel.name }}</h3>
                 {% for criteria in skillLevel.criteria %}
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="criteria-{{criteria.ordering}}-name">Name</label>
-                        <input type="text" class="nhsuk-input" id="criteria-{{criteria.ordering}}-name" name="criteria[{{criteria.ordering}}][name]" value="{{criteria.name}}">
-                    </div>
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="criteria-{{criteria.ordering}}-description">Description</label>
-                        <textarea type="text" class="nhsuk-input" id="criteria-{{criteria.ordering}}-description" name="criteria[{{criteria.ordering}}][description]">{{criteria.description}}</textarea>
-                    </div>
-                    <div class="nhsuk-form-group delete-box-formgroup">
-                        <div class="nhsuk-checkboxes__item">
-                            <input class="nhsuk-checkboxes__input" id="criteria-{{criteria.ordering}}-delete" name="criteria[{{criteria.ordering}}][delete]" type="checkbox" value="true">
-                            <label class="nhsuk-label nhsuk-checkboxes__label" for="criteria-{{criteria.ordering}}-delete">Delete</label>
+                    <div id="criterion-{{ criteria.ordering }}">
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="criteria-{{criteria.ordering}}-name">Name</label>
+                            <input type="text" class="nhsuk-input" id="criteria-{{criteria.ordering}}-name" name="criteria[{{criteria.ordering}}][name]" value="{{criteria.name}}">
+                        </div>
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="criteria-{{criteria.ordering}}-description">Description</label>
+                            <textarea type="text" class="nhsuk-input" id="criteria-{{criteria.ordering}}-description" name="criteria[{{criteria.ordering}}][description]">{{criteria.description}}</textarea>
+                        </div>
+                        <div class="nhsuk-form-group delete-box-formgroup">
+                            <div class="nhsuk-checkboxes__item">
+                                <input class="nhsuk-checkboxes__input" id="criteria-{{criteria.ordering}}-delete" name="criteria[{{criteria.ordering}}][delete]" type="checkbox" value="true"  onclick="flash('Deleting criteria not implemented')">
+                                <label class="nhsuk-label nhsuk-checkboxes__label" for="criteria-{{criteria.ordering}}-delete">Delete</label>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
             <div class="nhsuk-form-group">
-                <a href="#">Add criteria</a>
+                <a href="#" onclick='flash("Adding criteria not implemented yet")'>Add criteria</a>
             </div>
 
             <div class="nhsuk-form-group">
@@ -72,5 +74,14 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.criteria-delete-button').forEach(function(deleteButton) {
+        deleteButton.onclick = function(event) {
+            event.preventDefault();
+            flash("Deleting not implemented");
+        }
+    });
+</script>
 
 {% endblock %}

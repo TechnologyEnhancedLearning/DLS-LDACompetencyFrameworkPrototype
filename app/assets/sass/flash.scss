@@ -1,0 +1,22 @@
+@import 'node_modules/nhsuk-frontend/packages/nhsuk';
+#flash {
+    position: fixed;
+    width: 100%;
+    padding: 1rem 0;
+    z-index: 1;
+
+    background-color: $color_nhsuk-pale-yellow;
+
+    &.hidden {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+    p {
+        margin: 0;
+    }
+
+    #flash-close-button {
+        float: right;
+    }
+}

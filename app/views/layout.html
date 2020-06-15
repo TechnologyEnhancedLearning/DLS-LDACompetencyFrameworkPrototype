@@ -20,6 +20,7 @@
 <!-- Header goes inside the header block -->
 <!-- More info and code for the header can be found at https://service-manual.nhs.uk/design-system/components/header -->
 {% block header %}
+  {% include 'includes/flash.html' %}
   {{ header({
     "service": {
         "name": "HEE Competency Framework Service",
