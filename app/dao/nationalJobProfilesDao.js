@@ -19,7 +19,7 @@ const getRequirementsFromId = async (id) => {
 const getFromId = async (id) => {
     try {
         const { rows } = await pool.query(
-            `SELECT name, job_statement FROM national_job_profiles
+            `SELECT id, name, job_statement FROM national_job_profiles
             WHERE id = $1;`, [id]
         );
         if (!rows || !rows[0]) return undefined;
