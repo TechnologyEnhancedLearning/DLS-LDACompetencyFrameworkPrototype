@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+National Job Profile for {{ nationalJobProfile.field }} - {{ nationalJobProfile.name }} - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/national-job-profiles/",
+        text: "National job profiles"
+    },
+    {
+        href: "/national-job-profiles/" + nationalJobProfile.id,
+        text: nationalJobProfile.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column">
+
+        <h1>{{ nationalJobProfile.field }} - {{ nationalJobProfile.name }}</h1>
+
+        <h3>Job description</h3>
+        <p>{{ nationalJobProfile.jobStatement | safe }}</p>
+
+        <h3>Requirements</h3>
+
+        <table>
+            <thead>
+                <th>Factor</th>
+                <th>Skill level requried</th>
+                <th></th>
+            </thead>
+            <tbody>
+                {% for responsibility in nationalJobProfile.responsibilities %}
+                <tr>
+                    <td>{{ responsibility.factorId }}. {{ responsibility.factorName }}</td>
+                    <td class="profile-skill-level">Level {{ responsibility.jeLevel }}</td>
+                    <td><a href='#'>View more</a></td>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="hee-prototype-spacer"></div>
+
+        <h3>Job roles using this Profile</h3>
+        <p>Job roles go here</p>
+    </div>
+</div>
+
+{% endblock %}

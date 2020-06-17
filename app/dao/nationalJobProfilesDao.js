@@ -69,9 +69,10 @@ const factors = [
 const getFromId = (id) => {
     // Everything is a nurse for now
     return {
+        "id": 1,
         "field": "Nursing",
         "name": "Nurse",
-        "Job Statement": `<ol>
+        "jobStatement": `<ol>
             <li>Assesses patients/clients/children; plans, develops or implements programmes of care; provides advice; in a variety of settings; maintains associated records</li>
             <li>Carries out nursing procedures</li>
             <li>May provide clinical supervision to other staff, students</li>
