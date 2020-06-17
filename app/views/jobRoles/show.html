@@ -34,7 +34,7 @@
 
         <h3>National job profile</h3>
         <p>Nursing: Nurse</p>
-        <p><a href='/national-job-profiles/{{ nationalJobProfile.id }}'>View national job profile</a></p>
+        <p><a href='/national-job-profiles/{{ jobRole.national_job_profile_id }}'>View national job profile</a></p>
 
         <div class="hee-prototype-spacer"></div>
 
@@ -49,12 +49,12 @@
         <div class="hee-prototype-spacer"></div>
 
         <h3>Base competencies</h3>
-        <p>These are the minimum standards required by the <a href='/national-job-profiles/{{ nationalJobProfile.id }}'>{{ nationalJobProfile.name }}</a> job profile.</p>
+        <p>These are the minimum standards required by the <a href='/national-job-profiles/{{ jobRole.national_job_profile_id }}'>{{ nationalJobProfile.name }}</a> job profile.</p>
 
         <table>
             <thead>
                 <th>Factor</th>
-                <th>Skill level requried</th>
+                <th>Skill level required</th>
                 <th></th>
             </thead>
             <tbody>

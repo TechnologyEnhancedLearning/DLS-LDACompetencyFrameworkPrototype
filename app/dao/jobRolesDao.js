@@ -32,7 +32,7 @@ const getRequirementsForRole = async (id) => {
 const getJobRole = async (id) => {
     try {
         const { rows } = await pool.query(
-            `SELECT j.id, j.name, j.description, 1 as national_job_profile_id
+            `SELECT j.id, j.name, j.description, j.national_job_profile_id
             FROM job_roles j
             WHERE j.id = $1;`, [id]
         );
