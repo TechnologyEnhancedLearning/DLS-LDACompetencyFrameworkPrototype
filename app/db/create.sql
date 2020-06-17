@@ -5,7 +5,7 @@ CREATE TABLE users (
 
 CREATE TABLE frameworks (
     id serial PRIMARY KEY,
-    title VARCHAR (50) NOT NULL,
+    title VARCHAR (255) NOT NULL,
     slug VARCHAR (50) UNIQUE NOT NULL,
     owner_id integer NOT NULL,
     status VARCHAR(50) DEFAULT 'Draft',
@@ -70,8 +70,7 @@ CREATE TABLE skill_levels (
 
 CREATE TABLE skill_level_criteria (
     id serial PRIMARY KEY,
-    name VARCHAR (50) NOT NULL,
-    description TEXT,
+    description TEXT NOT NULL,
     ordering integer NOT NULL,
     skill_level_id integer NOT NULL,
     constraint criteria_skill_levels_id_fkey FOREIGN KEY (skill_level_id)
@@ -80,13 +79,44 @@ CREATE TABLE skill_level_criteria (
     UNIQUE (skill_level_id, ordering)
 );
 
+CREATE TABLE national_job_profiles (
+    id serial PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    job_statement TEXT
+);
+
+CREATE TABLE national_job_profile_factors (
+    id integer PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE national_job_profile_requirements (
+    id serial PRIMARY KEY,
+    national_job_profile_id integer NOT NULL,
+    factor_id integer NOT NULL,
+    description TEXT,
+    je_level VARCHAR(50),
+    je_level_number integer,
+    score integer,
+    constraint national_job_requirements_profile_id_fkey FOREIGN KEY (national_job_profile_id)
+        REFERENCES national_job_profiles (id) MATCH SIMPLE
+        ON DELETE RESTRICT,
+    constraint national_job_profile_requirements_factor_id_fkey FOREIGN KEY (factor_id)
+        REFERENCES national_job_profile_factors (id) MATCH SIMPLE
+        ON DELETE RESTRICT
+);
+
 CREATE TABLE job_roles (
     id serial PRIMARY KEY,
     name VARCHAR (50) NOT NULL,
-    description TEXT
+    description TEXT,
+    national_job_profile_id integer,
+    constraint national_job_profile_id_fkey FOREIGN KEY (national_job_profile_id)
+        REFERENCES national_job_profiles (id) MATCH SIMPLE
+        ON DELETE RESTRICT
 );
 
-CREATE TABLE role_requirements (
+CREATE TABLE job_role_requirements (
     id serial PRIMARY KEY,
     job_role_id integer NOT NULL,
     skill_level_id integer NOT NULL,

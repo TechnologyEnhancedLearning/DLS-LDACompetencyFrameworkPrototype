@@ -49,7 +49,7 @@
         <div class="hee-prototype-spacer"></div>
 
         <h3>Base competencies</h3>
-        <p>These are the minimum standards required by the <a href='/national-job-profiles/{{ nationalJobProfile.id }}'>{{ nationalJobProfile.field }} - {{ nationalJobProfile.name }}</a> job profile.</p>
+        <p>These are the minimum standards required by the <a href='/national-job-profiles/{{ nationalJobProfile.id }}'>{{ nationalJobProfile.name }}</a> job profile.</p>
 
         <table>
             <thead>
@@ -58,10 +58,10 @@
                 <th></th>
             </thead>
             <tbody>
-                {% for responsibility in nationalJobProfile.responsibilities %}
+                {% for requirement in nationalJobProfile.requirements %}
                 <tr>
-                    <td>{{ responsibility.factorId }}. {{ responsibility.factorName }}</td>
-                    <td class="profile-skill-level">Level {{ responsibility.jeLevel }}</td>
+                    <td>{{ requirement.factor_id }}. {{ requirement.factor_name }}</td>
+                    <td class="profile-skill-level">Level {{ requirement.je_level }}</td>
                     <td><a href='#'>View more</a></td>
                 </td>
                 </tr>
@@ -69,7 +69,7 @@
             </tbody>
         </table>
 
-        <a href='..'>&lt; Back to list</a>
+        <a href='./'>&lt; Back to list</a>
     </div>
 </div>
 

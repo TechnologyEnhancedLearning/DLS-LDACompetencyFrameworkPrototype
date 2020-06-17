@@ -34,7 +34,7 @@ const setupRoutes = (router) => {
         if (!jobRole) {
             next();
         } else {
-            const nationalJobProfile = nationalJobProfilesDao.getFromId(jobRole.national_job_profile_id);
+            const nationalJobProfile = await nationalJobProfilesDao.getFromId(jobRole.national_job_profile_id);
             res.render('jobRoles/show', { jobRole: jobRole, nationalJobProfile: nationalJobProfile })
         }
     });

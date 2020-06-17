@@ -64,7 +64,7 @@ const getSkillLevelFromId = async (id) => {
 const getCriteriaForSkillLevel = async (skillLevelId) => {
     try {
         const { rows } = await pool.query(
-            `SELECT c.id, c.name, c.description, c.ordering
+            `SELECT c.id, c.description, c.ordering
             FROM skill_level_criteria c
             WHERE skill_level_id = $1
             ORDER BY c.ordering ASC;`, [skillLevelId]
@@ -97,8 +97,8 @@ const addTemplateSkillLevels = async (competencyId, levelNames) => {
 };
 
 const addCriterion = async (skillLevelId, ordering, criterion) => {
-    await pool.query(`INSERT INTO skill_level_criteria (name, description, ordering, skill_level_id)
-        VALUES ($1, $2, $3, $4)`, [criterion.name, criterion.description, ordering, skillLevelId]);
+    await pool.query(`INSERT INTO skill_level_criteria (description, ordering, skill_level_id)
+        VALUES ($1, $2, $3, $4)`, [criterion.description, ordering, skillLevelId]);
 }
 
 const setCriteriaForSkillLevel = async (skillLevelId, criteria) => {

@@ -50,7 +50,7 @@
         {% if skillLevel.criteria and skillLevel.criteria.length %}
         <ul>
             {% for criterion in skillLevel.criteria %}
-            <li>{{ criterion.name }}: {{ criterion.description }}</li>
+            <li>{{ criterion.description }}</li>
             {% endfor %}
         </ul>
         {% else %}

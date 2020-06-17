@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block pageTitle %}
-National Job Profile for {{ nationalJobProfile.field }} - {{ nationalJobProfile.name }} - NHS.UK prototype kit
+National Job Profile for {{ nationalJobProfile.name }} - NHS.UK prototype kit
 {% endblock %}
 
 {% block beforeContent %}
@@ -30,7 +30,7 @@ National Job Profile for {{ nationalJobProfile.field }} - {{ nationalJobProfile.
 
     <div class="nhsuk-grid-column">
 
-        <h1>{{ nationalJobProfile.field }} - {{ nationalJobProfile.name }}</h1>
+        <h1>{{ nationalJobProfile.name }}</h1>
 
         <h3>Job description</h3>
         <p>{{ nationalJobProfile.jobStatement | safe }}</p>
