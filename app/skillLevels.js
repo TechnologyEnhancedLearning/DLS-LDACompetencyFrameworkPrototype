@@ -36,7 +36,7 @@ const setupRoutes = (router) => {
         } else {
             res.redirect('/competencies/' + result.competency_id + "/skill-levels/" + result.ordering);
         }
-    })
+    });
 };
 
 

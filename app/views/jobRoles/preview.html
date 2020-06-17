@@ -1,3 +1,3 @@
 <h2>{{ jobRole.name }}</h2>
-<p>{{ jobRole.description }}</p>
+<p>{{ jobRole.description | safe }}</p>
 <p><a href="/job-roles/{{ jobRole.id }}">More information &gt;</a></p>

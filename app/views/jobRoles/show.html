@@ -39,141 +39,39 @@
         <div class="hee-prototype-spacer"></div>
 
         <h3>Job profile description</h3>
-        <p>{{ jobRole.description }}</p>
+        <p>{{ jobRole.description | safe }}</p>
 
         <div class="hee-prototype-spacer"></div>
 
+        <h3>Specific required competencies</h3>
+        <p>There are no additional required competencies.</p>
 
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-requirements">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-requirements">
-                <span class="nhsuk-details__summary-text">Required competencies</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-requirements">
-                {% for requirement in jobRole.requirements %}
-                    <p><a href="/skill-levels/{{ requirement.skill_level_id }}">{{ requirement.competency_name }}: {{ requirement.skill_level_name }}</a></p>
+        <div class="hee-prototype-spacer"></div>
+
+        <h3>Base competencies</h3>
+        <p>These are the minimum standards required by the <a href='/national-job-profiles/{{ nationalJobProfile.id }}'>{{ nationalJobProfile.field }} - {{ nationalJobProfile.name }}</a> job profile.</p>
+
+        <table>
+            <thead>
+                <th>
+                    Factor
+                </th>
+                <th>
+                    Skill level requried
+                </th>
+                <th></th>
+            </thead>
+            <tbody>
+                {% for responsibility in nationalJobProfile.responsibilities %}
+                <tr>
+                    <td>{{ responsibility.factorId }}. {{ responsibility.factorName }}</td>
+                    <td class="profile-skill-level">Level {{ responsibility.jeLevel }}</td>
+                    <td><a href='#'>View more</a></td>
+                </td>
+                </tr>
                 {% endfor %}
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-responsibilities">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-responsibilities">
-                <span class="nhsuk-details__summary-text">Responsibilities</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-responsibilities">
-                Responsibilities go here
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-what-to-expect">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-what-to-expect">
-                <span class="nhsuk-details__summary-text">What to expect</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-what-to-expect">
-                What to expect goes here
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-qualifications">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-qualifications">
-                <span class="nhsuk-details__summary-text">Qualifications</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-qualifications">
-                The qualifications for this role are:
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-skills">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-skills">
-                <span class="nhsuk-details__summary-text">Skills</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-skills">
-                Skills go here
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-work-experience">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-work-experience">
-                <span class="nhsuk-details__summary-text">Work experience</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-work-experience">
-                Work experience goes here
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-employers">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-employers">
-                <span class="nhsuk-details__summary-text">Employers</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-employers">
-                Employers go here
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-working-hours">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-working-hours">
-                <span class="nhsuk-details__summary-text">Working hours</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-working-hours">
-                Working go here
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-salary-information">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-salary-information">
-                <span class="nhsuk-details__summary-text">Salary information</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-salary-information">
-                Salary info goes here
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-pd">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-pd">
-                <span class="nhsuk-details__summary-text">Professional development</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-pd">
-                Professional development goes here
-            </div>
-        </details>
-
-        <div class="hee-prototype-spacer"></div>
-
-
-        <details class="nhsuk-details nhsuk-expander" id="nhsuk-details-career">
-            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text-career">
-                <span class="nhsuk-details__summary-text">Career prospects</span>
-            </summary>
-            <div class="nhsuk-details__text" id="nhsuk-details__text-career">
-                Career prospects go here
-            </div>
-        </details>
+            </tbody>
+        </table>
 
         <a href='..'>&lt; Back to list</a>
     </div>

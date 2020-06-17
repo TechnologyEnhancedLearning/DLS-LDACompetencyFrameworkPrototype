@@ -1,5 +1,18 @@
 const pool = require('./pool');
 
+const create = async (name, description) => {
+    try {
+        const { rows } = await pool.query(
+            `INSERT INTO job_roles (name, description)
+            VALUES ($1, $2) RETURNING id;`, [name, description]
+        );
+        return rows && rows[0];
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+}
+
 const getRequirementsForRole = async (id) => {
     try {
         const { rows } = await pool.query(
@@ -19,7 +32,7 @@ const getRequirementsForRole = async (id) => {
 const getJobRole = async (id) => {
     try {
         const { rows } = await pool.query(
-            `SELECT j.id, j.name, j.description
+            `SELECT j.id, j.name, j.description, 1 as national_job_profile_id
             FROM job_roles j
             WHERE j.id = $1;`, [id]
         );
@@ -45,6 +58,7 @@ const getAll = async () => {
 }
 
 module.exports = {
+    create: create,
     getJobRole: getJobRole,
     getAll: getAll
 }

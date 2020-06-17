@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+New job role - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/job-roles/",
+        text: "Job roles"
+    },
+    {
+        href: "/job-roles/new",
+        text: "New"
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>
+            Define job role
+        </h1>
+        <p>Lorem ipsum dolor si amet.</p>
+
+        <form action="/job-roles/new" method="POST">
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+            <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="role-description">Description of job role</label>
+                <textarea type="text" class="nhsuk-input" id="role-description" name="description"></textarea>
+            </div>
+            <input type="hidden" name="name" value="{{ name }}">
+            <input type="hidden" name="profileId" value="{{ profileId }}">
+            <a class="nhsuk-button nhsuk-button--secondary" href="../dashboard">Cancel</a>
+            <button class="nhsuk-button" type="submit">Continue</button>
+        </form>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+New job role - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/job-roles/",
+        text: "Job roles"
+    },
+    {
+        href: "/job-roles/new",
+        text: "New"
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>
+            Define job role
+        </h1>
+        <p>Choose a relevant, descriptive name for your job role. It can be changed later.</p>
+
+        <form action="/job-roles/new/profile" method="POST">
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+            <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="role-name">Name of job role</label>
+                <input type="text" class="nhsuk-input" id="role-name" name="name">
+            </div>
+            <a class="nhsuk-button nhsuk-button--secondary" href="../dashboard">Cancel</a>
+            <button class="nhsuk-button" type="submit">Continue</button>
+        </form>
+
+    </div>
+{% endblock %}
