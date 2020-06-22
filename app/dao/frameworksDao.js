@@ -1,4 +1,6 @@
 const pool = require('./pool.js');
+const competenciesDao = require('./competenciesDao');
+const competencyGroupsDao = require('./competencyGroupsDao');
 
 const getAll = async () => {
     try {
@@ -39,6 +41,31 @@ const getFromSlug = async (slug) => {
     }
 }
 
+const getStructure = async (id) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT competency_group_id, competency_id, ordering
+            FROM frameworks_structure
+            WHERE framework_id=$1
+            ORDER BY ordering ASC;`, [id]
+        );
+        for (let i = 0; i < rows.length; i++) {
+            if (!rows[i].competency_id) {
+                console.log("Appending competency group");
+                rows[i].competencyGroup = await competencyGroupsDao.getCompetencyGroup(rows[i].competency_group_id);
+                console.log(rows[i].competencyGroup);
+            } else {
+                console.log("Appending competency");
+                rows[i].competency = await competenciesDao.getCompetency(rows[i].competency_id);
+            }
+        }
+        return rows;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
 const addFramework = async (title, slug, currentUser) => {
     try {
         const { rows } = await pool.query(`INSERT INTO frameworks (title, slug, owner_id) VALUES ($1, $2, $3) RETURNING id;`, [title, slug, currentUser]);
@@ -62,6 +89,7 @@ const setStatus = async (slug, newStatus) => {
 module.exports = {
     getAll: getAll,
     getFromSlug: getFromSlug,
+    getStructure: getStructure,
     addFramework: addFramework,
     setStatus: setStatus
 }

@@ -10,13 +10,25 @@ Structure - {{ framework.title }} - NHS.UK prototype kit
 
 <div class="nhsuk-form-group">
     <h3>Framework structure</h3>
-    {% if framework.competencyGroups.length %}
-        {% for competencyGroup in framework.competencyGroups %}
-            {% include 'competencyGroups/preview.html' %}
+
+    {% if framework.structure.length %}
+        {% for item in framework.structure %}
+
+            {% if item.competency %}
+                {% set competency = item.competency %}
+                {% include 'competencies/preview.html' %}
+            {% endif %}
+
+            {% if item.competencyGroup %}
+                {% set competencyGroup = item.competencyGroup %}
+                {% include 'competencyGroups/preview.html' %}
+            {% endif %}
+
         {% endfor %}
     {% else %}
-        <p>There is nothing in this framework.</p>
+        <p>Nothing found in this framework.</p>
     {% endif %}
+
     <a href='competency-groups/new' class="nhsuk-button">Add new competency group</a>
     <a href='#' class="nhsuk-button nhsuk-button--secondary">Import existing competency group</a>
 </div>

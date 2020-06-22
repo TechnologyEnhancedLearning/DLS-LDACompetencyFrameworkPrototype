@@ -30,25 +30,33 @@ CREATE TABLE competency_groups (
     description TEXT
 );
 
-CREATE TABLE competency_groups_frameworks (
-    competency_group_id integer NOT NULL,
+CREATE TABLE frameworks_structure (
+    id serial PRIMARY KEY,
+    competency_group_id integer,
+    competency_id integer,
     framework_id integer NOT NULL,
-    PRIMARY KEY (competency_group_id, framework_id),
     ordering integer NOT NULL,
-  CONSTRAINT competency_groups_frameworks_competency_group_id_fkey FOREIGN KEY (competency_group_id)
+  CONSTRAINT frameworks_structure_competency_group_id_fkey FOREIGN KEY (competency_group_id)
       REFERENCES competency_groups (id) MATCH SIMPLE
       ON DELETE RESTRICT,
-  CONSTRAINT competency_groups_frameworks_framework_id_fkey FOREIGN KEY (framework_id)
+  CONSTRAINT frameworks_structure_competency_id_fkey FOREIGN KEY (competency_id)
+      REFERENCES competencies (id) MATCH SIMPLE
+      ON DELETE RESTRICT,
+  CONSTRAINT frameworks_structure_framework_id_fkey FOREIGN KEY (framework_id)
       REFERENCES frameworks (id) MATCH SIMPLE
       ON DELETE CASCADE,
-    UNIQUE (framework_id, ordering)
+    UNIQUE (framework_id, ordering),
+  CONSTRAINT competency_group_xor_competency CHECK (
+        num_nonnulls(competency_id, competency_group_id) = 1
+  )
 );
 
 CREATE TABLE competencies (
     id serial PRIMARY KEY,
     name VARCHAR (50) NOT NULL,
     description TEXT,
-    competency_group_id integer NOT NULL,
+    competency_group_id integer,
+    framework_id integer,
     ordering integer NOT NULL,
     CONSTRAINT competencies_competency_group_id_fkey FOREIGN KEY (competency_group_id)
         REFERENCES competency_groups (id) MATCH SIMPLE

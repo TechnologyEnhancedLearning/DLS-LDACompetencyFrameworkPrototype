@@ -1,5 +1,4 @@
 const frameworksDao = require('./dao/frameworksDao.js');
-const competencyGroupsDao = require('./dao/competencyGroupsDao.js');
 const duplicationDao = require('./dao/duplicationDao');
 const sampleData = require('./dao/sampleData.js');
 
@@ -60,7 +59,8 @@ const setupRoutes = (router) => {
         if (!framework) {
             next();
         } else {
-            framework.competencyGroups = await competencyGroupsDao.getCompetencyGroupsForFramework(framework.id);
+            framework.structure = await frameworksDao.getStructure(framework.id);
+            console.log(framework.structure);
             res.render('frameworks/structure', { framework: framework });
         }
     });

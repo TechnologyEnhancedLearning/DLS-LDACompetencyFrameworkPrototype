@@ -32,7 +32,22 @@ const getCompetency = async (id) => {
     }
 }
 
+const getForFramework = async (frameworkId) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT c.id, c.name, c.description, c.ordering, c.competency_group_id
+            FROM competencies c
+            WHERE c.framework_id = $1;`, [frameworkId]
+        );
+        return rows;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
 module.exports = {
     addCompetency: addCompetency,
-    getCompetency: getCompetency
+    getCompetency: getCompetency,
+    getForFramework: getForFramework
 }

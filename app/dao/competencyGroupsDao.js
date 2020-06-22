@@ -16,9 +16,9 @@ const addCompetencyGroup = async (name, description) => {
 const addCompetencyGroupToFramework = async (competencyGroupId, frameworkId) => {
     try {
         await pool.query(
-            `INSERT INTO competency_groups_frameworks (competency_group_id, framework_id, ordering)
+            `INSERT INTO frameworks_structure (competency_group_id, framework_id, ordering)
             SELECT $1, $2, COALESCE(MAX(ordering), 0) + 1
-                FROM competency_groups_frameworks
+                FROM frameworks_structure
                 WHERE framework_id = $2;`, [competencyGroupId, frameworkId]
         );
     } catch (e) {
@@ -31,7 +31,7 @@ const getCompetencyGroupsForFramework = async (frameworkId) => {
     try {
         const { rows } = await pool.query(
             `SELECT cg.id, cg.name, cg.description, cgf.ordering
-            FROM competency_groups_frameworks cgf
+            FROM frameworks_structure cgf
             JOIN competency_groups cg ON cg.id = cgf.competency_group_id
             WHERE cgf.framework_id = $1
             ORDER BY cgf.ordering;`, [frameworkId]
@@ -55,7 +55,7 @@ const getAFrameworkForCompetencyGroup = async (competencyGroupId) => {
         const { rows } = await pool.query(
             `SELECT f.slug
             FROM frameworks f
-            JOIN competency_groups_frameworks cgf ON f.id = cgf.framework_id
+            JOIN frameworks_structure cgf ON f.id = cgf.framework_id
             WHERE cgf.competency_group_id = $1;`, [competencyGroupId]
         );
         return !!rows && rows[0].slug;
