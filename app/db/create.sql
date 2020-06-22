@@ -68,29 +68,6 @@ CREATE TABLE competency_criteria (
     UNIQUE (competency_id, ordering, type)
 );
 
-CREATE TABLE skill_levels (
-    id serial PRIMARY KEY,
-    name VARCHAR (50) NOT NULL,
-    description TEXT,
-    ordering integer NOT NULL,
-    competency_id integer NOT NULL,
-    CONSTRAINT skill_levels_competency_id_fkey FOREIGN KEY (competency_id)
-        REFERENCES competencies (id) MATCH SIMPLE
-        ON DELETE RESTRICT,
-    UNIQUE (competency_id, ordering)
-);
-
-CREATE TABLE skill_level_criteria (
-    id serial PRIMARY KEY,
-    description TEXT NOT NULL,
-    ordering integer NOT NULL,
-    skill_level_id integer NOT NULL,
-    constraint criteria_skill_levels_id_fkey FOREIGN KEY (skill_level_id)
-        REFERENCES skill_levels (id) MATCH SIMPLE
-        ON DELETE CASCADE,
-    UNIQUE (skill_level_id, ordering)
-);
-
 CREATE TABLE national_job_profiles (
     id serial PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
