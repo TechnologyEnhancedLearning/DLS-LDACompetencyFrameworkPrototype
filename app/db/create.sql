@@ -56,7 +56,6 @@ CREATE TABLE competencies (
     name VARCHAR (50) NOT NULL,
     description TEXT,
     competency_group_id integer,
-    framework_id integer,
     ordering integer NOT NULL,
     CONSTRAINT competencies_competency_group_id_fkey FOREIGN KEY (competency_group_id)
         REFERENCES competency_groups (id) MATCH SIMPLE
