@@ -32,8 +32,10 @@
 
         <h1>{{ competency.name }}</h1>
 
-        <h2>Group</h2>
-        <p>{{ competency.competency_group_name }}</p>
+        {% if competency.competency_group_name %}
+            <h2>Group</h2>
+            <p>{{ competency.competency_group_name }}</p>
+        {% endif %}
 
         {% if competency.duplications %}
             <div class="nhsuk-care-card nhsuk-care-card--non-urgent hee-prototype--care-card">

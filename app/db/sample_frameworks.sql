@@ -128,3 +128,142 @@ INSERT INTO competency_criteria (description, competency_id, ordering, type)
     VALUES ('carry out of crisis and emergency planning.', 46, 2, 'ability');
 INSERT INTO competency_criteria (description, competency_id, ordering, type)
     VALUES ('advocate restriction of movement based on patient need/public safety.', 46, 3, 'ability');
+
+
+INSERT INTO competency_groups (name, description)
+    VALUES ('Assessment, formulation and intervention/treatment planning', 'The “I story”:
+“I have my needs recognised in mainstream services and get the support I need.”
+“I am offered early support to maximise my life chances.”
+“I am supported to understand and manage my own actions, and to understand the consequences of
+them.”
+“I understand how the care and support I am getting is responsive to my needs.”
+“I am supported to be part of my community.”
+“I am supported to understand my legal rights and to access the criminal justice system/ youth justice
+system.”
+“I have access to service that are reasonably adjusted.”
+“I am respected and listened to.”
+“I am treated fairly in the justice system.”');
+
+INSERT INTO frameworks_structure (competency_group_id, framework_id, ordering)
+    VALUES (41, 52, 4);
+
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Undertaking Assessment Processes', '', 41, 1);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Mental Capacity', '', 41, 2);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Processing information and formulation', '', 41, 3);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Intervention and treatment planning', '', 41, 4);
+
+
+INSERT INTO competency_groups (name, description)
+    VALUES ('Enabling health interventions', 'The “I story”:
+“My health needs are met by services making the reasonable adjustments I need.”
+“I am supported to access mainstream health care provision, ensuring parity of esteem, in relation to my
+health needs.”
+“I''m supported in a way that works for me and I get support to communicate what I need and how I am
+feeling.”
+“I have access to a range of support that helps me to remain well and healthy.”
+“I have a choice about where I live and who I live with.”
+“I have a good and meaningful life.”
+“I am supported to manage any risks.”
+“I am supported to be safe and a part of my community.”
+“I feel that my community is a safe place to live and local people look out for me.”
+“My needs are understood and met in ordinary community settings.”
+“My health and social care needs are met/managed in a way that reduces inequality and reflects my
+choices and wishes.
+“I have access to service that are reasonably adjusted.”');
+
+INSERT INTO frameworks_structure (competency_group_id, framework_id, ordering)
+    VALUES (42, 52, 5);
+
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Signposting/supporting access to mainstream health services', '', 42, 1);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Promoting healthy lifestyle choices', '', 42, 2);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Supporting the choices and self-determination of the service user', '', 42, 3);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Promoting effective communication about health needs', '', 42, 4);
+
+
+INSERT INTO competency_groups (name, description)
+    VALUES ('Therapeutic interventions', 'The “I story”:
+“I understand how the care, support and treatment I am getting is responsive to my needs.”
+“I can get specialist help and support at an early stage to avoid a crisis.”
+“I am supported to understand and manage my own behaviour, and to understand the consequences of
+my actions.”
+“I am supported to understand and manage my own actions, and to understand the consequences of
+them.”
+“I understand how the care and support I am getting is responsive to my needs.”
+“I am supported to be part of my community.”');
+
+INSERT INTO frameworks_structure (competency_group_id, framework_id, ordering)
+    VALUES (43, 52, 6);
+
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Physical health care (including dysphagia and seizures management)', '', 43, 1);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Evidence-based psychotherapeutic interventions', '', 43, 2);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Medications management', '', 43, 3);
+
+
+INSERT INTO competency_groups (name, description)
+    VALUES ('Role support interventions', 'The “I story”:
+“I am treated with dignity and respect and I feel that I am valued.”
+“I am in control of planning my care and support.”
+“I am supported to maintain my independence and to have family relationships and friendships.”
+“The people who are supporting me have the specialist skills and expertise I need.”
+“I am supported by people who help me to make links in my local community.”
+“I am able to maintain relationships with family and friends.”
+“I have help to make informed choices.”
+“I am treated with dignity and respect and I feel that I am listened to.”
+“I am supported to manage any risks.”
+“I am supported to be safe and a part of my community.”
+“I feel that my community is a safe place to live and local people look out for me.”
+“My needs are understood and met in ordinary community settings.”');
+
+INSERT INTO frameworks_structure (competency_group_id, framework_id, ordering)
+    VALUES (44, 52, 7);
+
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Supporting person centred activities and functioning', '', 44, 1);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Maintaining and developing community links and opportunities to engage in mainstream activities', '', 44, 2);
+
+INSERT INTO competency_groups (name, description)
+    VALUES ('Family/carer interventions', 'The “I story”:
+“My family and paid staff are supported and know how to support me.”
+“I am supported to be safe and a part of my community.”');
+
+INSERT INTO frameworks_structure (competency_group_id, framework_id, ordering)
+    VALUES (45, 52, 8);
+
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Assessment of carer''s needs', '', 45, 1);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Maintaining relationships', '', 45, 2);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Supporting families including siblings', '', 45, 3);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Supporting carers with their needs', '', 45, 4);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Supporting carers to undertake the caring role', '', 45, 5);
+
+INSERT INTO competency_groups (name, description)
+    VALUES ('Accommodation and welfare interventions', 'The “I story”:
+“I have a choice about where I live and who I live with.”
+“I am able to maintain relationships with family and friends.”
+“I have help to make informed choices.”
+“I am treated with dignity and respect and I feel that I am listened to.”
+“I feel that my community is a safe place to live and local people look out for me.”');
+
+INSERT INTO frameworks_structure (competency_group_id, framework_id, ordering)
+    VALUES (46, 52, 9);
+
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Practical housing support', '', 46, 1);
+INSERT INTO competencies (name, description, competency_group_id, ordering)
+    VALUES ('Accessing benefits', '', 47, 2);
