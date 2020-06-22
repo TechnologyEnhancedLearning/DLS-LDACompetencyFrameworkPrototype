@@ -52,6 +52,7 @@ const getStructure = async (id) => {
         for (let i = 0; i < rows.length; i++) {
             if (!rows[i].competency_id) {
                 rows[i].competencyGroup = await competencyGroupsDao.getCompetencyGroup(rows[i].competency_group_id);
+                rows[i].competencyGroup.competencies = await competencyGroupsDao.getCompetenciesForGroup(rows[i].competencyGroup.id);
             } else {
                 rows[i].competency = await competenciesDao.getCompetency(rows[i].competency_id);
             }

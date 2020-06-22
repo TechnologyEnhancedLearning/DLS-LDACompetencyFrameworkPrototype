@@ -53,7 +53,7 @@ CREATE TABLE frameworks_structure (
 
 CREATE TABLE competencies (
     id serial PRIMARY KEY,
-    name VARCHAR (50) NOT NULL,
+    name VARCHAR (255) NOT NULL,
     description TEXT,
     competency_group_id integer,
     ordering integer NOT NULL,

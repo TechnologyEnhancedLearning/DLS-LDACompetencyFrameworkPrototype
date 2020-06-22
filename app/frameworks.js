@@ -60,7 +60,6 @@ const setupRoutes = (router) => {
             next();
         } else {
             framework.structure = await frameworksDao.getStructure(framework.id);
-            console.log(framework.structure);
             res.render('frameworks/structure', { framework: framework });
         }
     });

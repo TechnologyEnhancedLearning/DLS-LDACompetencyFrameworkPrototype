@@ -104,5 +104,6 @@ module.exports = {
     addCompetencyGroupToFramework: addCompetencyGroupToFramework,
     getCompetencyGroupsForFramework: getCompetencyGroupsForFramework,
     getAFrameworkForCompetencyGroup: getAFrameworkForCompetencyGroup,
-    getCompetencyGroup: getCompetencyGroup
+    getCompetencyGroup: getCompetencyGroup,
+    getCompetenciesForGroup: getCompetenciesForGroup
 }

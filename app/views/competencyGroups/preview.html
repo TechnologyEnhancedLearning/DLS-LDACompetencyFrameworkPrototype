@@ -1,18 +1,24 @@
-<details class="nhsuk-details nhsuk-expander" id="nhsuk-details{{competencyGroup.id}}">
-    <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text{{competencyGroup.id}}">
-        <span class="nhsuk-details__summary-text">{{ competencyGroup.name }}</span>
-    </summary>
-    <div class="nhsuk-details__text" id="nhsuk-details__text{{competencyGroup.id}}">
+<div class="hee-prototype--framework-structure">
+    <h4>{{ competencyGroup.name }}</h4>
+
+    {% if competencyGroup.description.length > 100 %}
+        {{ details ({
+            "text": "Description",
+            "HTML": "<p class='hee-prototype--description-paragraph'>" + competencyGroup.description + "</p>"
+        }) }}
+    {% else %}
         <p>{{ competencyGroup.description }}</p>
-        {% if competencyGroup.competencies.length %}
-            <ul>
-                {% for competency in competencyGroup.competencies %}
-                    <li>{{competency.name}} <a href="/competencies/{{competency.id}}">view/edit</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No competencies found in this group.</p>
-        {% endif %}
-        <a href="/competency-groups/{{competencyGroup.id}}/competencies/new" class="nhsuk-button">Add new competency</a>
-    </div>
-</details>
+    {% endif %}
+
+    {% if competencyGroup.competencies.length %}
+        <ul>
+            {% for competency in competencyGroup.competencies %}
+                <li>{{competency.name}} <a href="/competencies/{{competency.id}}">view/edit</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No competencies found in this group.</p>
+    {% endif %}
+
+    <a href="/competency-groups/{{competencyGroup.id}}/competencies/new" class="nhsuk-button">Add new competency</a>
+</div>

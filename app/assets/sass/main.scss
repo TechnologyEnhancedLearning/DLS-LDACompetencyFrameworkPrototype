@@ -132,16 +132,23 @@ textarea.nhsuk-input {
     display: inline;
 }
 
-.hee-prototype--competency-preview {
+.hee-prototype--framework-structure {
     background-color: $color_nhsuk-white;
     display: block;
     padding: 24px;
     margin-bottom: 24px;
+}
+
+.hee-prototype--competency-preview {
     h4 {
         margin-bottom: 0;
         font-weight: normal;
         font-size: 19px;
     }
+}
+
+.hee-prototype--description-paragraph {
+    white-space: pre-line;
 }
 
 @import 'flash';
