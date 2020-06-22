@@ -55,15 +55,40 @@
 
         <div class="hee-prototype-spacer"></div>
 
-        <h2>Skill levels</h2>
-        {% if competency.skillLevels.length %}
-            {% for skillLevel in competency.skillLevels %}
-                {% include "skillLevels/preview.html" %}
-            {% endfor %}
+        <h2>Knowledge and understanding</h2>
+        {% if competency.knowledgeAndUnderstanding.length %}
+            <ul>
+                {% for knowledge in competency.knowledgeAndUnderstanding %}
+                    <li>{{ knowledge.description }}</li>
+                {% endfor %}
+            </ul>
         {% else %}
-            <p>No skill levels for this competency.</p>
+            <p>None found for this competency.</p>
         {% endif %}
-        <a class="nhsuk-button" href="/competencies/{{ competency.id }}/skill-levels/add">Add new skill level</a>
+
+        <div class="hee-prototype-spacer"></div>
+
+        <h2>Ability to</h2>
+        {% if competency.abilities.length %}
+            <ul>
+                {% for ability in competency.abilities %}
+                    <li>{{ ability.description }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>None found for this competency.</p>
+        {% endif %}
+
+        {% if competency.linkedStandards.length %}
+            <div class="hee-prototype-spacer"></div>
+            <h2>Linked national occupational standards</h2>
+            <ul>
+                {% for standard in competency.linkedStandards %}
+                    <li><a href="{{ standard.link }}">{{ standard.title }}</a> (Ref: {{ standard.ref }})</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}

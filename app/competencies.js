@@ -1,7 +1,8 @@
-const competencyGroupsDao = require('./dao/competencyGroupsDao.js');
-const competenciesDao = require('./dao/competenciesDao.js');
-const skillLevelsDao = require('./dao/skillLevelsDao');
+const competencyGroupsDao = require('./dao/competencyGroupsDao');
+const competenciesDao = require('./dao/competenciesDao');
 const duplicationDao = require('./dao/duplicationDao');
+const criteriaDao = require('./dao/criteriaDao');
+const linkedNationalStandardsDao = require('./dao/linkedNationalStandardsDao');
 
 const capitalise = (word) => word.charAt(0).toUpperCase() + word.slice(1);
 
@@ -11,8 +12,11 @@ const setupRoutes = (router) => {
         if (!competency) {
             next();
         } else {
-            competency.skillLevels = await skillLevelsDao.getForCompetency(competency.id);
             competency.duplications = await duplicationDao.getForCompetency(competency);
+            const { knowledgeAndUnderstanding, abilities } = await criteriaDao.getForCompetency(competency.id);
+            competency.knowledgeAndUnderstanding = knowledgeAndUnderstanding;
+            competency.abilities = abilities;
+            competency.linkedStandards = await linkedNationalStandardsDao.getForCompetency(competency.id);
             res.render('competencies/show', { competency: competency });
         }
     });
@@ -34,8 +38,6 @@ const setupRoutes = (router) => {
         }
 
         const competencyId = await competenciesDao.addCompetency(competencyGroup.id, req.body);
-        const skillLevelNames = req.body.skillsTemplate && req.body.skillsTemplate.split("-").map(capitalise);
-        await skillLevelsDao.addTemplateSkillLevels(competencyId, skillLevelNames);
         res.redirect('/competencies/' + competencyId);
     });
 }

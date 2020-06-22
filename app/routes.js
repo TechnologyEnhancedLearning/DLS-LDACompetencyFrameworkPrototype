@@ -4,7 +4,6 @@ const frameworksDao = require('./dao/frameworksDao');
 const frameworks = require('./frameworks.js');
 const competencyGroups = require('./competencyGroups.js');
 const competencies = require('./competencies.js');
-const skillLevels = require('./skillLevels');
 const jobRoles = require('./jobRoles');
 const nationalJobProfiles = require('./nationalJobProfiles');
 
@@ -19,7 +18,6 @@ router.get('/dashboard', async (req, res) => {
 frameworks.setupRoutes(router);
 competencyGroups.setupRoutes(router);
 competencies.setupRoutes(router);
-skillLevels.setupRoutes(router);
 jobRoles.setupRoutes(router);
 nationalJobProfiles.setupRoutes(router);
 
