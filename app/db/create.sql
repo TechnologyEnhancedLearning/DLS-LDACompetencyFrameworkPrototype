@@ -26,7 +26,7 @@ CREATE TABLE working_groups_links (
 
 CREATE TABLE competency_groups (
     id serial PRIMARY KEY,
-    name VARCHAR (50) NOT NULL,
+    name VARCHAR (255) NOT NULL,
     description TEXT
 );
 
