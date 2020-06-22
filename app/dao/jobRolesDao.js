@@ -16,10 +16,9 @@ const create = async (name, description) => {
 const getRequirementsForRole = async (id) => {
     try {
         const { rows } = await pool.query(
-            `SELECT c.name AS competency_name, c.id AS competency_id, s.name AS skill_level_name, s.id AS skill_level_id
+            `SELECT c.name AS competency_name, c.id AS competency_id
             FROM job_role_requirements r
-            JOIN skill_levels s ON s.id = r.skill_level_id
-            JOIN competencies c ON c.id = s.competency_id
+            JOIN competencies c ON c.id = r.competency_id
             WHERE r.job_role_id = $1;`, [id]
         );
         return rows || [];

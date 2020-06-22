@@ -131,11 +131,11 @@ CREATE TABLE job_roles (
 CREATE TABLE job_role_requirements (
     id serial PRIMARY KEY,
     job_role_id integer NOT NULL,
-    skill_level_id integer NOT NULL,
+    competency_id integer NOT NULL,
     constraint role_requirements_job_role_id_fkey FOREIGN KEY (job_role_id)
         REFERENCES job_roles (id) MATCH SIMPLE
         ON DELETE CASCADE,
-    constraint role_requirements_skill_level_id_fkey FOREIGN KEY (skill_level_id)
-        REFERENCES skill_levels (id) MATCH SIMPLE
+    constraint role_requirements_competency_id_fkey FOREIGN KEY (competency_id)
+        REFERENCES competencies (id) MATCH SIMPLE
         ON DELETE RESTRICT
 );
