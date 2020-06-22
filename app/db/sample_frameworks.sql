@@ -266,4 +266,4 @@ INSERT INTO frameworks_structure (competency_group_id, framework_id, ordering)
 INSERT INTO competencies (name, description, competency_group_id, ordering)
     VALUES ('Practical housing support', '', 46, 1);
 INSERT INTO competencies (name, description, competency_group_id, ordering)
-    VALUES ('Accessing benefits', '', 47, 2);
+    VALUES ('Accessing benefits', '', 46, 2);
