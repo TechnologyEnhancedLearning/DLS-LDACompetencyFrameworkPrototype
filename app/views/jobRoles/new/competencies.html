@@ -57,60 +57,59 @@ New job role - NHS.UK prototype kit
                 </tr>
             </tbody>
         </table>
-        <form action="/job-roles/new/confirm" method="POST">
-            <h3>5. Add required competencies</h3>
-            <h4>Search for competencies and frameworks</h4>
-            {% include 'includes/search.html' %}
+        <h3>5. Add required competencies</h3>
+        <h4>Search for competencies and frameworks</h4>
+        {% include 'includes/search.html' %}
 
-            {% if error %}
-                <p class="error-message">{{ error }}</p>
-            {% endif %}
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
 
-            <div class="nhsuk-grid-row">
-                <div class="nhsuk-grid-column-one-quarter">
-                    <h4>Filter by</h4>
-                    <div class="nhsuk-form-group">
-                        <p>Framework</p>
-                        <div class="nhsuk-checkboxes__item">
-                            <input class="nhsuk-checkboxes__input" id="example-1" name="example" type="checkbox" value="email" checked>
-                            <label class="nhsuk-label nhsuk-checkboxes__label" for="example-1">
-                                Workplace Competency Framework for the Delivery of Community Forensic Services
-                            </label>
-                        </div>
-                    </div>
+        <div class="nhsuk-grid-row">
+            <div class="nhsuk-grid-column-one-quarter">
+                <h4>Filter by</h4>
+                <div class="nhsuk-form-group">
+                    <p>Framework</p>
                     <div class="nhsuk-checkboxes__item">
-                        <input class="nhsuk-checkboxes__input" id="example-2" name="example" type="checkbox" value="phone" checked>
-                        <label class="nhsuk-label nhsuk-checkboxes__label" for="example-2">
-                            Learning Disabilities Transition Pathway Competency Framework
+                        <input class="nhsuk-checkboxes__input" id="example-1" name="example" type="checkbox" value="email" checked>
+                        <label class="nhsuk-label nhsuk-checkboxes__label" for="example-1">
+                            Workplace Competency Framework for the Delivery of Community Forensic Services
                         </label>
-                    </div>
-                    <div class="nhsuk-checkboxes__item">
-                        <input class="nhsuk-checkboxes__input" id="example-3" name="example" type="checkbox" value="phone" checked>
-                        <label class="nhsuk-label nhsuk-checkboxes__label" for="example-3">
-                            PBS Organisational and Workforce Development Framework
-                        </label>
-                    </div>
-                    <div class="nhsuk-form-group">
-                        <a href='#' class='nhsuk-button' onclick="flash('Not implemented yet')">Apply filters</a>
-                    </div>
-                    <div class="nhsuk-form-group">
-                        <a href='#' onclick="flash('Not implemented yet')">Remove filters</a>
                     </div>
                 </div>
-                <div class="nhsuk-grid-column-three-quarters">
-                    {% if competencies.length %}
-                        <table>
-                            {% for competency in competencies %}
-                                {% include 'competencies/search-result.html' %}
-                            {% endfor %}
-                        </table>
-                    {% else %}
-                    <p>No competencies found that match your search.</p>
-                    {% endif %}
-                    <p>Displaying 1-5 of 5 in total</p>
+                <div class="nhsuk-checkboxes__item">
+                    <input class="nhsuk-checkboxes__input" id="example-2" name="example" type="checkbox" value="phone" checked>
+                    <label class="nhsuk-label nhsuk-checkboxes__label" for="example-2">
+                        Learning Disabilities Transition Pathway Competency Framework
+                    </label>
+                </div>
+                <div class="nhsuk-checkboxes__item">
+                    <input class="nhsuk-checkboxes__input" id="example-3" name="example" type="checkbox" value="phone" checked>
+                    <label class="nhsuk-label nhsuk-checkboxes__label" for="example-3">
+                        PBS Organisational and Workforce Development Framework
+                    </label>
+                </div>
+                <div class="nhsuk-form-group">
+                    <a href='#' class='nhsuk-button' onclick="flash('Not implemented yet')">Apply filters</a>
+                </div>
+                <div class="nhsuk-form-group">
+                    <a href='#' onclick="flash('Not implemented yet')">Remove filters</a>
                 </div>
             </div>
-
+            <div class="nhsuk-grid-column-three-quarters">
+                {% if competencies.length %}
+                    <table>
+                        {% for competency in competencies %}
+                            {% include 'competencies/search-result.html' %}
+                        {% endfor %}
+                    </table>
+                {% else %}
+                <p>No competencies found that match your search.</p>
+                {% endif %}
+                <p>Displaying 1-5 of 5 in total</p>
+            </div>
+        </div>
+        <form action="/job-roles/new/confirm" method="POST">
             <div class="nhsuk-form-group">
                 <h3>Selected</h3>
                 <div class="hee-prototype--competency-chips" id="selected-competencies">
