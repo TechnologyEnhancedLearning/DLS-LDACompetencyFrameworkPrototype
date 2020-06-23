@@ -121,5 +121,6 @@ CREATE TABLE job_role_requirements (
         ON DELETE CASCADE,
     constraint role_requirements_competency_id_fkey FOREIGN KEY (competency_id)
         REFERENCES competencies (id) MATCH SIMPLE
-        ON DELETE RESTRICT
+        ON DELETE RESTRICT,
+    UNIQUE (job_role_id, competency_id)
 );

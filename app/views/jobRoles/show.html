@@ -44,7 +44,15 @@
         <div class="hee-prototype-spacer"></div>
 
         <h3>Specific required competencies</h3>
-        <p>There are no additional required competencies.</p>
+        {% if jobRole.requirements %}
+            <ol>
+                {% for requirement in jobRole.requirements %}
+                    <li><a href="/competencies/{{ requirement.competency_id }}">{{ requirement.competency_name }}</a></li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>There are no additional required competencies.</p>
+        {% endif %}
 
         <div class="hee-prototype-spacer"></div>
 
