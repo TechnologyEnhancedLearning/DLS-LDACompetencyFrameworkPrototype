@@ -149,4 +149,23 @@ textarea.nhsuk-input {
     white-space: pre-line;
 }
 
+.hee-prototype--competency-chips {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .hee-prototype--chip {
+        background-color: $color_nhsuk-white;
+        padding: 10px;
+        margin: 10px;
+
+        .close-icon {
+            cursor: pointer;
+        }
+
+        .hee-prototype--chip-name {
+            font-size: 1.1875rem;
+        }
+    }
+}
+
 @import 'flash';

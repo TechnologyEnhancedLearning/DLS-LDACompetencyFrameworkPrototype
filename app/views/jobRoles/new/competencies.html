@@ -28,7 +28,7 @@ New job role - NHS.UK prototype kit
 
 <div class="nhsuk-grid-row">
 
-    <div class="nhsuk-grid-column-two-thirds">
+    <div class="nhsuk-grid-column">
 
         <h1>
             Create a new job role
@@ -64,20 +64,70 @@ New job role - NHS.UK prototype kit
                 <p class="error-message">{{ error }}</p>
             {% endif %}
 
-            <p>Comptency selection here</p>
-
-
-            <h3>Selected</h3>
-            <div class="nhsuk-row" id="selected-competencies">
-                <div class="competency-chip" id="competency-44">
-                    <span class="chip-name">Team skills</span>
-                    <input type="hidden" name="competencies[]" value=44>
-                    <input type="hidden" name="competencyNames[]" value="Team skills">
+            <div class="nhsuk-grid-row">
+                <div class="nhsuk-grid-column-one-quarter">
+                    <h2>Filter by</h2>
+                    <div class="nhsuk-form-group">
+                        <p>Framework</p>
+                        <div class="nhsuk-checkboxes__item">
+                            <input class="nhsuk-checkboxes__input" id="example-1" name="example" type="checkbox" value="email" checked>
+                            <label class="nhsuk-label nhsuk-checkboxes__label" for="example-1">
+                                Workplace Competency Framework for the Delivery of Community Forensic Services
+                            </label>
+                        </div>
+                    </div>
+                    <div class="nhsuk-checkboxes__item">
+                        <input class="nhsuk-checkboxes__input" id="example-2" name="example" type="checkbox" value="phone" checked>
+                        <label class="nhsuk-label nhsuk-checkboxes__label" for="example-2">
+                            Learning Disabilities Transition Pathway Competency Framework
+                        </label>
+                    </div>
+                    <div class="nhsuk-checkboxes__item">
+                        <input class="nhsuk-checkboxes__input" id="example-3" name="example" type="checkbox" value="phone" checked>
+                        <label class="nhsuk-label nhsuk-checkboxes__label" for="example-3">
+                            PBS Organisational and Workforce Development Framework
+                        </label>
+                    </div>
+                    <div class="nhsuk-form-group">
+                        <a href='#' class='nhsuk-button' onclick="flash('Not implemented yet')">Apply filters</a>
+                    </div>
+                    <div class="nhsuk-form-group">
+                        <a href='#' onclick="flash('Not implemented yet')">Remove filters</a>
+                    </div>
                 </div>
-                <div class="competency-chip" id="competency-45">
-                    <span class="chip-name">Leadership skills</span>
-                    <input type="hidden" name="competencies[]" value=45>
-                    <input type="hidden" name="competencyNames[]" value="Leadership skills">
+                <div class="nhsuk-grid-column-three-quarters">
+                    {% if competencies.length %}
+                        <table>
+                            {% for competency in competencies %}
+                                {% include 'competencies/search-result.html' %}
+                            {% endfor %}
+                        </table>
+                    {% else %}
+                    <p>No competencies found that match your search.</p>
+                    {% endif %}
+                    <p>Displaying 1-5 of 5 in total</p>
+                </div>
+            </div>
+
+            <div class="nhsuk-form-group">
+                <h3>Selected</h3>
+                <div class="hee-prototype--competency-chips" id="selected-competencies">
+                    <div class="hee-prototype--chip" id="competency-44">
+                        <span class="close-icon" onclick="flash('Not implemented yet')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
+                        </span>
+                        <span class="hee-prototype--chip-name">Team skills</span>
+                        <input type="hidden" name="competencies[]" value=44>
+                        <input type="hidden" name="competencyNames[]" value="Team skills">
+                    </div>
+                    <div class="hee-prototype--chip" id="competency-46">
+                        <span class="close-icon" onclick="flash('Not implemented yet')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
+                        </span>
+                        <span class="hee-prototype--chip-name">Crisis and emergency planning</span>
+                        <input type="hidden" name="competencies[]" value=46>
+                        <input type="hidden" name="competencyNames[]" value="Crisis and emergency planning">
+                    </div>
                 </div>
             </div>
 

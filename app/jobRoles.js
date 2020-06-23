@@ -30,11 +30,13 @@ const setupRoutes = (router) => {
 
     router.post('/job-roles/new/competencies', async (req, res) => {
         const profileName = req.body.profileId && (await nationalJobProfilesDao.getFromId(req.body.profileId)).name;
+        const competencies = await competenciesDao.getAll();
         res.render('jobRoles/new/competencies', {
             name: req.body.name,
             profileId: req.body.profileId,
             profileName: profileName,
-            description: req.body.description
+            description: req.body.description,
+            competencies: competencies.slice(0, 5)
         });
     });
 

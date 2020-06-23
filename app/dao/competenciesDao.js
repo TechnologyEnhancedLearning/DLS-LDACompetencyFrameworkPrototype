@@ -68,9 +68,23 @@ const getForFramework = async (frameworkId) => {
     }
 }
 
+const getAll = async () => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT c.id, c.name, c.description, c.ordering, c.competency_group_id
+            FROM competencies c;`
+        );
+        return rows;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
 module.exports = {
     addCompetencyToGroup: addCompetencyToGroup,
     addCompetencyToFramework: addCompetencyToFramework,
     getCompetency: getCompetency,
-    getForFramework: getForFramework
+    getForFramework: getForFramework,
+    getAll: getAll
 }
