@@ -27,6 +27,7 @@ All jobs - NHS.UK prototype kit
     <div class="nhsuk-grid-column-two-thirds">
 
         <h1>Job roles</h1>
+        {% include 'includes/search.html' %}
 
         {% if jobRoles and jobRoles.length %}
             {% for jobRole in jobRoles %}

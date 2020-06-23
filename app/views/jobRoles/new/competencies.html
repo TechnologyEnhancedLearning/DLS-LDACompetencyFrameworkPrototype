@@ -59,6 +59,8 @@ New job role - NHS.UK prototype kit
         </table>
         <form action="/job-roles/new/confirm" method="POST">
             <h3>5. Add required competencies</h3>
+            <h4>Search for competencies and frameworks</h4>
+            {% include 'includes/search.html' %}
 
             {% if error %}
                 <p class="error-message">{{ error }}</p>
@@ -66,7 +68,7 @@ New job role - NHS.UK prototype kit
 
             <div class="nhsuk-grid-row">
                 <div class="nhsuk-grid-column-one-quarter">
-                    <h2>Filter by</h2>
+                    <h4>Filter by</h4>
                     <div class="nhsuk-form-group">
                         <p>Framework</p>
                         <div class="nhsuk-checkboxes__item">

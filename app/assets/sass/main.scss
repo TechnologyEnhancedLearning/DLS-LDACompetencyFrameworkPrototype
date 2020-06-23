@@ -12,7 +12,7 @@
 ///////////////////////////////////////////
 
 .hee-prototype--search {
-    width: calc(100% - 44px);
+    width: calc(100% - 44px) !important; // deal with it
 }
 
 .hee-prototype--tabs {
