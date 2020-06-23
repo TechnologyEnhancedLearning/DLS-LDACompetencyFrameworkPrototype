@@ -22,13 +22,24 @@ const setupRoutes = (router) => {
         res.render('jobRoles/new/description', { name: req.body.name, profileId: req.body.profileId, profileName: profile.name });
     });
 
+    router.post('/job-roles/new/competencies', async (req, res) => {
+        const profile = await nationalJobProfilesDao.getFromId(req.body.profileId);
+        res.render('jobRoles/new/competencies', {
+            name: req.body.name,
+            profileId: req.body.profileId,
+            profileName: profile.name,
+            description: req.body.description
+        });
+    });
+
     router.post('/job-roles/new/confirm', async (req, res) => {
         const profile = await nationalJobProfilesDao.getFromId(req.body.profileId);
         res.render('jobRoles/new/confirm', {
             name: req.body.name,
             profileId: req.body.profileId,
-            profileName: profile.name, description:
-            req.body.description
+            profileName: profile.name,
+            description: req.body.description,
+            competencies: req.body.competencies
         });
     });
 
