@@ -1,15 +1,37 @@
 const pool = require('./pool.js');
 
-const addCompetency = async (competencyGroupId, competency) => {
+const addCompetencyToGroup = async (competencyGroupId, competency) => {
     try {
         const { rows } = await pool.query(
-            `INSERT INTO competencies (name, description, ordering, competency_group_id)
-            SELECT $1, $2, COALESCE(MAX(ordering), 0) + 1, $3
+            `INSERT INTO competencies (name, description, ordering)
+            SELECT $1, $2, COALESCE(MAX(ordering), 0) + 1
                 FROM competencies
                 WHERE competency_group_id = $3
             RETURNING id;`, [competency.name, competency.description, competencyGroupId]
         );
         return !!rows && rows[0].id;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+const addCompetencyToFramework = async (frameworkId, competency) => {
+    try {
+        const { rows } = await pool.query(
+            `INSERT INTO competencies (name, description, ordering)
+            VALUES ($1, $2, 1)
+            RETURNING id;`, [competency.name, competency.description]
+        );
+        if (!rows) return null;
+        const competencyId = rows[0].id;
+        await pool.query(
+            `INSERT INTO frameworks_structure (framework_id, competency_id, ordering)
+            SELECT $1, $2, COALESCE(MAX(ordering), 0) + 1
+                FROM frameworks_structure
+                WHERE framework_id = $1`, [frameworkId, competencyId]
+        );
+        return competencyId;
     } catch (e) {
         console.log(e);
         throw e;
@@ -47,7 +69,8 @@ const getForFramework = async (frameworkId) => {
 }
 
 module.exports = {
-    addCompetency: addCompetency,
+    addCompetencyToGroup: addCompetencyToGroup,
+    addCompetencyToFramework: addCompetencyToFramework,
     getCompetency: getCompetency,
     getForFramework: getForFramework
 }

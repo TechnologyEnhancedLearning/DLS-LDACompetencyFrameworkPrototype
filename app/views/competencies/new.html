@@ -6,21 +6,39 @@ New competency - NHS.UK prototype kit
 
 {% block beforeContent %}
 
-{{ breadcrumb({
-    items: [
-    {
-        href: "/dashboard",
-        text: "Dashboard"
-    },
-    {
-        href: "/competency-groups/" + competencyGroup.id,
-        text: competencyGroup.name | truncate(25)
-    },
-    {
-        href: "/competency-groups/" + competencyGroup.id + "/competencies/new",
-        text: "New competency"
-    }]
-}) }}
+{% if framework %}
+    {{ breadcrumb({
+        items: [
+        {
+            href: "/dashboard",
+            text: "Dashboard"
+        },
+        {
+            href: "/frameworks/" + framework.slug,
+            text: framework.title | truncate(25)
+        },
+        {
+            href: "/frameworks/" + framework.slug + "/competencies/new",
+            text: "New competency"
+        }]
+    }) }}
+{% else %}
+    {{ breadcrumb({
+        items: [
+        {
+            href: "/dashboard",
+            text: "Dashboard"
+        },
+        {
+            href: "/competency-groups/" + competencyGroup.id,
+            text: competencyGroup.name | truncate(25)
+        },
+        {
+            href: "/competency-groups/" + competencyGroup.id + "/competencies/new",
+            text: "New competency"
+        }]
+    }) }}
+{% endif %}
 
 {% endblock %}
 
@@ -34,9 +52,9 @@ New competency - NHS.UK prototype kit
             Add new competency
         </h1>
 
-        <form action="/competency-groups/{{competencyGroup.id}}/competencies" method="POST">
+        <form action="." method="POST">
             {% if error %}
-            <p class="error-message">{{ error }}</p>
+                <p class="error-message">{{ error }}</p>
             {% endif %}
             <div class="nhsuk-form-group">
                 <label class="nhsuk-label" for="competency-name">Competency name</label>
