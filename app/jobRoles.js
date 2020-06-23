@@ -17,8 +17,19 @@ const setupRoutes = (router) => {
         res.render('jobRoles/new/profile-category', { name: req.body.name, categories: categories });
     });
 
-    router.post('/job-roles/new/description', (req, res) => {
-        res.render('jobRoles/new/description', { name: req.body.name, profileId: req.body.profileId });
+    router.post('/job-roles/new/description', async (req, res) => {
+        const profile = await nationalJobProfilesDao.getFromId(req.body.profileId);
+        res.render('jobRoles/new/description', { name: req.body.name, profileId: req.body.profileId, profileName: profile.name });
+    });
+
+    router.post('/job-roles/new/confirm', async (req, res) => {
+        const profile = await nationalJobProfilesDao.getFromId(req.body.profileId);
+        res.render('jobRoles/new/confirm', {
+            name: req.body.name,
+            profileId: req.body.profileId,
+            profileName: profile.name, description:
+            req.body.description
+        });
     });
 
     router.post('/job-roles/new', async (req, res) => {

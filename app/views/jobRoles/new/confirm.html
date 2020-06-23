@@ -31,7 +31,7 @@ New job role - NHS.UK prototype kit
     <div class="nhsuk-grid-column-two-thirds">
 
         <h1>
-            Define job role
+            Confirm your new job role
         </h1>
         <table>
             <tbody>
@@ -50,23 +50,22 @@ New job role - NHS.UK prototype kit
                     <td>{{ profileName }}</td>
                     <td><a href="#">Change</a></td>
                 </tr>
+                <tr>
+                    <th>4. Description of job role</th>
+                    <td>{{ description | truncate(100) }}</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
             </tbody>
         </table>
-        <form action="/job-roles/new/confirm" method="POST">
-            <h3>4. Description of job role</h3>
-
+        <form action="/job-roles/new" method="POST">
             {% if error %}
                 <p class="error-message">{{ error }}</p>
             {% endif %}
-
-            <div class="nhsuk-form-group">
-                <label class="nhsuk-label" for="role-description">Description of job role</label>
-                <textarea type="text" class="nhsuk-input" id="role-description" name="description"></textarea>
-            </div>
             <input type="hidden" name="name" value="{{ name }}">
             <input type="hidden" name="profileId" value="{{ profileId }}">
+            <input type="hidden" name="description" value="{{ description }}">
             <a class="nhsuk-button nhsuk-button--secondary" href="#">Back</a>
-            <button class="nhsuk-button" type="submit">Continue</button>
+            <button class="nhsuk-button" type="submit">Create</button>
         </form>
 
     </div>
