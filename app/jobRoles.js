@@ -7,33 +7,38 @@ const setupRoutes = (router) => {
         res.render('jobRoles/new/name');
     });
 
-    router.post('/job-roles/new/profile', async (req, res) => {
-        const profiles = await nationalJobProfilesDao.getProfilesForCategory(req.body.profileCategory);
-        res.render('jobRoles/new/profile', { name: req.body.name, profiles: profiles });
-    });
-
     router.post('/job-roles/new/profile-category', async (req, res) => {
         const categories = await nationalJobProfilesDao.getCategories();
         res.render('jobRoles/new/profile-category', { name: req.body.name, categories: categories });
     });
 
+    router.post('/job-roles/new/profile', async (req, res) => {
+        if (req.body.profileCategory === '0') {
+            // "Skip for now"
+            res.render('jobRoles/new/description', { name: req.body.name });
+        } else {
+            const profiles = await nationalJobProfilesDao.getProfilesForCategory(req.body.profileCategory);
+            res.render('jobRoles/new/profile', { name: req.body.name, profiles: profiles });    
+        }
+    });
+
     router.post('/job-roles/new/description', async (req, res) => {
-        const profile = await nationalJobProfilesDao.getFromId(req.body.profileId);
-        res.render('jobRoles/new/description', { name: req.body.name, profileId: req.body.profileId, profileName: profile.name });
+        const profileName = req.body.profileId && (await nationalJobProfilesDao.getFromId(req.body.profileId)).name;
+        res.render('jobRoles/new/description', { name: req.body.name, profileId: req.body.profileId, profileName: profileName });
     });
 
     router.post('/job-roles/new/competencies', async (req, res) => {
-        const profile = await nationalJobProfilesDao.getFromId(req.body.profileId);
+        const profileName = req.body.profileId && (await nationalJobProfilesDao.getFromId(req.body.profileId)).name;
         res.render('jobRoles/new/competencies', {
             name: req.body.name,
             profileId: req.body.profileId,
-            profileName: profile.name,
+            profileName: profileName,
             description: req.body.description
         });
     });
 
     router.post('/job-roles/new/confirm', async (req, res) => {
-        const profile = await nationalJobProfilesDao.getFromId(req.body.profileId);
+        const profileName = req.body.profileId && (await nationalJobProfilesDao.getFromId(req.body.profileId)).name;
         res.render('jobRoles/new/confirm', {
             name: req.body.name,
             profileId: req.body.profileId,

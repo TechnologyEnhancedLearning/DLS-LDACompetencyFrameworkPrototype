@@ -55,6 +55,17 @@ New job role - NHS.UK prototype kit
                 "name": "profileCategory",
                 "items": categories
               }) }}
+              <p>or</p>
+              <div class="nhsuk-form-group">
+                 <div class="nhsuk-radios">
+                     <div class="nhsuk-radios__item">
+                        <input class="nhsuk-radios__input" id="national-job-profile-skip" name="profileCategory" type="radio" value="0">
+                        <label class="nhsuk-label nhsuk-radios__label" for="national-job-profile-skip">
+                            Skip for now
+                          </label>
+                     </div>
+                 </div>
+              </div>
             <input type="hidden" name="name" value="{{ name }}">
             <a class="nhsuk-button nhsuk-button--secondary" href=".">Back</a>
             <button class="nhsuk-button" type="submit">Continue</button>

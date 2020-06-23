@@ -42,12 +42,12 @@ New job role - NHS.UK prototype kit
                 </tr>
                 <tr>
                     <th>2. National job profile - professional group</th>
-                    <td>Nursing and midwifery</td>
+                    <td>{{ profileName and 'Nursing and midwifery' or 'None' }}</td>
                     <td><a href="#">Change</a></td>
                 </tr>
                 <tr>
                     <th>3. National job profile - profile title</th>
-                    <td>{{ profileName }}</td>
+                    <td>{{ profileName or 'None' }}</td>
                     <td><a href="#">Change</a></td>
                 </tr>
                 <tr>
