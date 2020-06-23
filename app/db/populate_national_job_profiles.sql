@@ -110,3 +110,18 @@ Imparts unwelcome news, care of terminally ill/ safeguarding issues, e.g. child 
 INSERT INTO national_job_profile_requirements (national_job_profile_id, factor_id, description, je_level, je_level_number, score)
     VALUES (1, 16, '<span class="bold">Frequent unpleasant conditions; Occasional/ Frequent highly unpleasant conditions</span>
 Body odours, dust, noise/ Body fluid, verbal aggressions', '3ab-4b', 4, 18);
+
+
+
+    INSERT INTO national_job_profiles (name, statement)
+        VALUES ('Nursing - Associate Practitioner/Nursery Nurse', '');
+    INSERT INTO national_job_profiles (name) VALUES ('Clinical Support Worker');
+    INSERT INTO national_job_profiles (name) VALUES ('Clinical Support Worker, Higher Level');
+    INSERT INTO national_job_profiles (name) VALUES ('Nurse Advanced');
+    INSERT INTO national_job_profiles (name) VALUES ('Nurse Team Leader');
+    INSERT INTO national_job_profiles (name) VALUES ('Nurse Team Leader (Learning Disabilities)');
+    INSERT INTO national_job_profiles (name) VALUES ('Nurse Specialist');
+    INSERT INTO national_job_profiles (name) VALUES ('Nurse Team Manager');
+    INSERT INTO national_job_profiles (name) VALUES ('Modern Matron');
+    INSERT INTO national_job_profiles (name) VALUES ('Nurse Consultant');
+    INSERT INTO national_job_profiles (name) VALUES ('Nurse/Midwife Consultant Higher Level');

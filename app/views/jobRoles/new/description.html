@@ -33,19 +33,39 @@ New job role - NHS.UK prototype kit
         <h1>
             Define job role
         </h1>
-        <p>Lorem ipsum dolor si amet.</p>
-
+        <table>
+            <tbody>
+                <tr>
+                    <th>1. Name of job role</th>
+                    <td>{{ name }}</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+                <tr>
+                    <th>2. National job profile - professional group</th>
+                    <td>Nursing and midwifery</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+                <tr>
+                    <th>3. National job profile - profile title</th>
+                    <td>Nurse</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+            </tbody>
+        </table>
         <form action="/job-roles/new" method="POST">
+            <h3>4. Description of job role</h3>
+
             {% if error %}
                 <p class="error-message">{{ error }}</p>
             {% endif %}
+
             <div class="nhsuk-form-group">
                 <label class="nhsuk-label" for="role-description">Description of job role</label>
                 <textarea type="text" class="nhsuk-input" id="role-description" name="description"></textarea>
             </div>
             <input type="hidden" name="name" value="{{ name }}">
             <input type="hidden" name="profileId" value="{{ profileId }}">
-            <a class="nhsuk-button nhsuk-button--secondary" href="../dashboard">Cancel</a>
+            <a class="nhsuk-button nhsuk-button--secondary" href="#">Back</a>
             <button class="nhsuk-button" type="submit">Continue</button>
         </form>
 

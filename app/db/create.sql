@@ -78,7 +78,8 @@ CREATE TABLE competency_criteria (
 CREATE TABLE national_job_profiles (
     id serial PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    job_statement TEXT
+    job_statement TEXT,
+    category VARCHAR(255)
 );
 
 CREATE TABLE national_job_profile_factors (

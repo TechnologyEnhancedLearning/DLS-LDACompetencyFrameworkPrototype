@@ -1,10 +1,10 @@
 const pool = require('./pool');
 
-const create = async (name, description) => {
+const create = async (name, description, profileId) => {
     try {
         const { rows } = await pool.query(
-            `INSERT INTO job_roles (name, description)
-            VALUES ($1, $2) RETURNING id;`, [name, description]
+            `INSERT INTO job_roles (name, description, national_job_profile_id)
+            VALUES ($1, $2, $3) RETURNING id;`, [name, description, profileId]
         );
         return rows && rows[0];
     } catch (e) {
