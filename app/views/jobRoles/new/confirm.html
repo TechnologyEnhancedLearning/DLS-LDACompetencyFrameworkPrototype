@@ -58,8 +58,8 @@ New job role - NHS.UK prototype kit
                 <tr>
                     <th>5. Required competencies</th>
                     <td>
-                        {% for competency in competencies %}
-                            {{ competency.name }}
+                        {% for competency in competencyNames %}
+                            {{ competency }}
                         {% endfor %}
                     </td>
                     <td><a href="#">Change</a></td>
@@ -73,6 +73,9 @@ New job role - NHS.UK prototype kit
             <input type="hidden" name="name" value="{{ name }}">
             <input type="hidden" name="profileId" value="{{ profileId }}">
             <input type="hidden" name="description" value="{{ description }}">
+            {% for competency in competencies %}
+                <input type="hidden" name="competencies[]" value="{{ competency }}">
+            {% endfor %}
             <a class="nhsuk-button nhsuk-button--secondary" href="#">Back</a>
             <button class="nhsuk-button" type="submit">Create</button>
         </form>

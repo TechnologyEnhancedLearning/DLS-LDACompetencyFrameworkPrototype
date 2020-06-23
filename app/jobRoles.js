@@ -1,5 +1,6 @@
 const jobRolesDao = require('./dao/jobRolesDao');
 const nationalJobProfilesDao = require('./dao/nationalJobProfilesDao');
+const competenciesDao = require('./dao/competenciesDao');
 
 const setupRoutes = (router) => {
 
@@ -42,16 +43,21 @@ const setupRoutes = (router) => {
         res.render('jobRoles/new/confirm', {
             name: req.body.name,
             profileId: req.body.profileId,
-            profileName: profile.name,
+            profileName: profileName,
             description: req.body.description,
-            competencies: req.body.competencies
+            competencies: req.body.competencies,
+            competencyNames: req.body.competencyNames
         });
     });
 
     router.post('/job-roles/new', async (req, res) => {
         const result = await jobRolesDao.create(req.body.name, req.body.description, req.body.profileId);
         if (result) {
-            res.redirect('/job-roles/' + result.id);
+            for (let i = 0; i < req.body.competencies.length; i++) {
+                const competencyId = req.body.competencies[i];
+                await jobRolesDao.addRequirementToRole(result, competencyId);                
+            }
+            res.redirect('/job-roles/' + result);
         } else {
             res.render('/job-roles/new/name', {error: 'An error was encountered. Please try again'});
         }

@@ -4,8 +4,22 @@ const create = async (name, description, profileId) => {
     try {
         const { rows } = await pool.query(
             `INSERT INTO job_roles (name, description, national_job_profile_id)
-            VALUES ($1, $2, $3) RETURNING id;`, [name, description, profileId]
+            VALUES ($1, $2, $3)
+            RETURNING id;`, [name, description, profileId || null]
         );
+        return rows && rows[0].id;
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+}
+
+const addRequirementToRole = async (jobRoleId, competencyId) => {
+    try {
+        const { rows } = await pool.query(
+            `INSERT INTO job_role_requirements (job_role_id, competency_id)
+            VALUES ($1, $2);`, [jobRoleId, competencyId]
+        )
         return rows && rows[0];
     } catch (e) {
         console.log(e);
@@ -58,6 +72,7 @@ const getAll = async () => {
 
 module.exports = {
     create: create,
+    addRequirementToRole: addRequirementToRole,
     getJobRole: getJobRole,
     getAll: getAll
 }
