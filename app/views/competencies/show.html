@@ -14,11 +14,11 @@
     },
     {
         href: "/competency-groups/" + competency.competency_group_id,
-        text: competency.competency_group_name
+        text: competency.competency_group_name | truncate(25)
     },
     {
         href: "/competencies/" + competency.id,
-        text: competency.name
+        text: competency.name | truncate(25)
     }]
 }) }}
 

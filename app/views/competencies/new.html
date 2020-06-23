@@ -14,7 +14,7 @@ New competency - NHS.UK prototype kit
     },
     {
         href: "/competency-groups/" + competencyGroup.id,
-        text: competencyGroup.name
+        text: competencyGroup.name | truncate(25)
     },
     {
         href: "/competency-groups/" + competencyGroup.id + "/competencies/new",
