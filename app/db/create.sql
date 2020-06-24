@@ -125,3 +125,29 @@ CREATE TABLE job_role_requirements (
         ON DELETE RESTRICT,
     UNIQUE (job_role_id, competency_id)
 );
+
+CREATE TABLE assessments (
+    id serial PRIMARY KEY,
+    job_role_id integer NOT NULL,
+    user_id integer NOT NULL,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    constraint assessments_job_role_id_fkey FOREIGN KEY (job_role_id)
+        REFERENCES job_roles (id) MATCH SIMPLE
+        ON DELETE RESTRICT,
+    constraint assessments_user_id_fkey FOREIGN KEY (user_id)
+        REFERENCES users (id) MATCH SIMPLE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE assessment_components (
+    id serial PRIMARY KEY,
+    assessment_id integer NOT NULL,
+    competency_id integer NOT NULL,
+    score integer, -- between 0 and 100 (or more)
+    constraint assessment_components_assessment_id_fkey FOREIGN KEY (assessment_id)
+        REFERENCES assessments (id) MATCH SIMPLE
+        ON DELETE CASCADE,
+    constraint assessment_components_competency_id_fkey FOREIGN KEY (competency_id)
+        REFERENCES competencies (id) MATCH SIMPLE
+        ON DELETE CASCADE
+);

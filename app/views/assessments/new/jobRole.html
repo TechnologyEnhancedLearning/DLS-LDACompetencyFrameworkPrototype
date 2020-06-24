@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+New assessment - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments/",
+        text: "Assessments"
+    },
+    {
+        href: "/assessments/new",
+        text: "New"
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>Job role assessment{{ ": " + jobRole.name if jobRole }}</h1>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>1. Who are you assessing?</th>
+                    <td>{{ user.name }}</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2. What job are you assessing?</h3>
+
+        <form action="/assessments/new" method="POST">
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+            {{ radios({
+                "idPrefix": "job",
+                "name": "jobRoleId",
+                "items": jobs
+              }) }}
+            <input type="hidden" name="userId" value="{{ user.id }}">
+            <a class="nhsuk-button nhsuk-button--secondary" href="../assessments">Cancel</a>
+            <button class="nhsuk-button" type="submit">Continue</button>
+        </form>
+
+    </div>
+{% endblock %}
