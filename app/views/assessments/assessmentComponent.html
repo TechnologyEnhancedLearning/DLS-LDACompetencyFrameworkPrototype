@@ -2,9 +2,9 @@
     <th>{{ component.competency_name }}</th>
     <td>
         {% if not component.existing_assessment %}
-            ! Not assessed
+            <i class="fas fa-exclamation-circle"></i> Not assessed
         {% else %}
-            Assessed: {{ component.score }}%
+            <i class="fas fa-{{ 'times' if component.score < 100 else 'check' }}"></i> Assessed: {{ component.level }}
         {% endif %}
     </td>
     <td><a href="#">Assess</a></td>

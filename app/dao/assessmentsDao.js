@@ -54,6 +54,15 @@ const assessCompetency = async (assessmentId, competencyId, score) => {
     }
 }
 
+const getLevels = () => {
+    return {
+        0: "Not started",
+        50: "In progress",
+        100: "Meets standard",
+        150: "Exceeds standard"
+    }
+}
+
 const getComponentsFor = async (assessmentId) => {
     try {
         const { rows } = await pool.query(
@@ -64,6 +73,10 @@ const getComponentsFor = async (assessmentId) => {
             LEFT JOIN assessment_components ac ON ac.competency_id = c.id
             WHERE a.id = $1;`, [ assessmentId ]
         );
+        if (!rows || !rows.length) return [];
+        rows.forEach(row => {
+            row.level = getLevels()[row.score];
+        })
         return rows;
     } catch (e) {
         console.log(e);

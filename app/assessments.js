@@ -76,7 +76,6 @@ const setupRoutes = (router) => {
         if (!assessment) {
             next();
         } else {
-            // TODO append user, job role, competencies, and assessmentComponents
             const user = await usersDao.get(assessment.user_id);
             const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
             assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
