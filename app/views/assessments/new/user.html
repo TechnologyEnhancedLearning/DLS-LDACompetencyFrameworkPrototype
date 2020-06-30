@@ -37,24 +37,17 @@ New assessment - NHS.UK prototype kit
             {% if error %}
                 <p class="error-message">{{ error }}</p>
             {% endif %}
+
             {{ radios({
                 "idPrefix": "user",
                 "name": "userId",
-                "items": [
-                  {
-                    "value": "1",
-                    "text": "Nicholas Washington"
-                  },
-                  {
-                    "value": "2",
-                    "text": "Jane Doe"
-                  },
-                  {
-                    "value": "3",
-                    "text": "Queen Elizabeth II"
-                  }
-                ]
+                "items": users
               }) }}
+
+            {% if jobRole %}
+              <input name="jobRoleId" value="{{ jobRole.id }}" type="hidden">
+            {% endif %}
+
             <a class="nhsuk-button nhsuk-button--secondary" href="../assessments">Cancel</a>
             <button class="nhsuk-button" type="submit">Continue</button>
         </form>

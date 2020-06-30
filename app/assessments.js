@@ -1,21 +1,57 @@
 const assessmentsDao = require('./dao/assessmentsDao');
 const jobRolesDao = require('./dao/jobRolesDao');
+const usersDao = require('./dao/usersDao');
 
 const setupRoutes = (router) => {
-    router.get('/assessments/new', (req, res) => {
-        res.render('assessments/new/user.html');
+    router.get('/assessments/new', async (req, res) => {
+        const users = await usersDao.getLearners();
+        res.render('assessments/new/user.html', {
+            users: users.map(user => {
+                return {
+                    value: user.id,
+                    text: user.name
+                }
+            })
+        });
     });
 
-    router.get('/users/:id/assessments/new', (req, res) => {
-        // TODO implement and autopopulate user ID
+    router.get('/users/:id/assessments/new', async (req, res, next) => {
+        const user = await usersDao.get(req.params.id);
+        if (!user) {
+            next();
+        } else {
+            const jobRoles = await jobRolesDao.getAll();
+            const jobs = jobRoles.map((job) => {
+                return {
+                    value: job.id,
+                    text: job.name
+                }
+            });
+            res.render('assessments/new/jobRole', { user: user, jobs: jobs });
+        }
     });
 
-    router.get('/job-roles/:id/assessments/new', (req, res) => {
-        // TODO implement and autopopulate job ID
+    router.get('/job-roles/:id/assessments/new', async (req, res, next) => {
+        const jobRole = await jobRolesDao.getJobRole(req.params.id);
+        if (!jobRole) {
+            next();
+            return;
+        }
+
+        const users = await usersDao.getLearners();
+        res.render('assessments/new/user.html', {
+            users: users.map(user => {
+                return {
+                    value: user.id,
+                    text: user.name
+                }
+            }),
+            jobRole: jobRole
+        });
     });
 
     router.post('/assessments/new/job-role', async (req, res, next) => {
-        const user = { name: "Sarah Binney", id: 1 }; // usersDao.get(req.body.userId);
+        const user = req.body.userId && await usersDao.get(req.body.userId);
         if (!user) {
             next();
         } else {
