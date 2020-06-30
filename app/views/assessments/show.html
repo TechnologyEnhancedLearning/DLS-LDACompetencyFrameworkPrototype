@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ jobRole.name }} assessment - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments",
+        text: "Assessments"
+    },
+    {
+        href: "/assessments/" + assessment.id,
+        text: jobRole.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>Job role assessment: {{ jobRole.name }}</h1>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>1. Who are you assessing?</th>
+                    <td>{{ user.name }}</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+                <tr>
+                    <th>2. What job are you assessing?</th>
+                    <td>{{ jobRole.name }}</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3. Assess competencies</h3>
+
+        <table>
+            <tbody>
+                {% for component in assessment.components %}
+                    {% include 'assessments/assessmentComponent.html' %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}

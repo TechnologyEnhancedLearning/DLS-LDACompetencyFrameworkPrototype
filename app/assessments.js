@@ -77,7 +77,14 @@ const setupRoutes = (router) => {
             next();
         } else {
             // TODO append user, job role, competencies, and assessmentComponents
-            res.render('assessments/show', { assessment: assessment });
+            const user = await usersDao.get(assessment.user_id);
+            const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
+            assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
+            res.render('assessments/show', {
+                assessment: assessment,
+                user: user,
+                jobRole: jobRole
+            });
         }
     });
 

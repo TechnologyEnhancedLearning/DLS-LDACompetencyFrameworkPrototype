@@ -1,0 +1,11 @@
+<tr>
+    <th>{{ component.competency_name }}</th>
+    <td>
+        {% if not component.existing_assessment %}
+            ! Not assessed
+        {% else %}
+            Assessed: {{ component.score }}%
+        {% endif %}
+    </td>
+    <td><a href="#">Assess</a></td>
+</tr>

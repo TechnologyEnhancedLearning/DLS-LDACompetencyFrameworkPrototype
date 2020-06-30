@@ -48,11 +48,13 @@ New assessment - NHS.UK prototype kit
             {% if error %}
                 <p class="error-message">{{ error }}</p>
             {% endif %}
+
             {{ radios({
                 "idPrefix": "job",
                 "name": "jobRoleId",
                 "items": jobs
               }) }}
+
             <input type="hidden" name="userId" value="{{ user.id }}">
             <a class="nhsuk-button nhsuk-button--secondary" href="../assessments">Cancel</a>
             <button class="nhsuk-button" type="submit">Continue</button>
