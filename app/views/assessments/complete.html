@@ -29,30 +29,28 @@
 <div class="nhsuk-grid-row">
 
     <div class="nhsuk-grid-column-two-thirds">
-
         <h1>Job role assessment: {{ jobRole.name }}</h1>
+        <h2>{{ user.name }}</h2>
 
-        <table>
-            <tbody>
-                <tr>
-                    <th>1. Who are you assessing?</th>
-                    <td>{{ user.name }}</td>
-                    <td><a href="#">Change</a></td>
-                </tr>
-                <tr>
-                    <th>2. What job are you assessing?</th>
-                    <td>{{ jobRole.name }}</td>
-                    <td><a href="#">Change</a></td>
-                </tr>
-            </tbody>
-        </table>
+        {{ careCard({
+            "type": "non-urgent",
+            "heading": "Assessment result",
+            "HTML": "
+            <h3>" + assessment.result + "</h3>
+            <p>" + assessment.result_explanation + "</p>
+            "
+        }) }}
 
     </div>
 </div>
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
-        <h3>3. Assess competencies</h3>
+        <h3>Job profile description</h3>
+        <p>{{ jobRole.description }}</p>
 
+        <div class="hee-prototype--spacer"></div>
+
+        <h3>Assessed competencies</h3>
         <table>
             <tbody>
                 {% for component in assessment.components %}
@@ -61,11 +59,8 @@
             </tbody>
         </table>
 
-        {% if assessment.complete %}
-            <form action="/assessments/{{ assessment.id }}/complete" method="POST">
-                <button type="submit" class="nhsuk-button">Continue</button>
-            </form>
-        {% endif %}
+        <a href="#" class="nhsuk-button">Share assessment</a><br/>
+        <a href='#' onclick="event.preventDefault(); window.print()">Print this assessment</a>
     </div>
 </div>
 {% endblock %}

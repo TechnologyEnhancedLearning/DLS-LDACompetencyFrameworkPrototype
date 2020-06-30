@@ -143,7 +143,9 @@ CREATE TABLE assessment_components (
     id serial PRIMARY KEY,
     assessment_id integer NOT NULL,
     competency_id integer NOT NULL,
-    score integer, -- between 0 and 100 (or more)
+    score integer, -- between 0 and 100 (or more),
+    result VARCHAR(50),
+    result_explanation TEXT,
     constraint assessment_components_assessment_id_fkey FOREIGN KEY (assessment_id)
         REFERENCES assessments (id) MATCH SIMPLE
         ON DELETE CASCADE,

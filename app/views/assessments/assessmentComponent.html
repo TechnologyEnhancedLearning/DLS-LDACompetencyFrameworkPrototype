@@ -1,8 +1,8 @@
 <tr>
     <th>{{ component.competency_name }}</th>
-    <td>
+    <td class="hee-prototype--competency-assessment">
         {% if not component.existing_assessment %}
-            <i class="fas fa-exclamation-circle"></i> Not assessed
+            <i class="fas fa-exclamation-circle hee-prototype--alert"></i> Not assessed
         {% else %}
             <i class="fas fa-{{ 'times' if component.score < 100 else 'check' }}"></i> Assessed: {{ component.level }}
         {% endif %}

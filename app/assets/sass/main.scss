@@ -169,16 +169,26 @@ textarea.nhsuk-input {
     }
 }
 
+.hee-prototype--competency-assessment {
+    i.fa-times {
+        color: $color_nhsuk-red;
+    }
+    i.fa-check {
+        color: $color_nhsuk-green;
+    }
+}
+
 .hee-prototype--required-standard {
     font-size: 90%;
     font-weight: bold;
     padding-left: 0.5rem;
-    i.fa-exclamation-circle {
-        color: orange;
-        background-color: black;
-        border-radius: 50%;
-        margin-right: 0.25rem;
-    }
+}
+
+i.hee-prototype--alert {
+    color: $color_nhsuk-warm-yellow;
+    background-color: $color_nhsuk-black;
+    border-radius: 50%;
+    margin-right: 0.25rem;
 }
 
 @import 'flash';

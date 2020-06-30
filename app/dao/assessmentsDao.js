@@ -3,7 +3,7 @@ const pool = require('./pool');
 const get = async (id) => {
     try {
         const { rows } = await pool.query(
-            `SELECT id, user_id, job_role_id, date
+            `SELECT id, user_id, job_role_id, date, result, result_explanation
             FROM assessments
             WHERE id=$1;`, [id]
         );
@@ -17,7 +17,7 @@ const get = async (id) => {
 const getForUser = async (userId) => {
     try {
         const { rows } = await pool.query(
-            `SELECT user_id, job_role_id, date
+            `SELECT user_id, job_role_id, date, result, result_explanation
             FROM assessments
             WHERE user_id=$1`, [userId]
         );
@@ -71,7 +71,8 @@ const getComponentsFor = async (assessmentId) => {
             JOIN job_role_requirements jr ON c.id = jr.competency_id
             JOIN assessments a ON a.job_role_id = jr.job_role_id
             LEFT JOIN assessment_components ac ON ac.competency_id = c.id
-            WHERE a.id = $1;`, [ assessmentId ]
+            WHERE a.id = $1
+            AND ac.assessment_id = a.id;`, [ assessmentId ]
         );
         if (!rows || !rows.length) return [];
         rows.forEach(row => {
@@ -84,10 +85,22 @@ const getComponentsFor = async (assessmentId) => {
     }
 }
 
+const markComplete = async (id, result, resultExplanation) => {
+    try {
+        await pool.query(`UPDATE assessments
+            SET result=$1, result_explanation=$2
+            WHERE id=$3;`, [result, resultExplanation, id]);
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
 module.exports = {
     get: get,
     getForUser: getForUser,
     create: create,
     assessCompetency: assessCompetency,
-    getComponentsFor: getComponentsFor
+    getComponentsFor: getComponentsFor,
+    markComplete: markComplete
 }

@@ -83,11 +83,19 @@ const setupRoutes = (router) => {
         const user = await usersDao.get(assessment.user_id);
         const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
         assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
-        res.render('assessments/show', {
+        assessment.complete = !assessment.components.some(component => !component.existing_assessment);
+
+        const data = {
             assessment: assessment,
             user: user,
             jobRole: jobRole
-        });
+        };
+
+        if (assessment.result) {
+            res.render('assessments/complete', data);
+        } else {
+            res.render('assessments/show', data);
+        }
     });
 
     router.get('/assessments/:id/competencies/:competency_id', async (req, res, next) => {
@@ -122,6 +130,34 @@ const setupRoutes = (router) => {
         await assessmentsDao.assessCompetency(assessment.id, req.body.competencyId, req.body.level);
         res.redirect('/assessments/' + assessment.id);
     });
+
+    router.post('/assessments/:id/complete', async (req, res, next) => {
+        const assessment = await assessmentsDao.get(req.params.id);
+        if (!assessment) {
+            next();
+            return;
+        }
+
+        let result;
+        let resultExplanation;
+        assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
+        const anyMissingCompetencies = assessment.components.some(component => component.score < 100);
+        if (anyMissingCompetencies) {
+            const avgScore = assessment.components.reduce((a, b) => a + b) / assessment.components.length;
+            if (avgScore < 20) {
+                result = 'Starting out';
+                resultExplanation = 'This Learner hasn\'t yet reached the competency level required for this role.';
+            } else {
+                result = 'In progress';
+                resultExplanation = 'This Learner hasn\'t yet gained all the competency levels required for this role, but is getting there.'
+            }
+        } else {
+            result = 'Complete';
+            resultExplanation = 'This Learner meets or exceeds all the requirements for this role.';
+        }
+        await assessmentsDao.markComplete(assessment.id, result, resultExplanation);
+        res.redirect('/assessments/' + assessment.id);
+    })
 }
 
 module.exports = {
