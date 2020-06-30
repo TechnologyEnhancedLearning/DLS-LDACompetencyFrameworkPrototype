@@ -67,12 +67,11 @@ const getComponentsFor = async (assessmentId) => {
     try {
         const { rows } = await pool.query(
             `SELECT a.id AS assessment_id, c.name AS competency_name, c.id AS competency_id, jr.job_role_id, ac.id AS existing_assessment, ac.score
-            FROM competencies c
-            JOIN job_role_requirements jr ON c.id = jr.competency_id
+            FROM job_role_requirements jr
+            JOIN competencies c ON c.id = jr.competency_id
             JOIN assessments a ON a.job_role_id = jr.job_role_id
-            LEFT JOIN assessment_components ac ON ac.competency_id = c.id
-            WHERE a.id = $1
-            AND ac.assessment_id = a.id;`, [ assessmentId ]
+            LEFT JOIN assessment_components ac ON ac.assessment_id = a.id AND ac.competency_id = c.id
+            WHERE a.id = $1;`, [ assessmentId ]
         );
         if (!rows || !rows.length) return [];
         rows.forEach(row => {
