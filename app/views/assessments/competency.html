@@ -1,0 +1,114 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ jobRole.name }} assessment - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments",
+        text: "Assessments"
+    },
+    {
+        href: "/assessments/" + assessment.id,
+        text: jobRole.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <a href="/assessments/{{ assessment.id }}"><i class="fas fa-chevron-left"></i> Back to job role assessment</a>
+        <h1>{{ competency.name }}</h1>
+
+        <div class="hee-prototype-spacer"></div>
+
+        <form action="/assessments/{{ assessment.id }}/components" method="POST">
+        <h3>Assessment</h3>
+        <p>Assess {{ user.name }} against this competency.</p>
+
+        <div class="nhsuk-form-group">
+            <div class="nhsuk-radios">
+
+                <div class="nhsuk-radios__item">
+                    <input class="nhsuk-radios__input" id="level-not-started" name="level" type="radio" value="0">
+                    <label class="nhsuk-label nhsuk-radios__label" for="level-not-started">
+                        <b>Not started</b>
+                        <p>Requires formal and informal training and/or experience to develop the skill. Someone new to the role or a person expanding their skill set as part of a development opportunity.</p>
+                    </label>
+                </div>
+                <div class="nhsuk-radios__item">
+                    <input class="nhsuk-radios__input" id="level-in-progress" name="level" type="radio" value="50">
+                    <label class="nhsuk-label nhsuk-radios__label" for="level-in-progress">
+                        <b>In progress</b>
+                        <p>Is undertaking formal and informal training and/or is actively gaining experience through being mentored, coached and/or shadowing - has had some exposure to the skill in question but is not yet fully confident in demonstrating all aspects of it at the stated level.</p>
+                    </label>
+                </div>
+                <div class="nhsuk-radios__item">
+                    <input class="nhsuk-radios__input" id="level-meets-standard" name="level" type="radio" value="100">
+                    <label class="nhsuk-label nhsuk-radios__label" for="level-meets-standard">
+                        <b>Meets standard</b> <span class="hee-prototype--required-standard"><i class="fas fa-exclamation-circle"></i> Required level of competency</span>
+                        <p>Has completed relevant formal trainnig and/or gained practical experience, and is operating at the stated level in all relevant aspects; may still seek further experience in this area to become an expert.</p>
+                    </label>
+                </div>
+                <div class="nhsuk-radios__item">
+                    <input class="nhsuk-radios__input" id="level-exceeds-standard" name="level" type="radio" value="150">
+                    <label class="nhsuk-label nhsuk-radios__label" for="level-exceeds-standard">
+                        <b>Exceeds standards</b>
+                        <p>Highly trained and highly experienced, with level of skill exceeding stated requirements at the specified level; an exemplar in the field who leads shadowing, mentoring, coaching and informal/formal training sessions for peers and colleagues to increase capacity and capability across the IBC function.</p>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="hee-prototype-spacer"></div>
+
+        <h3>Competency description</h3>
+        <p>{{ competency.description}}</p>
+
+        <div class="hee-prototype-spacer"></div>
+
+        <h3>Knowledge and understanding</h3>
+        {% if competency.knowledgeAndUnderstanding.length %}
+            <ul>
+                {% for knowledge in competency.knowledgeAndUnderstanding %}
+                    <li>{{ knowledge.description }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>None found for this competency.</p>
+        {% endif %}
+
+        <div class="hee-prototype-spacer"></div>
+
+        <h3>Ability to</h3>
+        {% if competency.abilities.length %}
+            <ul>
+                {% for ability in competency.abilities %}
+                    <li>{{ ability.description }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>None found for this competency.</p>
+        {% endif %}
+
+        <input type="hidden" name="competencyId" value="{{ competency.id }}">
+        <button type="submit" class="nhsuk-button">Submit</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

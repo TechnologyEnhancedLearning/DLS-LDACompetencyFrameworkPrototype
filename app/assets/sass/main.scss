@@ -169,4 +169,16 @@ textarea.nhsuk-input {
     }
 }
 
+.hee-prototype--required-standard {
+    font-size: 90%;
+    font-weight: bold;
+    padding-left: 0.5rem;
+    i.fa-exclamation-circle {
+        color: orange;
+        background-color: black;
+        border-radius: 50%;
+        margin-right: 0.25rem;
+    }
+}
+
 @import 'flash';

@@ -7,5 +7,5 @@
             <i class="fas fa-{{ 'times' if component.score < 100 else 'check' }}"></i> Assessed: {{ component.level }}
         {% endif %}
     </td>
-    <td><a href="#">Assess</a></td>
+    <td><a href="/assessments/{{ assessment.id }}/competencies/{{ component.competency_id }}">Assess</a></td>
 </tr>

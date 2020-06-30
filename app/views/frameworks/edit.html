@@ -20,7 +20,7 @@
 
 <div class="nhsuk-grid-row">
 
-    <div class="nhsuk-grid-column">
+    <div class="nhsuk-grid-column-full">
         <h1>
             {{framework.title}}
         </h1>
@@ -60,7 +60,7 @@
 </div>
 
 <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column">
+    <div class="nhsuk-grid-column-full">
         <div class="hee-prototype--tabs">
             <ul>
                 <li class="{{ 'active' if currentPage === 'structure' else '' }}"><a href="structure">Framework</a></li>
@@ -74,7 +74,7 @@
 </div>
 
 <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column">
+    <div class="nhsuk-grid-column-full">
         {% block editPage %}
         {% endblock %}
     </div>

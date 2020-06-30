@@ -11,7 +11,6 @@ const getForCompetency = async (competencyId) => {
         if (!rows || !rows.length) {
             return {};
         }
-        console.log(rows);
         return {
             knowledgeAndUnderstanding: rows.filter(r => r.type === 'knowledge-understanding'),
             abilities: rows.filter(r => r.type === 'ability')
