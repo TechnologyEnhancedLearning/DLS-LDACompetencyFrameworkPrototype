@@ -27,6 +27,7 @@ My assessments - NHS.UK prototype kit
         <h1>My assessments</h1>
 
         <h3>Upcoming assessments</h3>
+        {% if upcomingAssessments.length %}
         <table>
             <thead>
                 <tr>
@@ -45,10 +46,14 @@ My assessments - NHS.UK prototype kit
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <p>No upcoming assessments found.</p>
+        {% endif %}
 
         <div class="hee-prototype-spacer"></div>
 
         <h3>Past assessments</h3>
+        {% if pastAssessments.length %}
         <table>
             <thead>
                 <tr>
@@ -67,6 +72,9 @@ My assessments - NHS.UK prototype kit
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p>No completed assessments found.</p>
+        {% endif %}
 
     </div>
 </div>
