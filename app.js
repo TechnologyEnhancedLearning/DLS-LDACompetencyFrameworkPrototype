@@ -60,7 +60,7 @@ nunjucksConfig.express = app
 
 var nunjucksAppEnv = nunjucks.configure(appViews, nunjucksConfig);
 nunjucksAppEnv.addGlobal('version', packageInfo.version);
-nunjucksAppEnv.addGlobal('enableLoginToolkit', process.env.ENABLE_LOGIN_TOOLKIT);
+nunjucksAppEnv.addGlobal('enableLoginToolkit', process.env.ENABLE_LOGIN_TOOLKIT === 'true');
 
 // Add Nunjucks filters
 utils.addNunjucksFilters(nunjucksAppEnv)
