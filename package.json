@@ -32,10 +32,10 @@
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.1.0",
     "keypather": "^3.0.0",
+    "moment": "^2.27.0",
     "nhsuk-frontend": "^3.1.0",
     "node-sass": "^4.14.0",
     "nunjucks": "^3.2.1",
-    "nunjucks-date": "^1.5.0",
     "path": "^0.12.7",
     "pg": "^8.2.1"
   },

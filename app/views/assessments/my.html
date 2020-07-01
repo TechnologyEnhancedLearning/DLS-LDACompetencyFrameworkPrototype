@@ -36,7 +36,7 @@
             <tbody>
                 {% for assessment in assessments %}
                     <tr>
-                        <td>{{ assessment.date }}</td>
+                        <td>{{ assessment.date | formatDate }}</td>
                         <td><a href="/assessments/{{ assessment.id }}">{{ assessment.job_role_name }}</a></td>
                         <td>{{ "Complete" if assessment.result else "In progress" }}</td>
                     </tr>

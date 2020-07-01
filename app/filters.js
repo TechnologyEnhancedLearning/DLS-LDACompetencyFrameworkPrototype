@@ -1,3 +1,5 @@
+const moment = require("moment")
+
 module.exports = function (env) {
   /**
    * Instantiate object used to store the methods registered as a
@@ -37,6 +39,10 @@ module.exports = function (env) {
     documentation.
 
   ------------------------------------------------------------------ */
+
+  filters.formatDate = function(date) {
+    return moment(date).format('DD/MM/yy');
+  }
 
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
