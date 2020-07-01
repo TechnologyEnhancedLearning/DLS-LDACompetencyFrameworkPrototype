@@ -17,8 +17,9 @@ const get = async (id) => {
 const getForUser = async (userId) => {
     try {
         const { rows } = await pool.query(
-            `SELECT user_id, job_role_id, date, result, result_explanation
-            FROM assessments
+            `SELECT a.id, a.user_id, a.job_role_id, a.date, a.result, a.result_explanation, j.name AS job_role_name
+            FROM assessments a
+            JOIN job_roles j ON j.id = a.job_role_id
             WHERE user_id=$1`, [userId]
         );
         return rows;

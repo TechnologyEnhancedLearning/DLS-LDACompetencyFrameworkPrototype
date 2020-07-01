@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ jobRole.name }} assessment - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments",
+        text: "Assessments"
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <h1>My assessments</h1>
+
+        <h3>Upcoming assessments</h3>
+        <p>...go here</p>
+
+        <div class="hee-prototype--spacer"></div>
+
+        <h3>Past assessmnets</h3>
+        <table>
+            <tbody>
+                {% for assessment in assessments %}
+                    <tr>
+                        <td>{{ assessment.date }}</td>
+                        <td><a href="/assessments/{{ assessment.id }}">{{ assessment.job_role_name }}</a></td>
+                        <td>{{ "Complete" if assessment.result else "In progress" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}

@@ -9,6 +9,7 @@ const express = require('express');
 const nunjucks = require('nunjucks');
 const sessionInCookie = require('client-sessions')
 const sessionInMemory = require('express-session')
+const cookieParser = require('cookie-parser');
 
 // Run before other code to make sure variables from .env are available
 dotenv.config()
@@ -21,7 +22,7 @@ const config = require('./app/config');
 const locals = require('./app/locals');
 const routes = require('./app/routes');
 const documentationRoutes = require('./docs/documentation_routes');
-const utils = require('./lib/utils.js')
+const utils = require('./lib/utils.js');
 
 // Set configuration variables
 const port = process.env.PORT || config.port;
@@ -95,6 +96,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
+app.use(cookieParser());
 
 // Automatically store all data users enter
 if (useAutoStoreData === 'true') {

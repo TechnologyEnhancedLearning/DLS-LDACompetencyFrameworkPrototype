@@ -157,7 +157,13 @@ const setupRoutes = (router) => {
         }
         await assessmentsDao.markComplete(assessment.id, result, resultExplanation);
         res.redirect('/assessments/' + assessment.id);
-    })
+    });
+
+    router.get('/assessments', async (req, res) => {
+        const userId = req.cookies.heeUserId;
+        const assessments = await assessmentsDao.getForUser(userId);
+        res.render('assessments/my', { assessments: assessments });
+    });
 }
 
 module.exports = {
