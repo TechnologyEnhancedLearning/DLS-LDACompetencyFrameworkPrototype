@@ -1,18 +1,41 @@
-const getLearners = async () => {
+const getAll = async () => {
     return [
         {
             id: "1",
-            name: "Nicholas Washington"
+            name: "Nicholas Washington",
+            roles: ["Learner"]
           },
           {
             id: "2",
-            name: "Jane Doe"
+            name: "Jane Doe",
+            roles: ["Learner"]
           },
           {
             id: "3",
-            name: "Queen Elizabeth II"
+            name: "Queen Elizabeth II",
+            roles: ["Learner"]
+          },
+          {
+            id: "4",
+            name: "Sacha Sokolov",
+            roles: ["Learner"]
+          },
+          {
+            id: "5",
+            name: "Wendy Meng",
+            roles: ["Manager"]
+          },
+          {
+            id: "6",
+            name: "Adam Muleba",
+            roles: ["Assessor"]
           }
     ]
+}
+
+const getLearners = async () => {
+  const learners = await getAll();
+  return learners.filter(user => user.roles.includes('Learner'));
 }
 
 const get = async (id) => {

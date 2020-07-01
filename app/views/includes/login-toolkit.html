@@ -1,0 +1,40 @@
+<div id="login-toolkit" class="hidden">
+    <script>
+        function getCookie(key) {
+            var cookies = document.cookie.split('; ');
+            for (var i = 0; i < cookies.length; i++) {
+                if (cookies[i].startsWith(key)) {
+                    return cookies[i].split('=')[1];
+                }
+            }
+        }
+
+        function setCookie(key, value) {
+            document.cookie = key + "=" + value;
+        }
+
+        function logInAs(userId) {
+            setCookie('heeUserId', userId);
+            location.reload();
+        }
+
+        function toggleOpenToolkit() {
+            document.getElementById('login-toolkit').classList.toggle('hidden');
+            var openIcon = document.getElementById('login-toolkit-open-icon');
+            openIcon.classList.toggle('fa-chevron-left');
+            openIcon.classList.toggle('fa-chevron-right');
+        }
+    </script>
+
+    <div class="toolkit">
+        Log in as...
+        <button onclick='logInAs(4);'>Learner</a>
+        <button onclick='logInAs(5);'>Manager</a>
+        <button onclick='logInAs(6);'>Assessor</a>
+    </div>
+    <div class="arrow">
+        <button class="open-toolkit" onclick='event.preventDefault(); toggleOpenToolkit();'>
+            <i id="login-toolkit-open-icon" class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>

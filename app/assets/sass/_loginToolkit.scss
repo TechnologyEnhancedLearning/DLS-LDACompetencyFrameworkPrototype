@@ -1,0 +1,47 @@
+$toolkit-width: 150px;
+
+#login-toolkit {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.2s ease;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &.hidden {
+        transition: left 0.2s ease;
+        left: -$toolkit-width;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    .toolkit, .arrow button {
+        box-shadow: 2px 2px 5px gray;
+    }
+
+    .toolkit {
+        width: $toolkit-width;
+        display: flex;
+        flex-direction: column;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        padding: 1rem;
+        color: white;
+        background-color: $color_nhsuk-blue;
+    }
+
+    .arrow button {
+        font-size: 3rem;
+        color: white;
+        background-color: $color_nhsuk-blue;
+        border: none;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
