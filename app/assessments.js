@@ -162,7 +162,11 @@ const setupRoutes = (router) => {
     router.get('/assessments', async (req, res) => {
         const userId = req.cookies.heeUserId;
         const assessments = await assessmentsDao.getForUser(userId);
-        res.render('assessments/my', { assessments: assessments });
+        res.render('assessments/my',
+        {
+            upcomingAssessments: assessments.filter(assessment => !assessment.result),
+            pastAssessments: assessments.filter(assessment => assessment.result)
+        });
     });
 }
 
