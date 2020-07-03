@@ -168,6 +168,27 @@ const setupRoutes = (router) => {
             pastAssessments: assessments.filter(assessment => assessment.result)
         });
     });
+
+    router.get('/assessments/:id/email', async (req, res) => {
+        const assessment = await assessmentsDao.get(req.params.id);
+        if (!assessment) {
+            next();
+            return;
+        } else if (assessment.result) {
+            res.redirect('assessments/' + assessment.id);
+            return;
+        }
+
+        const user = await usersDao.get(assessment.user_id);
+        const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
+        assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
+        assessment.complete = !assessment.components.some(component => !component.existing_assessment);
+
+        res.render('assessments/learner/email', {
+            assessment: assessment,
+            user: user
+        })
+    })
 }
 
 module.exports = {

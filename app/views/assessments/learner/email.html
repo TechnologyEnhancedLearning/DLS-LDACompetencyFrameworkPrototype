@@ -1,0 +1,20 @@
+{% extends "template.html" %}
+
+{% block headCSS %}
+  <link href="/css/main.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <p>To: example@example.com</p>
+    <p>Subject: Your upcoming Training Needs Analysis</p>
+
+    <div class="hee-prototype-spacer"></div>
+
+    <p>Dear {{ user.name }},</p>
+    <h3>Your next Training Needs Analysis will take place on {{ assessment.date | formatDate }}.</h3>
+    <p>You can submit evidence in advance.</p>
+
+    <a href="." class="nhsuk-button">Submit your evidence</a>
+
+{% endblock %}

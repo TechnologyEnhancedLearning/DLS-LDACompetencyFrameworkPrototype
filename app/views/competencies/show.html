@@ -52,8 +52,10 @@
             </div>
         {% endif %}
 
-        <h2>Competency description</h2>
-        <p>{{ competency.description}}</p>
+        {% if competency.description %}
+            <h2>Competency description</h2>
+            <p>{{ competency.description}}</p>
+        {% endif %}
 
         <div class="hee-prototype-spacer"></div>
 
