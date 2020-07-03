@@ -1,0 +1,11 @@
+<tr>
+    <th>{{ component.competency_name }}</th>
+    <td>
+        {% if assessment.evidenceFor | contains(component.competency_id) %}
+        Evidence submitted
+        {% else %}
+        You have no evidence for this yet.
+        {% endif %}
+    </td>
+    <td><a href="./evidence">Add {{ 'more' if assessment.evidenceFor | contains(component.competency_id) }} evidence</a></td>
+</tr>

@@ -3,6 +3,7 @@ const jobRolesDao = require('./dao/jobRolesDao');
 const usersDao = require('./dao/usersDao');
 const competenciesDao = require('./dao/competenciesDao');
 const criteriaDao = require('./dao/criteriaDao');
+const evidenceDao = require('./dao/evidenceDao');
 
 const setupRoutes = (router) => {
     router.get('/assessments/new', async (req, res) => {
@@ -91,7 +92,11 @@ const setupRoutes = (router) => {
             jobRole: jobRole
         };
 
-        if (assessment.result) {
+        if (req.cookies.heeUserId == assessment.user_id) {
+            data.evidence = await evidenceDao.getForAssessment(assessment.id);
+            data.assessment.evidenceFor = [...new Set(data.evidence.reduce((a, evidence) => a.concat(evidence.competencies), []))];
+            res.render('assessments/learner/evidence', data);
+        } else if (assessment.result) {
             res.render('assessments/complete', data);
         } else {
             res.render('assessments/show', data);

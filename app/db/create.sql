@@ -153,3 +153,12 @@ CREATE TABLE assessment_components (
         REFERENCES competencies (id) MATCH SIMPLE
         ON DELETE CASCADE
 );
+
+CREATE TABLE assessment_evidence (
+    id serial PRIMARY KEY,
+    assessment_id integer NOT NULL,
+    competency_ids VARCHAR(50),
+    body TEXT,
+    constraint assessment_evidence_assessment_id_fkey FOREIGN KEY (assessment_id)
+        REFERENCES assessments (id) MATCH SIMPLE
+);

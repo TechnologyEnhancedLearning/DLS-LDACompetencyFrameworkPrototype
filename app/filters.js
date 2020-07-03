@@ -44,6 +44,14 @@ module.exports = function (env) {
     return moment(date).format('DD/MM/yy');
   }
 
+  filters.contains = function(arr, entry) {
+    // Rough equivalence - don't check datatype
+    for (a of arr) {
+      if (a == entry) return true;
+    }
+    return false;
+  }
+
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */

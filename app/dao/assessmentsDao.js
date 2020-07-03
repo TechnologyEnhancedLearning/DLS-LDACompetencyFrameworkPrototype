@@ -1,5 +1,11 @@
 const pool = require('./pool');
 
+const addDays = (date, days) => {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+
 const get = async (id) => {
     try {
         const { rows } = await pool.query(
@@ -30,10 +36,11 @@ const getForUser = async (userId) => {
 
 const create = async (userId, jobRoleId) => {
     try {
+        const thirtyDaysHence = addDays(new Date(), 30);
         const { rows } = await pool.query(
-            `INSERT INTO assessments (user_id, job_role_id)
+            `INSERT INTO assessments (user_id, job_role_id, date)
             VALUES ($1, $2)
-            RETURNING id;`, [userId, jobRoleId]
+            RETURNING id;`, [userId, jobRoleId, thirtyDaysHence]
         );
         return rows && rows.length && rows[0].id;
     } catch (e) {

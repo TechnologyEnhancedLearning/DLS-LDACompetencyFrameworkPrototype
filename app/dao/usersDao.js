@@ -34,16 +34,22 @@ const getAll = async () => {
 }
 
 const getLearners = async () => {
-  const learners = await getAll();
-  return learners.filter(user => user.roles.includes('Learner'));
+  const users = await getAll();
+  return users.filter(user => user.roles.includes('Learner'));
 }
 
 const get = async (id) => {
-    const learners = await getLearners();
-    return learners.find(user => user.id == id);
+    const users = await getAll();
+    return users.find(user => user.id == id);
+}
+
+const getPrimaryRole = async (id) => {
+  const user = await get(id);
+  return user.roles[0];
 }
 
 module.exports = {
     getLearners: getLearners,
-    get: get
+    get: get,
+    getPrimaryRole: getPrimaryRole
 }
