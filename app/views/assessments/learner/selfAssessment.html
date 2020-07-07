@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ jobRole.name }} appraisal - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments",
+        text: "Appraisals"
+    },
+    {
+        href: "/assessments/" + assessment.id,
+        text: jobRole.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-full">
+
+        <h1>Self assessment: {{ jobRole.name }}</h1>
+
+        {% for component in assessment.components %}
+            {% include 'assessments/learner/selfAssessmentQuestion.html' %}
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

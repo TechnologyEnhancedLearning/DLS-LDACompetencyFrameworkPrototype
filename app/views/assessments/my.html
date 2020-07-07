@@ -29,7 +29,7 @@ My appraisals - NHS.UK prototype kit
         {{ careCard({
             "type": "non-urgent",
             "heading": "What is a Training Needs Analysis?",
-            "HTML": "<p>A Training Needs Analysis is designed to help you review your competencies and plan CPD. You'll work together with your manager to assess where you are right and manage your training plan.</p>"
+            "HTML": "<p>A Training Needs Analysis is designed to help you review your competencies and plan CPD. You'll work together with your manager to assess where you are right now and manage your training plan.</p>"
         }) }}
 
     </div>
@@ -51,7 +51,7 @@ My appraisals - NHS.UK prototype kit
                     <tr>
                         <td>{{ assessment.date | formatDate }}</td>
                         <td><a href="/assessments/{{ assessment.id }}">{{ assessment.job_role_name }}</a></td>
-                        <td>{{ assessment.result }}</td>
+                        <td><a href="/assessments/{{ assessment.id }}/survey" class="nhsuk-button">Go to self-assessment survey</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

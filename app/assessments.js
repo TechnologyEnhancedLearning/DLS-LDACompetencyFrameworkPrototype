@@ -204,9 +204,26 @@ const setupRoutes = (router) => {
         res.render('assessments/learner/email', {
             assessment: assessment,
             user: user,
+            jobRole: jobRole,
             today: new Date()
         })
-    })
+    });
+
+    router.get('/assessments/:id/survey', async (req, res, next) => {
+        const assessment = await assessmentsDao.get(req.params.id);
+        if (!assessment) {
+            next();
+            return;
+        } else if (assessment.result) {
+            res.redirect('assessments/' + assessment.id);
+            return;
+        }
+
+        assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
+        res.render('assessments/learner/selfAssessment', {
+            assessment: assessment
+        });
+    });
 }
 
 module.exports = {
