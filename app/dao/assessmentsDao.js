@@ -58,7 +58,7 @@ const create = async (userId, jobRoleId) => {
         const thirtyDaysHence = addDays(new Date(), 30);
         const { rows } = await pool.query(
             `INSERT INTO assessments (user_id, job_role_id, date)
-            VALUES ($1, $2)
+            VALUES ($1, $2, $3)
             RETURNING id;`, [userId, jobRoleId, thirtyDaysHence]
         );
         return rows && rows.length && rows[0].id;
