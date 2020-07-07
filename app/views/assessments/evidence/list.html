@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block pageTitle %}
-{{ jobRole.name }} assessment - NHS.UK prototype kit
+{{ jobRole.name }} appraisal - NHS.UK prototype kit
 {% endblock %}
 
 {% block beforeContent %}
@@ -14,7 +14,7 @@
     },
     {
         href: "/assessments",
-        text: "Assessments"
+        text: "Appraisals"
     },
     {
         href: "/assessments/" + assessment.id,
@@ -34,14 +34,14 @@
         {{ careCard({
             "type": "non-urgent",
             "heading": "Submit evidence for your Training Needs Analysis",
-            "HTML": "<p>You're being assessed against the role of " + jobRole.name + ". You can submit evidence until " + assessment.date | formatDate + ".</p>"
+            "HTML": "<p>You're being appraised against the role of " + jobRole.name + ". You can submit evidence until " + assessment.date | formatDate + ".</p>"
         }) }}
     </div>
 </div>
 
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
-        <h3>Upload evidence</h3>
+        <h3>Areas to analyse</h3>
 
         <table>
             <tbody>

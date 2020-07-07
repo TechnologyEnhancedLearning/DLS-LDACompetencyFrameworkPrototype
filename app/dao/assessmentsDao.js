@@ -11,7 +11,8 @@ const get = async (id) => {
         const { rows } = await pool.query(
             `SELECT id, user_id, job_role_id, date, result, result_explanation
             FROM assessments
-            WHERE id=$1;`, [id]
+            WHERE id=$1
+            ORDER BY date DESC;`, [id]
         );
         return rows && rows[0];
     } catch (e) {
@@ -26,7 +27,8 @@ const getForUser = async (userId) => {
             `SELECT a.id, a.user_id, a.job_role_id, a.date, a.result, a.result_explanation, j.name AS job_role_name
             FROM assessments a
             JOIN job_roles j ON j.id = a.job_role_id
-            WHERE user_id=$1`, [userId]
+            WHERE user_id=$1
+            ORDER BY date DESC`, [userId]
         );
         return rows;
     } catch (e) {

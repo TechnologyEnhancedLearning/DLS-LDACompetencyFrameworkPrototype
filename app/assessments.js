@@ -149,7 +149,7 @@ const setupRoutes = (router) => {
                 result = 'Starting out';
                 resultExplanation = 'This Learner hasn\'t yet reached the competency level required for this role.';
             } else {
-                result = 'In progress';
+                result = 'Partially qualified';
                 resultExplanation = 'This Learner hasn\'t yet gained all the competency levels required for this role, but is getting there.'
             }
         } else {

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block pageTitle %}
-{{ jobRole.name }} assessment - NHS.UK prototype kit
+{{ jobRole.name }} appraisal - NHS.UK prototype kit
 {% endblock %}
 
 {% block beforeContent %}
@@ -14,7 +14,7 @@
     },
     {
         href: "/assessments",
-        text: "Assessments"
+        text: "Appraisals"
     },
     {
         href: "/assessments/" + assessment.id,
@@ -29,12 +29,12 @@
 <div class="nhsuk-grid-row">
 
     <div class="nhsuk-grid-column-two-thirds">
-        <h1>Job role assessment: {{ jobRole.name }}</h1>
+        <h1>Job role appraisal: {{ jobRole.name }}</h1>
         <h2>{{ user.name }}</h2>
 
         {{ careCard({
             "type": "non-urgent",
-            "heading": "Assessment result",
+            "heading": "Appraisal result",
             "HTML": "
             <h3>" + assessment.result + "</h3>
             <p>" + assessment.result_explanation + "</p>
@@ -59,8 +59,8 @@
             </tbody>
         </table>
 
-        <a href="#" class="nhsuk-button">Share assessment</a><br/>
-        <a href='#' onclick="event.preventDefault(); window.print()">Print this assessment</a>
+        <a href="#" class="nhsuk-button">Share appraisal</a><br/>
+        <a href='#' onclick="event.preventDefault(); window.print()">Print this appraisal</a>
     </div>
 </div>
 {% endblock %}

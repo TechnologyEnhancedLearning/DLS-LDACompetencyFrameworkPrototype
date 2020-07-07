@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block pageTitle %}
-{{ jobRole.name }} assessment - NHS.UK prototype kit
+{{ jobRole.name }} appraisal - NHS.UK prototype kit
 {% endblock %}
 
 {% block beforeContent %}
@@ -14,7 +14,7 @@
     },
     {
         href: "/assessments",
-        text: "Assessments"
+        text: "Appraisals"
     },
     {
         href: "/assessments/" + assessment.id,
@@ -30,13 +30,13 @@
 
     <div class="nhsuk-grid-column-two-thirds">
 
-        <a href="/assessments/{{ assessment.id }}"><i class="fas fa-chevron-left"></i> Back to job role assessment</a>
+        <a href="/assessments/{{ assessment.id }}"><i class="fas fa-chevron-left"></i> Back to job role appraisal</a>
         <h1>{{ competency.name }}</h1>
 
         <div class="hee-prototype-spacer"></div>
 
         <form action="/assessments/{{ assessment.id }}/components" method="POST">
-        <h3>Assessment</h3>
+        <h3>Appraisal</h3>
         <p>Assess {{ user.name }} against this competency.</p>
 
         <div class="nhsuk-form-group">

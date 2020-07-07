@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block pageTitle %}
-My assessments - NHS.UK prototype kit
+My appraisals - NHS.UK prototype kit
 {% endblock %}
 
 {% block beforeContent %}
@@ -14,7 +14,7 @@ My assessments - NHS.UK prototype kit
     },
     {
         href: "/assessments",
-        text: "Assessments"
+        text: "Appraisals"
     }]
 }) }}
 
@@ -24,9 +24,9 @@ My assessments - NHS.UK prototype kit
 
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
-        <h1>My assessments</h1>
+        <h1>My Training Needs Analysis</h1>
 
-        <h3>Upcoming assessments</h3>
+        <h3>Upcoming appraisals</h3>
         {% if upcomingAssessments.length %}
         <table>
             <thead>
@@ -47,12 +47,12 @@ My assessments - NHS.UK prototype kit
             </tbody>
         </table>
         {% else %}
-            <p>No upcoming assessments found.</p>
+            <p>No upcoming appraisals found.</p>
         {% endif %}
 
         <div class="hee-prototype-spacer"></div>
 
-        <h3>Past assessments</h3>
+        <h3>Past appraisals</h3>
         {% if pastAssessments.length %}
         <table>
             <thead>
@@ -73,7 +73,7 @@ My assessments - NHS.UK prototype kit
             </tbody>
         </table>
         {% else %}
-        <p>No completed assessments found.</p>
+        <p>No completed appraisals found.</p>
         {% endif %}
 
     </div>
