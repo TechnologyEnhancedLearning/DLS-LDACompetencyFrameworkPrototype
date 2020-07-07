@@ -92,10 +92,12 @@ const setupRoutes = (router) => {
             jobRole: jobRole
         };
 
-        if (assessment.result) {
+        if (user.id == req.cookies.heeUserId) {
+            res.render('assessments/learner/show', data);
+        } else if (assessment.result) {
             res.render('assessments/complete', data);
         } else {
-            res.render('assessments/show', data);
+            res.render('assessments/manager/show', data);
         }
     });
 
@@ -201,7 +203,8 @@ const setupRoutes = (router) => {
 
         res.render('assessments/learner/email', {
             assessment: assessment,
-            user: user
+            user: user,
+            today: new Date()
         })
     })
 }

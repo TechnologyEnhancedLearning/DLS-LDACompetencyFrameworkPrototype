@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ jobRole.name }} appraisal - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments",
+        text: "Appraisals"
+    },
+    {
+        href: "/assessments/" + assessment.id,
+        text: jobRole.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-full">
+
+        <h1>Job role appraisal: {{ jobRole.name }}</h1>
+
+        <table>
+            <tbody>
+                {% for component in assessment.components %}
+                    {% include 'assessments/assessmentComponent.html' %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if assessment.complete %}
+            <form action="/assessments/{{ assessment.id }}/complete" method="POST">
+                <button type="submit" class="nhsuk-button">Continue</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
