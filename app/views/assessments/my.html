@@ -23,9 +23,19 @@ My appraisals - NHS.UK prototype kit
 {% block content %}
 
 <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-full">
+    <div class="nhsuk-grid-column-two-thirds">
         <h1>My Training Needs Analysis</h1>
 
+        {{ careCard({
+            "type": "non-urgent",
+            "heading": "What is a Training Needs Analysis?",
+            "HTML": "<p>A Training Needs Analysis is designed to help you review your competencies and plan CPD. You'll work together with your manager to assess where you are right and manage your training plan.</p>"
+        }) }}
+
+    </div>
+</div>
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
         <h3>Upcoming appraisals</h3>
         {% if upcomingAssessments.length %}
         <table>
