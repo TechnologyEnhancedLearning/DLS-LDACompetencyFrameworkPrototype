@@ -153,7 +153,7 @@ const setupRoutes = (router) => {
                 resultExplanation = 'This Learner hasn\'t yet gained all the competency levels required for this role, but is getting there.'
             }
         } else {
-            result = 'Complete';
+            result = 'Fully qualified';
             resultExplanation = 'This Learner meets or exceeds all the requirements for this role.';
         }
         await assessmentsDao.markComplete(assessment.id, result, resultExplanation);
