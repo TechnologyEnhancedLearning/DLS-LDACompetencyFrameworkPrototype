@@ -159,6 +159,9 @@ CREATE TABLE assessment_evidence (
     assessment_id integer NOT NULL,
     competency_ids VARCHAR(50),
     body TEXT,
+    user_id integer NOT NULL,
     constraint assessment_evidence_assessment_id_fkey FOREIGN KEY (assessment_id)
-        REFERENCES assessments (id) MATCH SIMPLE
+        REFERENCES assessments (id) MATCH SIMPLE,
+    constraint assessment_evidence_user_id_fkey FOREIGN KEY (user_id)
+        REFERENCES users (id) MATCH SIMPLE
 );

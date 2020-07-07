@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ jobRole.name }} assessment - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments",
+        text: "Assessments"
+    },
+    {
+        href: "/assessments/" + assessment.id,
+        text: jobRole.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>Upload evidence: Training Needs Analysis</h1>
+
+        {{ careCard({
+            "type": "non-urgent",
+            "heading": "Submit evidence for your Training Needs Analysis",
+            "HTML": "<p>Upload your evidence. This can be in Word .doc, .docx, PDF, or text format.</p>"
+        }) }}
+    </div>
+</div>
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <h3>Upload evidence</h3>
+
+        <form action="." method="POST">
+            <div class="nhsuk-form-group">
+                <label for="evidence-file-input" class="nhsuk-label">Upload a file</label>
+                <input type="file" id="evidence-file-input" name="evidenceFile">
+            </div>
+            <div class="nhsuk-form-group">
+                <label for="evidence-description" class="nhsuk-label">Notes</label>
+                <textarea class="nhsuk-input" id="evidence-description" name="description"></textarea>
+            </div>
+            <div class="nhsuk-form-group">
+                <h4>Relevant competencies</h4>
+                {% for requirement in jobRole.requirements %}
+                <div class="nhsuk-checkboxes__item">
+                    <input class="nhsuk-checkboxes__input" id="conditions-{{ loop.index }}" name="competencyIds" type="checkbox" value="{{ requirement.competency_id }}">
+                    <label class="nhsuk-label nhsuk-checkboxes__label" for="conditions-{{ loop.index }}">
+                        {{ requirement.competency_name }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="nhsuk-form-group">
+                <button class="nhsuk-button" type="submit">Submit</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

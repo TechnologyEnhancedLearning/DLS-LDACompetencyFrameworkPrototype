@@ -92,11 +92,7 @@ const setupRoutes = (router) => {
             jobRole: jobRole
         };
 
-        if (req.cookies.heeUserId == assessment.user_id) {
-            data.evidence = await evidenceDao.getForAssessment(assessment.id);
-            data.assessment.evidenceFor = [...new Set(data.evidence.reduce((a, evidence) => a.concat(evidence.competencies), []))];
-            res.render('assessments/learner/evidence', data);
-        } else if (assessment.result) {
+        if (assessment.result) {
             res.render('assessments/complete', data);
         } else {
             res.render('assessments/show', data);

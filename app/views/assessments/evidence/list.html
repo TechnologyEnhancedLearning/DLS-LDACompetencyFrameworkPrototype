@@ -27,7 +27,7 @@
 {% block content %}
 
 <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-full">
+    <div class="nhsuk-grid-column-two-thirds">
 
         <h1>Training Needs Analysis</h1>
 
@@ -36,22 +36,38 @@
             "heading": "Submit evidence for your Training Needs Analysis",
             "HTML": "<p>You're being assessed against the role of " + jobRole.name + ". You can submit evidence until " + assessment.date | formatDate + ".</p>"
         }) }}
+    </div>
+</div>
 
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
         <h3>Upload evidence</h3>
 
         <table>
             <tbody>
                 {% for component in assessment.components %}
-                    {% include 'assessments/learner/evidenceComponent.html' %}
+                    {% include 'assessments/evidence/componentPreview.html' %}
                 {% endfor %}
             </tbody>
         </table>
 
-        {% if assessment.complete %}
+        <h3>Evidence uploaded</h3>
+
+        <table>
+            <tbody>
+                {% for evidence in assessment.evidence %}
+                    {% include 'assessments/evidence/preview.html' %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="row-space-between">
+            <a class="nhsuk-button nhsuk-button--secondary" href="/assessments/{{ assessment.id }}/evidence/new">Add more evidence</a>
+
             <form action="/assessments/{{ assessment.id }}/complete" method="POST">
                 <button type="submit" class="nhsuk-button">Continue</button>
             </form>
-        {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

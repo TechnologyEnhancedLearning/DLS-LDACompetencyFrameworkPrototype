@@ -17,6 +17,21 @@ const getForAssessment = async (assessmentId) => {
     }
 }
 
+const add = async (evidence) => {
+    try {
+        const { rows } = await pool.query(
+            `INSERT INTO assessment_evidence (assessment_id, body, competency_ids, user_id)
+            VALUES ($1, $2, $3, $4)
+            RETURNING id;`, [evidence.assessmentId, evidence.body, evidence.competencyIds, evidence.userId]
+        );
+        return rows && rows[0] && rows[0].id;
+    } catch (e) {
+        console.log(e);
+        return undefined;
+    }
+}
+
 module.exports = {
-    getForAssessment: getForAssessment
+    getForAssessment: getForAssessment,
+    add: add
 }

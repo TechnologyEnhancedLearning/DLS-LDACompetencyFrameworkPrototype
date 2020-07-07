@@ -7,6 +7,7 @@ const competencies = require('./competencies.js');
 const jobRoles = require('./jobRoles');
 const nationalJobProfiles = require('./nationalJobProfiles');
 const assessments = require('./assessments');
+const evidence = require('./evidence');
 
 router.get('/', async (req, res) => {
     res.redirect('dashboard');
@@ -22,5 +23,6 @@ competencies.setupRoutes(router);
 jobRoles.setupRoutes(router);
 nationalJobProfiles.setupRoutes(router);
 assessments.setupRoutes(router);
+evidence.setupRoutes(router);
 
 module.exports = router;
