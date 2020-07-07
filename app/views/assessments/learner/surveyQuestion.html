@@ -1,0 +1,60 @@
+<div>
+    <div class="nhsuk-form-group">
+        <h3>How confident are you in {{ component.competency_name }}?</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    {% for i in range(0, 11) %}
+                       <th><label for="competency-{{ component.competency_id }}-confidence-{{ i }}">{{ i }}</label></th>
+                    {% endfor %}
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Not confident at all</th>
+                    {% for i in range(0, 11) %}
+                        <td>
+                            <input type="radio"
+                                name="confidence[{{ component.competency_id }}]"
+                                id="competency-{{ component.competency_id }}-confidence-{{ i }}"
+                                value="{{ i }}">
+                        </td>
+                     {% endfor %}
+                    <th>Very confident</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="nhsuk-form-group">
+        <h3>How relevant is {{ component.competency_name }} to your role?</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    {% for i in range(0, 11) %}
+                       <th><label for="competency-{{ component.competency_id }}-relevance-{{ i }}">{{ i }}</label></th>
+                    {% endfor %}
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Not relevant at all - <br>I never use it</th>
+                    {% for i in range(0, 11) %}
+                        <td>
+                            <input type="radio"
+                                name="relevance[{{ component.competency_id }}]"
+                                id="competency-{{ component.competency_id }}-relevance-{{ i }}"
+                                value="{{ i }}">
+                        </td>
+                     {% endfor %}
+
+                    <th>Very relevant - <br>I use it every day</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

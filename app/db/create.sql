@@ -154,6 +154,21 @@ CREATE TABLE assessment_components (
         ON DELETE CASCADE
 );
 
+CREATE TABLE learner_surveys (
+    id serial PRIMARY KEY,
+    assessment_id integer NOT NULL,
+    competency_id integer NOT NULL,
+    confidence INTEGER,
+    relevance INTEGER,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    constraint learner_surveys_assessment_id_fkey FOREIGN KEY (assessment_id)
+        REFERENCES assessments (id) MATCH SIMPLE
+        ON DELETE CASCADE,
+    constraint learner_surveys_competency_id_fkey FOREIGN KEY (competency_id)
+        REFERENCES competencies (id) MATCH SIMPLE
+        ON DELETE CASCADE
+);
+
 CREATE TABLE assessment_evidence (
     id serial PRIMARY KEY,
     assessment_id integer NOT NULL,
