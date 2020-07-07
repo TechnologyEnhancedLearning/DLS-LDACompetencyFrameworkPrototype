@@ -162,12 +162,26 @@ const setupRoutes = (router) => {
 
     router.get('/assessments', async (req, res) => {
         const userId = req.cookies.heeUserId;
-        const assessments = await assessmentsDao.getForUser(userId);
-        res.render('assessments/my',
-        {
-            upcomingAssessments: assessments.filter(assessment => !assessment.result),
-            pastAssessments: assessments.filter(assessment => assessment.result)
-        });
+        const userRole = await usersDao.getPrimaryRole(userId);
+
+        if (userRole === 'Learner') {
+            const assessments = await assessmentsDao.getForUser(userId);
+            res.render('assessments/my',
+            {
+                upcomingAssessments: assessments.filter(assessment => !assessment.result),
+                pastAssessments: assessments.filter(assessment => assessment.result)
+            });
+
+        } else {
+
+            const assessments = await assessmentsDao.getAll();
+            res.render('assessments/dashboard',
+            {
+                upcomingAssessments: assessments.filter(assessment => !assessment.result),
+                pastAssessments: assessments.filter(assessment => assessment.result)
+            });
+
+        }
     });
 
     router.get('/assessments/:id/email', async (req, res) => {

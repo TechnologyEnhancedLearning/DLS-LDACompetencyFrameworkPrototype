@@ -34,7 +34,24 @@ const getForUser = async (userId) => {
     } catch (e) {
         console.log(e);
         return null;
-    }}
+    }
+}
+
+const getAll = async () => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT a.id, a.user_id, a.job_role_id, a.date, a.result, a.result_explanation, j.name AS job_role_name, u.name AS user_name
+            FROM assessments a
+            JOIN job_roles j ON j.id = a.job_role_id
+            JOIN users u ON u.id = a.user_id
+            ORDER BY date DESC`
+        );
+        return rows;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
 
 const create = async (userId, jobRoleId) => {
     try {
@@ -107,6 +124,7 @@ const markComplete = async (id, result, resultExplanation) => {
 
 module.exports = {
     get: get,
+    getAll: getAll,
     getForUser: getForUser,
     create: create,
     assessCompetency: assessCompetency,
