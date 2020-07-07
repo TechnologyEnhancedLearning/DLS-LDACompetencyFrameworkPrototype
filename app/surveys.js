@@ -1,6 +1,7 @@
 const assessmentsDao = require("./dao/assessmentsDao");
 const jobRolesDao = require("./dao/jobRolesDao");
 const usersDao = require("./dao/usersDao");
+const surveysDao = require("./dao/surveysDao");
 
 const setupRoutes = (router) => {
     
@@ -51,12 +52,24 @@ const setupRoutes = (router) => {
             next();
             return;
         } else if (assessment.result) {
-            res.redirect('assessments/' + assessment.id);
+            res.redirect('/assessments/' + assessment.id);
             return;
         }
 
-        console.log(req.body);
-        
+        console.log(req.body.confidence);
+        for (let i = 0; i < req.body.competencies.length; i++) {
+            const competencyId = req.body.competencies[i];
+            const survey = {
+                assessmentId: assessment.id,
+                competencyId: competencyId,
+                confidence: req.body.confidence["c" + competencyId],
+                relevance: req.body.relevance["r" + competencyId]
+            };
+            await surveysDao.addSurveyResult(survey);
+        }
+        res.render('assessments/learner/thanks', {
+            assessment: assessment
+        });
     });
 
 }
