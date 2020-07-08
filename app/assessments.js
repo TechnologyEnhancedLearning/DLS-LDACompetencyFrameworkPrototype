@@ -4,6 +4,7 @@ const usersDao = require('./dao/usersDao');
 const competenciesDao = require('./dao/competenciesDao');
 const criteriaDao = require('./dao/criteriaDao');
 const evidenceDao = require('./dao/evidenceDao');
+const selfAppraisalsDao = require('./dao/selfAppraisalsDao');
 
 const setupRoutes = (router) => {
     router.get('/assessments/new', async (req, res) => {
@@ -85,6 +86,7 @@ const setupRoutes = (router) => {
         const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
         assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
         assessment.complete = !assessment.components.some(component => !component.existing_assessment);
+        assessment.selfAppraisal = await selfAppraisalsDao.getResultsForAssessment(assessment.id);
 
         const data = {
             assessment: assessment,

@@ -44,9 +44,22 @@
     <div class="nhsuk-grid-column-full">
 
         <table>
+            <thead>
+                <tr>
+                    <th>Competency</th>
+                    <th>Confidence</th>
+                    <th>Relevance</th>
+                    <th></th>
+                </tr>
+            </thead>
             <tbody>
-                {% for component in assessment.components %}
-                    {% include 'assessments/assessmentComponent.html' %}
+                {% for question in assessment.selfAppraisal %}
+                    <tr>
+                        <th>{{ question.competency_name }}</th>
+                        <td>{{ question.confidence + " / 10" if question.confidence or question.confidence == 0 }}</td>
+                        <td>{{ question.relevance + " / 10" if question.relevance or question.relevance == 0 }}</td>
+                        <td><a href="#" onclick="flash('Not implemented'); event.preventDefault()">Edit</a></td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
