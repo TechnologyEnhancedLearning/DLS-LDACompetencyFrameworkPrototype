@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+Framework dashboard - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-full">
+
+        <h1>
+            Dashboard
+        </h1>
+
+        {% block search %}
+        <h2>Search all frameworks</h2>
+        {% include "includes/search.html" %}
+        <a href="/library">View all frameworks</a>
+        {% endblock %}
+
+        {% if frameworks.length %}
+        <table>
+            <thead>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Working group
+                </th>
+            </thead>
+            <tbody>
+                {% for framework in frameworks %}
+                <tr>
+                    <td><a href="/frameworks/{{ framework.slug }}">{{ framework.title }}</a></td>
+                    <td>{{ framework.status }}</td>
+                    <td>
+                        <p>Owner: {{ framework.owner }}</p>
+                        {% if framework.working_group %}
+                        <ul>
+                            {% for owner in framework.working_group.split(',') %}
+                            <li>{{ owner }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p>No working group yet.</p>
+                        {% endif %}
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        You are not currently working on any frameworks.
+        {% endif %}
+
+        <a class="nhsuk-button" href="/frameworks/new">Create new framework</a>
+
+    </div>
+    {% endblock %}

@@ -1,68 +1,85 @@
 {% extends 'layout.html' %}
 
 {% block pageTitle %}
-Framework dashboard - NHS.UK prototype kit
+All appraisals - NHS.UK prototype kit
 {% endblock %}
 
 {% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments",
+        text: "Appraisals"
+    }]
+}) }}
 
 {% endblock %}
 
 {% block content %}
 
 <div class="nhsuk-grid-row">
-
     <div class="nhsuk-grid-column-full">
+        <h1>Training Needs Analysis</h1>
 
-        <h1>
-            Dashboard
-        </h1>
+        <a href="/assessments/new" class="nhsuk-button">Begin new assessment</a>
 
-        {% block search %}
-        <h2>Search all frameworks</h2>
-        {% include "includes/search.html" %}
-        <a href="/library">View all frameworks</a>
-        {% endblock %}
-
-        {% if frameworks.length %}
+        <h3>Upcoming appraisals</h3>
+        {% if upcomingAssessments.length %}
         <table>
             <thead>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Status
-                </th>
-                <th>
-                    Working group
-                </th>
+                <tr>
+                    <th>Date</th>
+                    <th>Learner</th>
+                    <th>Job role</th>
+                </tr>
             </thead>
             <tbody>
-                {% for framework in frameworks %}
-                <tr>
-                    <td><a href="/frameworks/{{ framework.slug }}">{{ framework.title }}</a></td>
-                    <td>{{ framework.status }}</td>
-                    <td>
-                        <p>Owner: {{ framework.owner }}</p>
-                        {% if framework.working_group %}
-                        <ul>
-                            {% for owner in framework.working_group.split(',') %}
-                            <li>{{ owner }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% else %}
-                        <p>No working group yet.</p>
-                        {% endif %}
-                </td>
-                </tr>
+                {% for assessment in upcomingAssessments %}
+                    <tr>
+                        <td>{{ assessment.date | formatDate }}</td>
+                        <td>{{ assessment.user_name }}</td>
+                        <td><a href="/assessments/{{ assessment.id }}">{{ assessment.job_role_name }}</a></td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% else %}
-        You are not currently working on any frameworks.
+            <p>No upcoming appraisals found.</p>
         {% endif %}
 
-        <a class="nhsuk-button" href="/frameworks/new">Create new framework</a>
+        <div class="hee-prototype-spacer"></div>
+
+        <h3>Past appraisals</h3>
+        {% if pastAssessments.length %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Learner</th>
+                    <th>Job role</th>
+                    <th>Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assessment in pastAssessments %}
+                    <tr>
+                        <td>{{ assessment.date | formatDate }}</td>
+                        <td>{{ assessment.user_name }}</td>
+                        <td><a href="/assessments/{{ assessment.id }}">{{ assessment.job_role_name }}</a></td>
+                        <td>{{ assessment.result }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No completed appraisals found.</p>
+        {% endif %}
 
     </div>
-    {% endblock %}
+</div>
+{% endblock %}
