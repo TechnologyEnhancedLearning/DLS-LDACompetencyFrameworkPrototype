@@ -1,7 +1,7 @@
 const assessmentsDao = require("./dao/assessmentsDao");
 const jobRolesDao = require("./dao/jobRolesDao");
 const usersDao = require("./dao/usersDao");
-const surveysDao = require("./dao/surveysDao");
+const selfAppraisalsDao = require("./dao/selfAppraisalsDao");
 
 const setupRoutes = (router) => {
     
@@ -28,7 +28,7 @@ const setupRoutes = (router) => {
         })
     });
 
-    router.get('/assessments/:id/survey', async (req, res, next) => {
+    router.get('/assessments/:id/self-appraisal', async (req, res, next) => {
         const assessment = await assessmentsDao.get(req.params.id);
         if (!assessment) {
             next();
@@ -40,13 +40,13 @@ const setupRoutes = (router) => {
 
         assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
         const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
-        res.render('assessments/learner/survey', {
+        res.render('assessments/learner/selfAppraisal', {
             assessment: assessment,
             jobRole: jobRole
         });
     });
 
-    router.post('/assessments/:id/survey', async (req, res, next) => {
+    router.post('/assessments/:id/self-appraisal', async (req, res, next) => {
         const assessment = await assessmentsDao.get(req.params.id);
         if (!assessment) {
             next();
@@ -58,13 +58,13 @@ const setupRoutes = (router) => {
 
         for (let i = 0; i < req.body.competencies.length; i++) {
             const competencyId = req.body.competencies[i];
-            const survey = {
+            const selfAppraisal = {
                 assessmentId: assessment.id,
                 competencyId: competencyId,
                 confidence: req.body.confidence["c" + competencyId],
                 relevance: req.body.relevance["r" + competencyId]
             };
-            await surveysDao.addSurveyResult(survey);
+            await selfAppraisalsDao.addResult(selfAppraisal);
         }
         res.render('assessments/learner/thanks', {
             assessment: assessment

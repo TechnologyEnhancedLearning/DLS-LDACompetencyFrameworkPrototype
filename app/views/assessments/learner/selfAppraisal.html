@@ -32,9 +32,9 @@
 
         <h1>Self assessment: {{ jobRole.name }}</h1>
 
-        <form action="./survey" method="POST">
+        <form action="./self-appraisal" method="POST">
             {% for component in assessment.components %}
-                {% include 'assessments/learner/surveyQuestion.html' %}
+                {% include 'assessments/learner/selfAppraisalQuestion.html' %}
             {% endfor %}
             <button type="submit" class="nhsuk-button">Submit</button>
         </form>

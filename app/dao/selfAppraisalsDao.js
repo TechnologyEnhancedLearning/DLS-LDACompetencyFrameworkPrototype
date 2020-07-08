@@ -1,11 +1,11 @@
 const pool = require("./pool");
 
-const addSurveyResult = async (survey) => {
+const addResult = async (selfAppraisal) => {
     try {
         const { rows } = await pool.query(
             `INSERT INTO learner_surveys (assessment_id, competency_id, confidence, relevance)
             VALUES ($1, $2, $3, $4)
-            RETURNING id;`, [survey.assessmentId, survey.competencyId, survey.confidence, survey.relevance]
+            RETURNING id;`, [selfAppraisal.assessmentId, selfAppraisal.competencyId, selfAppraisal.confidence, selfAppraisal.relevance]
         );
         return rows && rows[0] && rows[0].id;
     } catch (e) {
@@ -15,5 +15,5 @@ const addSurveyResult = async (survey) => {
 }
 
 module.exports = {
-    addSurveyResult: addSurveyResult
+    addResult: addResult
 }
