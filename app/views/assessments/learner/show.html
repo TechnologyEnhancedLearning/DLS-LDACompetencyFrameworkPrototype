@@ -28,9 +28,20 @@
 
 <div class="nhsuk-grid-row">
 
-    <div class="nhsuk-grid-column-full">
+    <div class="nhsuk-grid-column-two-thirds">
 
         <h1>Job role appraisal: {{ jobRole.name }}</h1>
+
+        {{ careCard({
+            "type": "non-urgent",
+            "heading": "Your Appraisal is due to take place on " + assessment.date | formatDate + ".",
+            "HTML": "<p>You can review your self-appraisal here.</p>"
+        }) }}
+    </div>
+</div>
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
 
         <table>
             <tbody>
@@ -40,11 +51,6 @@
             </tbody>
         </table>
 
-        {% if assessment.complete %}
-            <form action="/assessments/{{ assessment.id }}/complete" method="POST">
-                <button type="submit" class="nhsuk-button">Continue</button>
-            </form>
-        {% endif %}
     </div>
 </div>
 {% endblock %}
