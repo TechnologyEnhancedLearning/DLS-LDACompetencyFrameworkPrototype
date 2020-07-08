@@ -51,7 +51,13 @@ My appraisals - NHS.UK prototype kit
                     <tr>
                         <td>{{ assessment.date | formatDate }}</td>
                         <td><a href="/assessments/{{ assessment.id }}">{{ assessment.job_role_name }}</a></td>
-                        <td><a href="/assessments/{{ assessment.id }}/self-appraisal" class="nhsuk-button">Go to self-appraisal</a></td>
+                        <td>
+                            {% if assessment.selfAppraisal.length %}
+                                Self-appraisal complete
+                            {% else %}
+                                <a href="/assessments/{{ assessment.id }}/self-appraisal" class="nhsuk-button">Go to self-appraisal</a>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

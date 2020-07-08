@@ -103,7 +103,7 @@ const setupRoutes = (router) => {
 
         const user = await usersDao.get(assessment.user_id);
         const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
-        const mostRecentAssessment = await assessmentsDao.getMostRecentAssessmentForUser(assessment.user_id, assessment.id);
+        // const mostRecentAssessment = await assessmentsDao.getMostRecentAssessmentForUser(assessment.user_id, assessment.id);
         assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
         assessment.complete = !assessment.components.some(component => !component.existing_assessment);
         assessment.selfAppraisal = await selfAppraisalsDao.getResultsForAssessment(assessment.id);
@@ -112,11 +112,16 @@ const setupRoutes = (router) => {
             assessment: assessment,
             user: user,
             jobRole: jobRole,
-            mostRecentAssessment: mostRecentAssessment
+            mostRecentAssessment: {}
         };
 
         if (user.id == req.cookies.heeUserId) {
-            res.render('assessments/learner/show', data);
+            if (assessment.selfAppraisal.length) {
+                res.render('assessments/learner/show', data);
+            } else {
+                // Yes, when it gets there you'll need to make all those DB round trips again... qq streamline this!
+                res.redirect('/assessments/' + assessment.id + '/self-appraisal');
+            }
         } else if (assessment.result) {
             res.render('assessments/complete', data);
         } else {
@@ -187,11 +192,13 @@ const setupRoutes = (router) => {
 
     router.get('/assessments', async (req, res) => {
         const userId = req.cookies.heeUserId;
-        const userRole = await usersDao.getPrimaryRole(userId);
 
-        if (userRole === 'Learner') {
+        if (userId && await usersDao.getPrimaryRole(userId) === 'Learner') {
             const assessments = await assessmentsDao.getForUser(userId);
-            res.render('assessments/my',
+            for (let i = 0; i < assessments.length; i++) {
+                assessments[i].selfAppraisal = await selfAppraisalsDao.getResultsForAssessment(assessments[i].id);
+            }
+            res.render('assessments/learner/my',
             {
                 upcomingAssessments: assessments.filter(assessment => !assessment.result),
                 pastAssessments: assessments.filter(assessment => assessment.result)
@@ -200,7 +207,7 @@ const setupRoutes = (router) => {
         } else {
 
             const assessments = await assessmentsDao.getAll();
-            res.render('assessments/dashboard',
+            res.render('assessments/manager/dashboard',
             {
                 upcomingAssessments: assessments.filter(assessment => !assessment.result),
                 pastAssessments: assessments.filter(assessment => assessment.result)

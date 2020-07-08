@@ -43,8 +43,7 @@ const getMostRecentAssessmentForUser = async (userId, currentAssessmentId) => {
             `SELECT a.id, a.user_id, a.job_role_id, a.date, a.result, a.result_explanation, j.name AS job_role_name
             FROM assessments a
             JOIN job_roles j ON j.id = a.job_role_id
-            WHERE a.user_id=$1
-            AND a.id != currentAssessmentId
+            WHERE a.user_id=$1 AND a.id != $2
             ORDER BY date DESC;`, [userId, currentAssessmentId]
         );
         return rows && rows[0];
