@@ -72,7 +72,26 @@ const setupRoutes = (router) => {
 
     router.post('/assessments/new', async (req, res) => {
         const assessmentId = await assessmentsDao.create(req.body.userId, req.body.jobRoleId);
-        res.redirect('/assessments/' + assessmentId);
+        res.redirect('/assessments/' + assessmentId + '/previous');
+    });
+
+    router.get('/assessments/:id/previous', async (req, res, next) => {
+        const assessment = await assessmentsDao.get(req.params.id);
+        if (!assessment) {
+            next();
+            return;
+        }
+
+        const user = await usersDao.get(assessment.user_id);
+        const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
+        const previousAssessments = await assessmentsDao.getForUser(assessment.user_id);
+
+        res.render('assessments/manager/previous', {
+            assessment: assessment,
+            user: user,
+            jobRole: jobRole,
+            previousAssessments: previousAssessments.filter(a => a.id != assessment.id)
+        });
     });
 
     router.get('/assessments/:id', async (req, res, next) => {
@@ -84,6 +103,7 @@ const setupRoutes = (router) => {
 
         const user = await usersDao.get(assessment.user_id);
         const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
+        const mostRecentAssessment = await assessmentsDao.getMostRecentAssessmentForUser(assessment.user_id, assessment.id);
         assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
         assessment.complete = !assessment.components.some(component => !component.existing_assessment);
         assessment.selfAppraisal = await selfAppraisalsDao.getResultsForAssessment(assessment.id);
@@ -91,7 +111,8 @@ const setupRoutes = (router) => {
         const data = {
             assessment: assessment,
             user: user,
-            jobRole: jobRole
+            jobRole: jobRole,
+            mostRecentAssessment: mostRecentAssessment
         };
 
         if (user.id == req.cookies.heeUserId) {

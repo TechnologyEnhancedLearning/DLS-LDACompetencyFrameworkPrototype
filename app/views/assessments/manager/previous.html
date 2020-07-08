@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ jobRole.name }} appraisal - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments",
+        text: "Appraisals"
+    },
+    {
+        href: "/assessments/" + assessment.id,
+        text: jobRole.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>Job role appraisal: {{ jobRole.name }}</h1>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>1. Who are you appraising?</th>
+                    <td>{{ user.name }}</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+                <tr>
+                    <th>2. What job are you appraising?</th>
+                    <td>{{ jobRole.name }}</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <h3>3. Previous appraisals</h3>
+
+        {% if previousAssessments and previousAssessments.length %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Assessor</th>
+                    <th>Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assessment in previousAssessments %}
+                    <tr>
+                        <td><a href="/assessments/{{ assessment.id }}">{{ assessment.date | formatDate }}</a></td>
+                        <td>Ora Hayes</td>
+                        <td>{{ assessment.result or "Assessment not concluded" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>This is the first time {{ user.name }} has been appraised against this role.</p>
+        {% endif %}
+
+        <a href="#" onclick="flash('Not implemented'); return false" class="nhsuk-button nhsuk-button--secondary">Back</a>
+        <a href="/assessments/{{ assessment.id }} " class="nhsuk-button">Next</a>
+
+    </div>
+</div>
+{% endblock %}

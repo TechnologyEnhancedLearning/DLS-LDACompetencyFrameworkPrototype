@@ -27,10 +27,27 @@ const getForUser = async (userId) => {
             `SELECT a.id, a.user_id, a.job_role_id, a.date, a.result, a.result_explanation, j.name AS job_role_name
             FROM assessments a
             JOIN job_roles j ON j.id = a.job_role_id
-            WHERE user_id=$1
+            WHERE a.user_id=$1
             ORDER BY date DESC`, [userId]
         );
         return rows;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
+const getMostRecentAssessmentForUser = async (userId, currentAssessmentId) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT a.id, a.user_id, a.job_role_id, a.date, a.result, a.result_explanation, j.name AS job_role_name
+            FROM assessments a
+            JOIN job_roles j ON j.id = a.job_role_id
+            WHERE a.user_id=$1
+            AND a.id != currentAssessmentId
+            ORDER BY date DESC;`, [userId, currentAssessmentId]
+        );
+        return rows && rows[0];
     } catch (e) {
         console.log(e);
         return null;
@@ -126,6 +143,7 @@ module.exports = {
     get: get,
     getAll: getAll,
     getForUser: getForUser,
+    getMostRecentAssessmentForUser: getMostRecentAssessmentForUser,
     create: create,
     assessCompetency: assessCompetency,
     getComponentsFor: getComponentsFor,

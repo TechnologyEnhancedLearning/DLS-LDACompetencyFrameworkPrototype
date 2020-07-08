@@ -44,6 +44,11 @@
                     <td>{{ jobRole.name }}</td>
                     <td><a href="#">Change</a></td>
                 </tr>
+                <tr>
+                    <th>3. Previous assessment outcome</th>
+                    <td>{{ mostRecentAssessment.result or "Assessment not concluded" }}</td>
+                    <td><a href="/assessments/{{ mostRecentAssessment.id }}">View</a></td>
+                </tr>
             </tbody>
         </table>
 
