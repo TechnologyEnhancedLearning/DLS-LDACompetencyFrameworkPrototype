@@ -99,7 +99,7 @@ const setupRoutes = (router) => {
         } else if (assessment.result) {
             res.render('assessments/complete', data);
         } else {
-            res.render('assessments/manager/show', data);
+            res.render('assessments/manager/selfAppraisal', data);
         }
     });
 

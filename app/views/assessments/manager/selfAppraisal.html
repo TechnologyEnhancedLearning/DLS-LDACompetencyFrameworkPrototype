@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ jobRole.name }} appraisal - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/assessments",
+        text: "Appraisals"
+    },
+    {
+        href: "/assessments/" + assessment.id,
+        text: jobRole.name
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>Job role appraisal: {{ jobRole.name }}</h1>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>1. Who are you appraising?</th>
+                    <td>{{ user.name }}</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+                <tr>
+                    <th>2. What job are you appraising?</th>
+                    <td>{{ jobRole.name }}</td>
+                    <td><a href="#">Change</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        {% if assessment.selfAppraisal.length %}
+            <h3>4. Review self-appraisal</h3>
+
+            <p>{{ user.name }}'s self-appraisal is ready for review.</p>
+
+            <a href="#" onclick="flash('Not implemented'); return false" class="nhsuk-button nhsuk-button--secondary">Back</a>
+            <a href="#" onclick="flash('Not implemented'); return false" class="nhsuk-button">Review self-appraisal</a>
+
+        {% else %}
+            <h3>4. Send self-appraisal to {{ user.name }}</h3>
+
+            <p>In order to identify the correct competencies to focus on for the appraisal, {{ user.name }} will need to complete a survey identifying relevant competencies to their job as well as the confidence in achieving the competencies.</p>
+
+            <a href="#" onclick="flash('Not implemented'); return false" class="nhsuk-button nhsuk-button--secondary">Back</a>
+            <a href="#" onclick="window.open('/assessments/{{ assessment.id }}/email', 'newwindow', 'width=400,height=500'); event.preventDefault()" class="nhsuk-button">Send self-appraisal</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,22 +1,55 @@
-{% extends "template.html" %}
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="ie8" lang="en"><![endif]--><!--[if IE 9]><html class="ie9" lang="en"><![endif]--><!--[if gt IE 9]><!--><html lang="en" style="{{ html_style }}"><!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
 
-{% block headCSS %}
-  <link href="/css/main.css" rel="stylesheet">
-{% endblock %}
+    <title>{% block pageTitle %}NHS.UK prototype kit{% endblock %}</title>
 
-{% block content %}
+    <link href="https://www.nhs.uk/" rel="preconnect">
+    <link href="https://assets.nhs.uk/" rel="preconnect" crossorigin>
 
-    <p>To: example@example.com</p>
-    <p>Date: {{ today | formatDate }}</p>
-    <p>Subject: Your upcoming Training Needs Analysis</p>
+    <link type="font/woff2" href="https://assets.nhs.uk/fonts/FrutigerLTW01-55Roman.woff2" rel="preload" as="font" crossorigin>
+    <link type="font/woff2" href="https://assets.nhs.uk/fonts/FrutigerLTW01-65Bold.woff2" rel="preload" as="font" crossorigin>
 
-    <div class="hee-prototype-spacer"></div>
+    <link href="/css/main.css" rel="stylesheet">
 
-    <p>Dear {{ user.name }},</p>
-    <h3>Your next Training Needs Analysis will take place on {{ assessment.date | formatDate }}.</h3>
-    <p>You are being appraised for the role of {{ jobRole.name }}.</p>
-    <p>Here's a link to your self-appraisal. Please fill it in before the appraisal so you and your manager can review the results together.</p>
+    <script src="/nhsuk-frontend/nhsuk.min.js" defer></script>
 
-    <a href="./self-appraisal" class="nhsuk-button">Go to self-appraisal</a>
+    {% block headIcons %}
+    <link rel="shortcut icon" href="/nhsuk-frontend/assets/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/nhsuk-frontend/assets/favicons/apple-touch-icon-180x180.png">
+    <link rel="mask-icon" href="/nhsuk-frontend/assets/favicons/favicon.svg" color="#005eb8">
+    <link rel="icon" sizes="192x192" href="/nhsuk-frontend/assets/favicons/favicon-192x192.png">
+    <meta name="msapplication-TileImage" content="/nhsuk-frontend/assets/favicons/mediumtile-144x144.png">
+    <meta name="msapplication-TileColor" content="#005eb8">
+    <meta name="msapplication-square70x70logo" content="/nhsuk-frontend/assets/favicons/smalltile-70x70.png">
+    <meta name="msapplication-square150x150logo" content="/nhsuk-frontend/assets/favicons/mediumtile-150x150.png">
+    <meta name="msapplication-wide310x150logo" content="/nhsuk-frontend/assets/favicons/widetile-310x150.png">
+    <meta name="msapplication-square310x310logo" content="/nhsuk-frontend/assets/favicons/largetile-310x310.png">
+    {% endblock %}
+  </head>
 
-{% endblock %}
+  <body class="{{ bodyClasses }}">
+
+        <div class="nhsuk-width-container {{ containerClasses }}">
+          <main class="nhsuk-main-wrapper {{ mainClasses }}" id="maincontent" role="main">
+            <p>To: example@example.com</p>
+            <p>Date: {{ today | formatDate }}</p>
+            <p>Subject: Your upcoming Training Needs Analysis</p>
+        
+            <div class="hee-prototype-spacer"></div>
+        
+            <p>Dear {{ user.name }},</p>
+            <h3>Your next Training Needs Analysis will take place on {{ assessment.date | formatDate }}.</h3>
+            <p>You are being appraised for the role of {{ jobRole.name }}.</p>
+            <p>Here's a link to your self-appraisal. Please fill it in before the appraisal so you and your manager can review the results together.</p>
+        
+            <a href="./self-appraisal" class="nhsuk-button">Go to self-appraisal</a>
+          </main>
+        </div>
+
+  </body>
+</html>
