@@ -3,7 +3,7 @@ const pool = require("./pool");
 const addResult = async (selfAppraisal) => {
     try {
         const { rows } = await pool.query(
-            `INSERT INTO learner_surveys (assessment_id, competency_id, confidence, relevance)
+            `INSERT INTO self_appraisal_questions (assessment_id, competency_id, confidence, relevance)
             VALUES ($1, $2, $3, $4)
             RETURNING id;`, [selfAppraisal.assessmentId, selfAppraisal.competencyId, selfAppraisal.confidence, selfAppraisal.relevance]
         );
