@@ -56,7 +56,6 @@ const setupRoutes = (router) => {
             return;
         }
 
-        console.log(req.body.confidence);
         for (let i = 0; i < req.body.competencies.length; i++) {
             const competencyId = req.body.competencies[i];
             const survey = {

@@ -31,7 +31,7 @@ New appraisal - NHS.UK prototype kit
     <div class="nhsuk-grid-column-two-thirds">
 
         <h1>Job role appraisal{{ ": " + jobRole.name if jobRole }}</h1>
-        <h3>1. Who are you assessing?</h3>
+        <h3>1. Who are you appraising?</h3>
 
         <form action="/assessments/new{{ '/job-role' if not jobRole }}" method="POST">
             {% if error %}
