@@ -30,7 +30,8 @@
 
     <div class="nhsuk-grid-column-full">
 
-        <h1>Self assessment: {{ jobRole.name }}</h1>
+        <h3>Self appraisal: {{ jobRole.name }}</h3>
+        <h1>{{ competency.name }}</h1>
         {% if competency.description %}
             <h2>Competency description</h2>
             <p>{{ competency.description}}</p>
@@ -38,7 +39,7 @@
 
         <div class="hee-prototype-spacer"></div>
 
-        <h2>Knowledge and understanding</h2>
+        <h3>Knowledge and understanding</h3>
         {% if competency.knowledgeAndUnderstanding.length %}
             <ul>
                 {% for knowledge in competency.knowledgeAndUnderstanding %}
@@ -51,7 +52,7 @@
 
         <div class="hee-prototype-spacer"></div>
 
-        <h2>Ability to</h2>
+        <h3>Ability to</h3>
         {% if competency.abilities.length %}
             <ul>
                 {% for ability in competency.abilities %}
