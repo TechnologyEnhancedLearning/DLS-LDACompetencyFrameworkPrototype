@@ -10,7 +10,7 @@
         }
 
         function setCookie(key, value) {
-            document.cookie = key + "=" + value;
+            document.cookie = key + "=" + value + "; path=/";
         }
 
         function logInAs(userId) {
@@ -28,9 +28,9 @@
 
     <div class="toolkit">
         Log in as...
-        <button onclick='logInAs(4);'>Learner</a>
-        <button onclick='logInAs(5);'>Manager</a>
-        <button onclick='logInAs(6);'>Assessor</a>
+        <button onclick='logInAs(4);'><b>Learner:</b><br>Sacha Sokolov</a>
+        <button onclick='logInAs(5);'><b>Manager:</b><br>Wendy Meng</a>
+        <button onclick='logInAs(6);'><b>Assessor:</b><br>Adam Muleba</a>
     </div>
     <div class="arrow">
         <button class="open-toolkit" onclick='event.preventDefault(); toggleOpenToolkit();'>
