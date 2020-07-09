@@ -22,7 +22,6 @@ const setupRoutes = (router) => {
         }
     });
 
-
     router.get('/competency-groups/:id/competencies/new', async (req, res, next) => {
         const competencyGroup = await competencyGroupsDao.getCompetencyGroup(req.params.id);
         if (!competencyGroup) {

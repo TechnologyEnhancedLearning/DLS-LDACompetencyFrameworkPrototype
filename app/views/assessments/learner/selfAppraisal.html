@@ -28,17 +28,27 @@
 
 <div class="nhsuk-grid-row">
 
-    <div class="nhsuk-grid-column-full">
+    <div class="nhsuk-grid-column-two-thirds">
 
         <h1>Self appraisal: {{ jobRole.name }}</h1>
 
+        {{ careCard({
+            "type": "non-urgent",
+            "heading": "Your Appraisal is due to take place on " + assessment.date | formatDate + ".",
+            "HTML": "<p>Please fill in your self-appraisal before that date.</p>"
+        }) }}
+
+    </div>
+</div>
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-full">
         <p>You'll be ranking yourself against the following competencies:</p>
         <table>
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Last self-appraisal result</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +56,6 @@
                     <tr>
                         <th>{{ req.competency_name }}</th>
                         <td>TBC / 10</td>
-                        <td><a href="/competencies/{{ req.competency_id }}">More</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

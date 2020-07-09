@@ -3,6 +3,7 @@ const jobRolesDao = require("./dao/jobRolesDao");
 const usersDao = require("./dao/usersDao");
 const selfAppraisalsDao = require("./dao/selfAppraisalsDao");
 const competenciesDao = require("./dao/competenciesDao");
+const criteriaDao = require("./dao/criteriaDao");
 
 const setupRoutes = (router) => {
     
@@ -58,6 +59,9 @@ const setupRoutes = (router) => {
         }
 
         const competency = await competenciesDao.getCompetency(req.params.competency_id);
+        const { knowledgeAndUnderstanding, abilities } = await criteriaDao.getForCompetency(competency.id);
+        competency.knowledgeAndUnderstanding = knowledgeAndUnderstanding;
+        competency.abilities = abilities;
         const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
         res.render('assessments/learner/selfAppraisalQuestion', {
             assessment: assessment,
