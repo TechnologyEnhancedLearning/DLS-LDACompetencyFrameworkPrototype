@@ -30,14 +30,28 @@
 
     <div class="nhsuk-grid-column-full">
 
-        <h1>Self assessment: {{ jobRole.name }}</h1>
+        <h1>Self appraisal: {{ jobRole.name }}</h1>
 
-        <form action="./self-appraisal" method="POST">
-            {% for component in assessment.components %}
-                {% include 'assessments/learner/selfAppraisalQuestion.html' %}
-            {% endfor %}
-            <button type="submit" class="nhsuk-button">Submit</button>
-        </form>
+        <p>You'll be ranking yourself against the following competencies:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Last self-appraisal result</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in jobRole.requirements %}
+                    <tr>
+                        <th>{{ req.competency_name }}</th>
+                        <td>TBC / 10</td>
+                        <td><a href="/competencies/{{ req.competency_id }}">More</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="./self-appraisal/{{ jobRole.requirements[0].competency_id }}" class="nhsuk-button">Begin</a>
     </div>
 </div>
 {% endblock %}

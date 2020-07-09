@@ -103,7 +103,7 @@ const setupRoutes = (router) => {
 
         const user = await usersDao.get(assessment.user_id);
         const jobRole = await jobRolesDao.getJobRole(assessment.job_role_id);
-        // const mostRecentAssessment = await assessmentsDao.getMostRecentAssessmentForUser(assessment.user_id, assessment.id);
+        const mostRecentAssessment = await assessmentsDao.getMostRecentAssessmentForUser(assessment.user_id, assessment.id);
         assessment.components = await assessmentsDao.getComponentsFor(assessment.id);
         assessment.complete = !assessment.components.some(component => !component.existing_assessment);
         assessment.selfAppraisal = await selfAppraisalsDao.getResultsForAssessment(assessment.id);
@@ -112,7 +112,7 @@ const setupRoutes = (router) => {
             assessment: assessment,
             user: user,
             jobRole: jobRole,
-            mostRecentAssessment: {}
+            mostRecentAssessment: mostRecentAssessment
         };
 
         if (user.id == req.cookies.heeUserId) {

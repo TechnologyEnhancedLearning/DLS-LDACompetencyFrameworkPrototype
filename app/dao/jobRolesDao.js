@@ -33,7 +33,8 @@ const getRequirementsForRole = async (id) => {
             `SELECT c.name AS competency_name, c.id AS competency_id
             FROM job_role_requirements r
             JOIN competencies c ON c.id = r.competency_id
-            WHERE r.job_role_id = $1;`, [id]
+            WHERE r.job_role_id = $1
+            ORDER BY c.id;`, [id]
         );
         return rows || [];
     } catch (e) {
