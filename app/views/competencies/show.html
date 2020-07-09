@@ -63,7 +63,7 @@
         {% if competency.knowledgeAndUnderstanding.length %}
             <ul>
                 {% for knowledge in competency.knowledgeAndUnderstanding %}
-                    <li>{{ knowledge.description }}</li>
+                    <li class="hee-prototype--criteria-description">{{ knowledge.description }}</li>
                 {% endfor %}
             </ul>
         {% else %}
@@ -76,7 +76,7 @@
         {% if competency.abilities.length %}
             <ul>
                 {% for ability in competency.abilities %}
-                    <li>{{ ability.description }}</li>
+                    <li class="hee-prototype--criteria-description">{{ ability.description }}</li>
                 {% endfor %}
             </ul>
         {% else %}
