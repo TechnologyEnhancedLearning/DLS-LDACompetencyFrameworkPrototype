@@ -25,7 +25,7 @@ const getResultsForAssessment = async (assessmentId) => {
         return rows;
     } catch (e) {
         console.log(e);
-        return undefined;
+        return [];
     }
 }
 

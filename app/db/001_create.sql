@@ -3,6 +3,8 @@ CREATE TABLE users (
     name VARCHAR(50) NOT NULL
 );
 
+-- Frameworks
+
 CREATE TABLE frameworks (
     id serial PRIMARY KEY,
     title VARCHAR (255) NOT NULL,
@@ -75,6 +77,8 @@ CREATE TABLE competency_criteria (
     UNIQUE (competency_id, ordering, type)
 );
 
+-- Jobs
+
 CREATE TABLE national_job_profiles (
     id serial PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -125,6 +129,8 @@ CREATE TABLE job_role_requirements (
         ON DELETE RESTRICT,
     UNIQUE (job_role_id, competency_id)
 );
+
+-- Training Needs Analysis
 
 CREATE TABLE assessments (
     id serial PRIMARY KEY,
