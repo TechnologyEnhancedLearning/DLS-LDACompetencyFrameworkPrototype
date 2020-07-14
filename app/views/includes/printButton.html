@@ -1,0 +1,15 @@
+<a href="mailto:?subject={{ subject | urlencode }}&body=++body++" class="nhsuk-button email-link">
+    <i class="fas fa-envelope"></i>
+    Email</a>
+<script>
+    function fillEmailBody() {
+        let printTarget = document.getElementById('print-target')
+        if (!printTarget) return false;
+
+        let emailBody = printTarget.innerText.slice(0, 1000);
+        document.querySelectorAll('a.email-link').forEach(function (element) {
+            element.setAttribute("href", element.getAttribute("href").replace('++body++', encodeURI(emailBody)));
+        });
+    }
+    window.onload = fillEmailBody;
+</script>

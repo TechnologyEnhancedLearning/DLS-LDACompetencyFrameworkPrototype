@@ -25,10 +25,19 @@
 {% endblock %}
 
 {% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <button onclick="window.print();return false" class="nhsuk-button">
+            <i class="fas fa-print"></i>
+            Print</button>
+        {% set subject = jobRole.name + ' job role' %}
+        {% include 'includes/printButton.html' %}
+    </div>
+</div>
 
 <div class="nhsuk-grid-row">
 
-    <div class="nhsuk-grid-column-full">
+    <div class="nhsuk-grid-column-full" id="print-target">
 
         <h1>{{ jobRole.name }}</h1>
 
@@ -77,6 +86,19 @@
             </tbody>
         </table>
 
+    </div>
+</div>
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <button onclick="window.print();return false" class="nhsuk-button">
+            <i class="fas fa-print"></i>
+            Print</button>
+        {% set subject = jobRole.name + ' job role' %}
+        {% include 'includes/printButton.html' %}
+    </div>
+</div>
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
         <a href='./'>&lt; Back to list</a>
     </div>
 </div>
