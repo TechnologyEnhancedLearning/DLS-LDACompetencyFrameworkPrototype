@@ -41,11 +41,13 @@
 
         <h1>{{ jobRole.name }}</h1>
 
-        <h3>National job profile</h3>
-        <p>{{ nationalJobProfile.category }}: {{ nationalJobProfile.name }}</p>
-        <p><a href='/national-job-profiles/{{ jobRole.national_job_profile_id }}'>View national job profile</a></p>
+        {% if nationalJobProfile %}
+            <h3>National job profile</h3>
+            <p>{{ nationalJobProfile.category }}: {{ nationalJobProfile.name }}</p>
+            <p><a href='/national-job-profiles/{{ jobRole.national_job_profile_id }}'>View national job profile</a></p>
 
-        <div class="hee-prototype-spacer"></div>
+            <div class="hee-prototype-spacer"></div>
+        {% endif %}
 
         <h3>Job profile description</h3>
         <p>{{ jobRole.description | safe }}</p>
