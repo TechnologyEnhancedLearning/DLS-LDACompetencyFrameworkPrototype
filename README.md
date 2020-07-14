@@ -1,6 +1,6 @@
 # HEE Prototype
 
-This is the prototype for the Digital Learning Solutions (DLS) system.
+This is the prototype for the Digital Learning Solutions (DLS) platform Competency Framework system.
 
 ## Zero to Hero
 
