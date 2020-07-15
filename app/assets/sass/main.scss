@@ -195,5 +195,12 @@ i.hee-prototype--alert {
     white-space: pre-line;
 }
 
+.hee-prototype--message-body {
+    padding: 1rem 2rem;
+    background-color: $color_nhsuk-grey-4;
+    border: 2px solid $color_nhsuk-grey-2;
+    border-radius: 5px;
+}
+
 @import 'flash';
 @import 'loginToolkit';

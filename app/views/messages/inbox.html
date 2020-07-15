@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+Inbox - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/messages/",
+        text: "Inbox"
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-full" id="print-target">
+
+        <h1>Inbox</h1>
+
+        {% if messages and messages.length %}
+            {% for message in messages %}
+            <details class="nhsuk-details nhsuk-u-margin-bottom-7">
+                <summary class="nhsuk-details__summary">
+                    <span class="nhsuk-details__summary-text">
+                        {{ message.date | formatDate }} - {{ message.subject }}
+                    </span>
+                </summary>
+                <div class="nhsuk-details__text">
+                    <p>From: {{ message.sender.name or "noreply@competencies.hee.nhs.uk" }}</p>
+                    <p>To: {{ message.recipient.name }}</p>
+                    <p>Subject: {{ message.subject }}</p>
+                    <p>Date: {{ message.date | formatDate }}</p>
+                <div class="hee-prototype--message-body">{{ message.text | safe }}</div>
+            </details>
+            {% endfor %}
+        {% else %}
+            <p>No messages found.</p>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
