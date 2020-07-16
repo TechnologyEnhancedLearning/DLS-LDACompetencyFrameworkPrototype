@@ -112,6 +112,7 @@ CREATE TABLE job_roles (
     name VARCHAR (50) NOT NULL,
     description TEXT,
     national_job_profile_id integer,
+    public BOOLEAN DEFAULT TRUE,
     constraint national_job_profile_id_fkey FOREIGN KEY (national_job_profile_id)
         REFERENCES national_job_profiles (id) MATCH SIMPLE
         ON DELETE RESTRICT

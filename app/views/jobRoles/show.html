@@ -40,6 +40,7 @@
     <div class="nhsuk-grid-column-full" id="print-target">
 
         <h1>{{ jobRole.name }}</h1>
+        <h4 class="hee-prototype--subtitle">{{ 'Public' if jobRole.public else 'Local' }} role</h4>
 
         {% if nationalJobProfile %}
             <h3>National job profile</h3>
