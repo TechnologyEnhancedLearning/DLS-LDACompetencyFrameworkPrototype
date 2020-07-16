@@ -1,6 +1,7 @@
 const jobRolesDao = require('./dao/jobRolesDao');
 const nationalJobProfilesDao = require('./dao/nationalJobProfilesDao');
 const competenciesDao = require('./dao/competenciesDao');
+const usersDao = require('./dao/usersDao');
 
 const setupRoutes = (router) => {
 
@@ -67,7 +68,8 @@ const setupRoutes = (router) => {
 
     router.get('/job-roles', async (req, res) => {
         const jobRoles = await jobRolesDao.getAll();
-        res.render('jobRoles/list', { jobRoles: jobRoles });
+        const admin = req.cookies.heeUserId && (await usersDao.getPrimaryRole(req.cookies.heeUserId)) === 'Manager';
+        res.render('jobRoles/list', { jobRoles: jobRoles, admin: admin });
     });
 
     router.get('/job-roles/:id', async (req, res, next) => {

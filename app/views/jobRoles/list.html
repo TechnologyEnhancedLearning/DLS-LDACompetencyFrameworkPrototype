@@ -21,14 +21,57 @@ All jobs - NHS.UK prototype kit
 {% endblock %}
 
 {% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1>Job roles</h1>
+    </div>
+
+    <div class="nhsuk-grid-column-one-third">
+        {% include 'includes/search.html' %}
+    </div>
+</div>
 
 <div class="nhsuk-grid-row">
-
-    <div class="nhsuk-grid-column-two-thirds">
-
-        <h1>Job roles</h1>
-        {% include 'includes/search.html' %}
-
+    <div class="nhsuk-grid-column-one-quarter">
+        <h2>Filter by</h2>
+        <div class="nhsuk-form-group">
+            <p>Profile</p>
+            <div class="nhsuk-checkboxes__item">
+                <input class="nhsuk-checkboxes__input" id="example-1" name="example" type="checkbox" value="nursing-midwifery">
+                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-1">
+                    Nursing and midwifery
+                </label>
+            </div>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+            <input class="nhsuk-checkboxes__input" id="example-2" name="example" type="checkbox" value="administrative-services">
+            <label class="nhsuk-label nhsuk-checkboxes__label" for="example-2">
+                Administrative services
+            </label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+            <input class="nhsuk-checkboxes__input" id="example-2" name="example" type="checkbox" value="emergency-services">
+            <label class="nhsuk-label nhsuk-checkboxes__label" for="example-2">
+                Emergency services
+            </label>
+        </div>
+        <div class="nhsuk-form-group">
+            <p>Location</p>
+            <select class="nhsuk-select" id="select-1" name="select-1">
+                <option value="1">Huddersfield</option>
+                <option value="2" selected>Greater Manchester</option>
+                <option value="3">Bradford and Leeds</option>
+                <option value="4" disabled>Scarborough</option>
+            </select>
+        </div>
+        <div class="nhsuk-form-group">
+            <a href='#' onclick="flash('Not implemented'); return false" class='nhsuk-button'>Apply filters</a>
+        </div>
+        <div class="nhsuk-form-group">
+            <a href='#' onclick="flash('Not implemented'); return false">Remove filters</a>
+        </div>
+    </div>
+    <div class="nhsuk-grid-column-three-quarters">
         {% if jobRoles and jobRoles.length %}
             {% for jobRole in jobRoles %}
                 {% include './preview.html' %}
@@ -36,9 +79,20 @@ All jobs - NHS.UK prototype kit
         {% else %}
             <p>No job roles found.</p>
         {% endif %}
+        <p>
+            <b>1</b>
+            <a href="#" onclick="flash('Not implemented'); return false">2</a>
+            <a href="#" onclick="flash('Not implemented'); return false">3</a>
+        </p>
+    </div>
+</div>
+
+{% if admin %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
         <a href="/job-roles/new" class="nhsuk-button">New job role</a>
     </div>
-
 </div>
+{% endif %}
 
 {% endblock %}
