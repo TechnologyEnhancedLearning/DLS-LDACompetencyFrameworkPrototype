@@ -15,6 +15,10 @@ Inbox - NHS.UK prototype kit
     {
         href: "/inbox/",
         text: "Inbox"
+    },
+    {
+        href: "/inbox/sent",
+        text: "Sent messages"
     }]
 }) }}
 
@@ -25,11 +29,11 @@ Inbox - NHS.UK prototype kit
 
     <div class="nhsuk-grid-column-full" id="print-target">
 
-        <h1>Inbox</h1>
+        <p><a href=".">&lt; Return to inbox</a></p>
+        <h1>Sent messages</h1>
 
         {% include './messages.html' %}
 
-        <p><a href="/inbox/sent">Sent messages</a></p>
     </div>
 </div>
 {% endblock %}
