@@ -113,8 +113,12 @@ CREATE TABLE job_roles (
     description TEXT,
     national_job_profile_id integer,
     public BOOLEAN DEFAULT TRUE,
+    owner_id integer NOT NULL,
     constraint national_job_profile_id_fkey FOREIGN KEY (national_job_profile_id)
         REFERENCES national_job_profiles (id) MATCH SIMPLE
+        ON DELETE RESTRICT,
+    constraint job_roles_owner_id_fkey FOREIGN KEY (owner_id)
+        REFERENCES users (id) MATCH SIMPLE
         ON DELETE RESTRICT
 );
 

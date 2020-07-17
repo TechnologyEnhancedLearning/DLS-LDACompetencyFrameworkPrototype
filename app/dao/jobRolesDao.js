@@ -59,11 +59,12 @@ const getJobRole = async (id) => {
     }
 };
 
-const getAll = async () => {
+const getPublic = async () => {
     try {
         const { rows } = await pool.query(
             `SELECT j.id, j.name, j.description, j.public
             FROM job_roles j
+            WHERE j.public
             ORDER BY j.id ASC;`);
         return rows || [];
     } catch (e) {
@@ -72,9 +73,25 @@ const getAll = async () => {
     }
 }
 
+const getMine = async (userId) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT j.id, j.name, j.description, j.public, j.owner_id
+            FROM job_roles j
+            WHERE j.owner_id = $1
+            ORDER BY j.id ASC;`, [userId]
+        );
+        return rows || [];
+    } catch (e) {
+        console.log(e);
+        return [];
+    }
+}
+
 module.exports = {
     create: create,
     addRequirementToRole: addRequirementToRole,
     getJobRole: getJobRole,
-    getAll: getAll
+    getPublic: getPublic,
+    getMine: getMine
 }

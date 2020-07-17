@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+All jobs - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/job-roles/",
+        text: "Job roles library"
+    },
+    {
+        href: "/job-roles/my",
+        text: "My job roles"
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1>My job roles</h1>
+    </div>
+</div>
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-three-quarters">
+        {% if jobRoles and jobRoles.length %}
+            {% for jobRole in jobRoles %}
+                {% include './preview.html' %}
+            {% endfor %}
+        {% else %}
+            <p>No job roles found.</p>
+        {% endif %}
+        <p>
+            <b>1</b>
+            <a href="#" onclick="flash('Not implemented'); return false">2</a>
+            <a href="#" onclick="flash('Not implemented'); return false">3</a>
+        </p>
+    </div>
+</div>
+
+{% if admin %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <a href="/job-roles/new" class="nhsuk-button">New job role</a>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

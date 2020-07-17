@@ -67,9 +67,14 @@ const setupRoutes = (router) => {
     });
 
     router.get('/job-roles', async (req, res) => {
-        const jobRoles = await jobRolesDao.getAll();
+        const jobRoles = await jobRolesDao.getPublic();
         const admin = req.cookies.heeUserId && (await usersDao.getPrimaryRole(req.cookies.heeUserId)) === 'Manager';
         res.render('jobRoles/list', { jobRoles: jobRoles, admin: admin });
+    });
+
+    router.get('/job-roles/my', async (req, res) => {
+        const jobRoles = req.cookies.heeUserId && await jobRolesDao.getMine(req.cookies.heeUserId);
+        res.render('jobRoles/my', { jobRoles: jobRoles });
     });
 
     router.get('/job-roles/:id', async (req, res, next) => {
