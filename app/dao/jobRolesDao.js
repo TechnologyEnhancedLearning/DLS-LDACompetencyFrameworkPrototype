@@ -62,8 +62,9 @@ const getJobRole = async (id) => {
 const getPublic = async () => {
     try {
         const { rows } = await pool.query(
-            `SELECT j.id, j.name, j.description, j.public
+            `SELECT j.id, j.name, j.description, j.public, j.owner_id, u.name AS owner_name
             FROM job_roles j
+            JOIN users u ON u.id = j.owner_id
             WHERE j.public
             ORDER BY j.id ASC;`);
         return rows || [];
@@ -76,9 +77,15 @@ const getPublic = async () => {
 const getMine = async (userId) => {
     try {
         const { rows } = await pool.query(
-            `SELECT j.id, j.name, j.description, j.public, j.owner_id
+            `SELECT j.id, j.name, j.description, j.public, j.owner_id, u.name AS owner_name
             FROM job_roles j
+            JOIN users u ON u.id = j.owner_id
             WHERE j.owner_id = $1
+                OR EXISTS (
+                    SELECT 1 FROM shares s
+                    WHERE s.recipient_id = $1
+                    AND s.job_role_id = j.id
+                )
             ORDER BY j.id ASC;`, [userId]
         );
         return rows || [];

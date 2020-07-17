@@ -191,3 +191,15 @@ CREATE TABLE assessment_evidence (
     constraint assessment_evidence_user_id_fkey FOREIGN KEY (user_id)
         REFERENCES users (id) MATCH SIMPLE
 );
+
+-- Sharing
+
+CREATE TABLE shares (
+    id serial PRIMARY KEY,
+    job_role_id integer NOT NULL,
+    recipient_id integer NOT NULL,
+    constraint shares_job_role_id_fkey FOREIGN KEY (job_role_id)
+        REFERENCES job_roles (id) MATCH SIMPLE,
+    constraint shares_recipient_id_fkey FOREIGN KEY (recipient_id)
+        REFERENCES users (id) MATCH SIMPLE
+);
