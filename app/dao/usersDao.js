@@ -49,6 +49,7 @@ const getPrimaryRole = async (id) => {
 }
 
 module.exports = {
+    getAll: getAll,
     getLearners: getLearners,
     get: get,
     getPrimaryRole: getPrimaryRole

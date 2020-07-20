@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+Share {{ jobRole.name }} - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/job-roles/",
+        text: "Job role library"
+    },
+    {
+        href: "/job-roles/" + jobRole.id,
+        text: jobRole.name | truncate(25)
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-full">
+
+        <h1>Share {{ jobRole.name }} with another user</h1>
+
+        <form action="/job-roles/{{ jobRole.id }}/share" method="POST">
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+
+            {{ radios({
+                "idPrefix": "user",
+                "name": "userId",
+                "items": users
+              }) }}
+
+            <a class="nhsuk-button nhsuk-button--secondary" href="..">Cancel</a>
+            <button class="nhsuk-button" type="submit">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

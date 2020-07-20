@@ -32,6 +32,10 @@
             Print</button>
         {% set subject = jobRole.name + ' job role' %}
         {% include 'includes/printButton.html' %}
+        <a href="/job-roles/{{ jobRole.id }}/share" class="nhsuk-button">
+            <i class="fas fa-share"></i>
+            Share
+        </a>
     </div>
 </div>
 
@@ -98,6 +102,10 @@
             Print</button>
         {% set subject = jobRole.name + ' job role' %}
         {% include 'includes/printButton.html' %}
+        <a href="/job-roles/{{ jobRole.id }}/share" class="nhsuk-button">
+            <i class="fas fa-share"></i>
+            Share
+        </a>
     </div>
 </div>
 <div class="nhsuk-grid-row">
