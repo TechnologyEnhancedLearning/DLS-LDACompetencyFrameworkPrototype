@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+Share {{ jobRole.name }} - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ breadcrumb({
+    items: [
+    {
+        href: "/dashboard",
+        text: "Dashboard"
+    },
+    {
+        href: "/job-roles/",
+        text: "Job role library"
+    },
+    {
+        href: "/job-roles/" + jobRole.id,
+        text: jobRole.name | truncate(25)
+    }]
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+
+    <div class="nhsuk-grid-column-two-thirds">
+
+        <h1>Cloning {{ jobRole.name }}</h1>
+
+        <form action="/job-roles/new" method="POST">
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+
+            <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="name">Job role name</label>
+                <input type="text" class="nhsuk-input" id="name" name="name" value="{{ jobRole.name }} Copy">
+            </div>
+
+            <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="profileId">National job profile</label>
+                <input type="text" class="nhsuk-input" id="profileId" name="profileId" value="{{ jobRole.national_job_profile_id }}">
+            </div>
+
+            <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="description">Description</label>
+                <textarea class="nhsuk-input" id="description" name="description">{{ jobRole.description }}</textarea>
+            </div>
+
+            <div class="nhsuk-form-group">
+                <p>Competencies</p>
+                <ul>
+                    {% for requirement in jobRole.requirements %}
+                        <li>
+                            {{ requirement.competency_name }}
+                            <a href="#" onclick="flash('Not implemented'); return false">x</a>
+                            <input type="hidden" name="competencies[]" value="{{ requirement.competency_id }}">
+                        </li>
+                    {% endfor %}
+                </ul>
+                <p><a href="#" onclick="flash('Not implemented'); return false">Add another competency</a></p>
+            </div>
+
+            <a class="nhsuk-button nhsuk-button--secondary" href="..">Cancel</a>
+            <button class="nhsuk-button" type="submit">Continue</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

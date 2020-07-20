@@ -7,6 +7,7 @@ const create = async (share) => {
             VALUES ($1, $2)
             RETURNING id;`, [share.jobRoleId, share.recipientId]
         );
+        // qq also add a Message to notify the recipient that the role has been shared to them
         return rows && rows[0] && rows[0].id;
     } catch (e) {
         console.log(e);

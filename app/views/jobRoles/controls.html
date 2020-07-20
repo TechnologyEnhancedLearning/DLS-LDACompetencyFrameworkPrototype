@@ -7,7 +7,7 @@
         {% include 'includes/printButton.html' %}
 
         {% if jobRole.public and jobRole.owner_id != userId %}
-            <a href="/job-roles/{{ jobRole.id }}/clone" onclick="flash('Not implemented'); return false" class="nhsuk-button">
+            <a href="/job-roles/{{ jobRole.id }}/clone" class="nhsuk-button">
                 <i class="fas fa-copy"></i>
                 Clone
             </a>

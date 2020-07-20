@@ -11,6 +11,7 @@ const evidence = require('./evidence');
 const selfAppraisals = require('./selfAppraisals');
 const messages = require('./messages');
 const shares = require('./shares');
+const clones = require('./clones');
 
 router.get('/', async (req, res) => {
     res.redirect('dashboard');
@@ -30,5 +31,6 @@ evidence.setupRoutes(router);
 selfAppraisals.setupRoutes(router);
 messages.setupRoutes(router);
 shares.setupRoutes(router);
+clones.setupRoutes(router);
 
 module.exports = router;

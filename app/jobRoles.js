@@ -54,7 +54,8 @@ const setupRoutes = (router) => {
     });
 
     router.post('/job-roles/new', async (req, res) => {
-        const result = await jobRolesDao.create(req.body.name, req.body.description, req.body.profileId);
+        const userId = req.cookies.heeUserId || 5; // qq prevent non-signed in users from creating job roles
+        const result = await jobRolesDao.create(req.body.name, req.body.description, req.body.profileId, userId);
         if (result) {
             for (let i = 0; i < req.body.competencies.length; i++) {
                 const competencyId = req.body.competencies[i];
