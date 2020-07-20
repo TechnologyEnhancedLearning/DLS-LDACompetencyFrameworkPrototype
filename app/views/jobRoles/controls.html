@@ -18,6 +18,10 @@
                 <i class="fas fa-edit"></i>
                 Edit
             </a>
+            <a href="/job-roles/{{ jobRole.id }}/publish" onclick="confirm('This will make this role public. All users will be able to view the role. Are you sure you want to continue?'); flash('Not implemented'); return false" class="nhsuk-button">
+                <i class="fas fa-external-link-square-alt"></i>
+                Publish
+            </a>
         {% endif %}
 
         {% if not jobRole.public %}
