@@ -35,10 +35,7 @@ All jobs - NHS.UK prototype kit
     <div class="nhsuk-grid-column-three-quarters">
         {% if jobRoles and jobRoles.length %}
             {% for jobRole in jobRoles %}
-                <h2>{{ jobRole.name }}</h2>
-                <h4 class="hee-prototype--subtitle">{{ 'Public' if jobRole.public else 'Local' }} | Owned by {{ 'you' if jobRole.owner_id == userId else jobRole.owner_name }}</h4>
-                <p>{{ jobRole.description | safe | truncate(250) }}</p>
-                <p><a href="/job-roles/{{ jobRole.id }}">More information &gt;</a></p>
+                {% include './preview.html' %}
             {% endfor %}
         {% else %}
             <p>No job roles found.</p>

@@ -207,5 +207,13 @@ i.hee-prototype--alert {
     margin-top: -1rem;
 }
 
+.hee-prototype--owner-true {
+    color: $color_nhsuk-green;
+}
+
+.hee-prototype--owner-false {
+    color: $color_nhsuk-aqua-green;
+}
+
 @import 'flash';
 @import 'loginToolkit';

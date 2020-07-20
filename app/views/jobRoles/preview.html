@@ -1,4 +1,6 @@
 <h2>{{ jobRole.name }}</h2>
-<h4 class="hee-prototype--subtitle">{{ 'Public' if jobRole.public else 'Local' }}</h4>
+<h4 class="hee-prototype--subtitle">{{ 'Public' if jobRole.public else 'Local' }} role |
+    Owned by <span class="hee-prototype--owner-{{ jobRole.owner_id == userId }}">{{ 'you' if jobRole.owner_id == userId else jobRole.owner_name }}</span>
+</h4>
 <p>{{ jobRole.description | safe | truncate(250) }}</p>
 <p><a href="/job-roles/{{ jobRole.id }}">More information &gt;</a></p>
