@@ -28,7 +28,7 @@ const getAll = async () => {
           {
             id: "6",
             name: "Adam Muleba",
-            roles: ["Assessor"]
+            roles: ["Manager", "Assessor"]
           }
     ]
 }

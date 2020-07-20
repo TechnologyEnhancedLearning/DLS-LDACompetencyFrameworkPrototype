@@ -76,7 +76,8 @@ const setupRoutes = (router) => {
     router.get('/job-roles/my', async (req, res) => {
         const userId = req.cookies.heeUserId;
         const jobRoles = userId && await jobRolesDao.getMine(userId);
-        res.render('jobRoles/my', { jobRoles: jobRoles, userId: userId });
+        const admin = req.cookies.heeUserId && (await usersDao.getPrimaryRole(req.cookies.heeUserId)) === 'Manager';
+        res.render('jobRoles/my', { jobRoles: jobRoles, admin: admin, userId: userId });
     });
 
     router.get('/job-roles/:id', async (req, res, next) => {
