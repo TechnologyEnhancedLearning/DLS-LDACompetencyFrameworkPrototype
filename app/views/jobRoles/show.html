@@ -25,19 +25,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-full">
-        <button onclick="window.print();return false" class="nhsuk-button">
-            <i class="fas fa-print"></i>
-            Print</button>
-        {% set subject = jobRole.name + ' job role' %}
-        {% include 'includes/printButton.html' %}
-        <a href="/job-roles/{{ jobRole.id }}/share" class="nhsuk-button">
-            <i class="fas fa-share"></i>
-            Share
-        </a>
-    </div>
-</div>
+
+{% include './controls.html' %}
 
 <div class="nhsuk-grid-row">
 
@@ -95,19 +84,9 @@
 
     </div>
 </div>
-<div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-full">
-        <button onclick="window.print();return false" class="nhsuk-button">
-            <i class="fas fa-print"></i>
-            Print</button>
-        {% set subject = jobRole.name + ' job role' %}
-        {% include 'includes/printButton.html' %}
-        <a href="/job-roles/{{ jobRole.id }}/share" class="nhsuk-button">
-            <i class="fas fa-share"></i>
-            Share
-        </a>
-    </div>
-</div>
+
+{% include './controls.html' %}
+
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
         <a href='./'>&lt; Back to list</a>
