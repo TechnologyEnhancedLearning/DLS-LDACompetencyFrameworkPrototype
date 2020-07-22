@@ -77,6 +77,7 @@ const getPublic = async () => {
 
 const getMine = async (userId) => {
     try {
+        if (!userId) return [];
         const { rows } = await pool.query(
             `SELECT j.id, j.name, j.description, j.public, j.owner_id, u.name AS owner_name
             FROM job_roles j

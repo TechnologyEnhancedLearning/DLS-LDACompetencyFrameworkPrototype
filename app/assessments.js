@@ -24,14 +24,28 @@ const setupRoutes = (router) => {
         if (!user) {
             next();
         } else {
-            const jobRoles = await jobRolesDao.getAll();
-            const jobs = jobRoles.map((job) => {
-                return {
-                    value: job.id,
-                    text: job.name
-                }
+            const myJobs = await jobRolesDao.getMine(req.cookies.heeUserId);
+            const allJobs = (await jobRolesDao.getPublic())
+                .filter((job) => {
+                    // Don't display current user's public job roles twice
+                    return !myJobs.map(j => j.id).includes(job.id);
+                });
+
+            res.render('assessments/new/jobRole', {
+                user: user,
+                myJobs: myJobs.map((job) => {
+                    return {
+                        value: job.id,
+                        text: job.name
+                    }
+                }),
+                allJobs: allJobs.map((job) => {
+                    return {
+                        value: job.id,
+                        text: job.name
+                    }
+                })
             });
-            res.render('assessments/new/jobRole', { user: user, jobs: jobs });
         }
     });
 
@@ -59,14 +73,28 @@ const setupRoutes = (router) => {
         if (!user) {
             next();
         } else {
-            const jobRoles = await jobRolesDao.getAll();
-            const jobs = jobRoles.map((job) => {
-                return {
-                    value: job.id,
-                    text: job.name
-                }
+            const myJobs = await jobRolesDao.getMine(req.cookies.heeUserId);
+            const allJobs = (await jobRolesDao.getPublic())
+                .filter((job) => {
+                    // Don't display current user's public job roles twice
+                    return !myJobs.map(j => j.id).includes(job.id);
+                });
+
+            res.render('assessments/new/jobRole', {
+                user: user,
+                myJobs: myJobs.map((job) => {
+                    return {
+                        value: job.id,
+                        text: job.name
+                    }
+                }),
+                allJobs: allJobs.map((job) => {
+                    return {
+                        value: job.id,
+                        text: job.name
+                    }
+                })
             });
-            res.render('assessments/new/jobRole', { user: user, jobs: jobs });
         }
     });
 
@@ -199,19 +227,19 @@ const setupRoutes = (router) => {
                 assessments[i].selfAppraisal = await selfAppraisalsDao.getResultsForAssessment(assessments[i].id);
             }
             res.render('assessments/learner/my',
-            {
-                upcomingAssessments: assessments.filter(assessment => !assessment.result),
-                pastAssessments: assessments.filter(assessment => assessment.result)
-            });
+                {
+                    upcomingAssessments: assessments.filter(assessment => !assessment.result),
+                    pastAssessments: assessments.filter(assessment => assessment.result)
+                });
 
         } else {
 
             const assessments = await assessmentsDao.getAll();
             res.render('assessments/manager/dashboard',
-            {
-                upcomingAssessments: assessments.filter(assessment => !assessment.result),
-                pastAssessments: assessments.filter(assessment => assessment.result)
-            });
+                {
+                    upcomingAssessments: assessments.filter(assessment => !assessment.result),
+                    pastAssessments: assessments.filter(assessment => assessment.result)
+                });
 
         }
     });
