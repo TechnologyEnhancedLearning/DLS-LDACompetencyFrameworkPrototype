@@ -31,11 +31,22 @@ INSERT INTO national_job_profile_factors (id, name)
 INSERT INTO national_job_profile_factors (id, name)
     VALUES (16, 'Working Conditions');
 
+INSERT INTO national_job_profiles (id, name)
+        VALUES (1, 'Nursing - Associate Practitioner/Nursery Nurse');
+    INSERT INTO national_job_profiles (id, name) VALUES (2, 'Clinical Support Worker');
+    INSERT INTO national_job_profiles (id, name) VALUES (3, 'Clinical Support Worker, Higher Level');
+    INSERT INTO national_job_profiles (id, name) VALUES (4, 'Nurse Advanced');
+    INSERT INTO national_job_profiles (id, name) VALUES (5, 'Nurse Team Leader');
+    INSERT INTO national_job_profiles (id, name) VALUES (6, 'Nurse Team Leader (Learning Disabilities)');
+    INSERT INTO national_job_profiles (id, name) VALUES (7, 'Nurse Specialist');
+    INSERT INTO national_job_profiles (id, name) VALUES (8, 'Nurse Team Manager');
+    INSERT INTO national_job_profiles (id, name) VALUES (9, 'Modern Matron');
+    INSERT INTO national_job_profiles (id, name) VALUES (10, 'Nurse Consultant');
+    INSERT INTO national_job_profiles (id, name) VALUES (11, 'Nurse/Midwife Consultant Higher Level');
 
 
-
-INSERT INTO national_job_profiles (name, job_statement)
-    VALUES ('Nursing: Nurse', '<ol>
+INSERT INTO national_job_profiles (id, name, job_statement)
+    VALUES (12, 'Nursing: Nurse', '<ol>
             <li>Assesses patients/clients/children; plans, develops or implements programmes of care; provides advice; in a variety of settings; maintains associated records</li>
             <li>Carries out nursing procedures</li>
             <li>May provide clinical supervision to other staff, students</li>
@@ -113,15 +124,4 @@ Body odours, dust, noise/ Body fluid, verbal aggressions', '3ab-4b', 4, 18);
 
 
 
-    INSERT INTO national_job_profiles (name, statement)
-        VALUES ('Nursing - Associate Practitioner/Nursery Nurse', '');
-    INSERT INTO national_job_profiles (name) VALUES ('Clinical Support Worker');
-    INSERT INTO national_job_profiles (name) VALUES ('Clinical Support Worker, Higher Level');
-    INSERT INTO national_job_profiles (name) VALUES ('Nurse Advanced');
-    INSERT INTO national_job_profiles (name) VALUES ('Nurse Team Leader');
-    INSERT INTO national_job_profiles (name) VALUES ('Nurse Team Leader (Learning Disabilities)');
-    INSERT INTO national_job_profiles (name) VALUES ('Nurse Specialist');
-    INSERT INTO national_job_profiles (name) VALUES ('Nurse Team Manager');
-    INSERT INTO national_job_profiles (name) VALUES ('Modern Matron');
-    INSERT INTO national_job_profiles (name) VALUES ('Nurse Consultant');
-    INSERT INTO national_job_profiles (name) VALUES ('Nurse/Midwife Consultant Higher Level');
+

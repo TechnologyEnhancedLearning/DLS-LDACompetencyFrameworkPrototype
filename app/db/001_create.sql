@@ -32,6 +32,18 @@ CREATE TABLE competency_groups (
     description TEXT
 );
 
+CREATE TABLE competencies (
+    id serial PRIMARY KEY,
+    name VARCHAR (255) NOT NULL,
+    description TEXT,
+    competency_group_id integer,
+    ordering integer NOT NULL,
+    CONSTRAINT competencies_competency_group_id_fkey FOREIGN KEY (competency_group_id)
+        REFERENCES competency_groups (id) MATCH SIMPLE
+        ON DELETE RESTRICT,
+    UNIQUE (competency_group_id, ordering)
+);
+
 CREATE TABLE frameworks_structure (
     id serial PRIMARY KEY,
     competency_group_id integer,
@@ -51,18 +63,6 @@ CREATE TABLE frameworks_structure (
   CONSTRAINT competency_group_xor_competency CHECK (
         num_nonnulls(competency_id, competency_group_id) = 1
   )
-);
-
-CREATE TABLE competencies (
-    id serial PRIMARY KEY,
-    name VARCHAR (255) NOT NULL,
-    description TEXT,
-    competency_group_id integer,
-    ordering integer NOT NULL,
-    CONSTRAINT competencies_competency_group_id_fkey FOREIGN KEY (competency_group_id)
-        REFERENCES competency_groups (id) MATCH SIMPLE
-        ON DELETE RESTRICT,
-    UNIQUE (competency_group_id, ordering)
 );
 
 CREATE TABLE competency_criteria (
